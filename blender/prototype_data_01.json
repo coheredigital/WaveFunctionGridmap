@@ -1,0 +1,35 @@
+{
+    "p-1": {
+        "mesh_name": "-1",
+        "mesh_rotation": 0,
+        "posX": "-1f",
+        "negX": "-1f",
+        "posY": "-1f",
+        "negY": "-1f",
+        "posZ": "-1f",
+        "negZ": "-1f",
+        "constrain_to": "-1",
+        "constrain_from": "-1",
+        "weight": 1,
+        "valid_neighbours": [
+            [
+                "p-1"
+            ],
+            [
+                "p-1"
+            ],
+            [
+                "p-1"
+            ],
+            [
+                "p-1"
+            ],
+            [
+                "p-1"
+            ],
+            [
+                "p-1"
+            ]
+        ]
+    }
+}
