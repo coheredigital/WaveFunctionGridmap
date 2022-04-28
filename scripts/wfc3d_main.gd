@@ -179,7 +179,6 @@ func visualize_wave_function(only_collapsed : bool = true) -> void:
 
 
 func clear_meshes():
-	gridmap.clear()
 	for mesh in meshes:
 		mesh.queue_free()
 	meshes = []

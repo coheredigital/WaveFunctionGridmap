@@ -34,6 +34,7 @@ var stack : Array
 
 func initialize(new_size : Vector3, all_prototypes : Dictionary):
 	size = new_size
+
 	for _z in range(size.z):
 		var y = []
 		for _y in range(size.y):

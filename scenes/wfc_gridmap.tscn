@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://meshes/simple.meshlib" type="MeshLibrary" id=1]
-[ext_resource path="res://scenes/wfc_gridmap_simple.gd" type="Script" id=2]
+[ext_resource path="res://scenes/wfc_gridmap.gd" type="Script" id=2]
 
-[node name="wfc_gridmap_simple" type="GridMap"]
+[node name="wfc_gridmap" type="GridMap"]
 mesh_library = ExtResource( 1 )
 cell_size = Vector3( 1, 1, 1 )
 cell_center_y = false
