@@ -9,25 +9,31 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Resource",
-"class": "GridmapPrototype",
-"language": "GDScript",
-"path": "res://resources/wfc_resource.gd"
-}, {
 "base": "Node",
 "class": "WFC3D_Model",
 "language": "GDScript",
 "path": "res://scripts/wfc3d_model.gd"
+}, {
+"base": "Resource",
+"class": "WaveFunctionCellsResource",
+"language": "GDScript",
+"path": "res://resources/wfc_cells_resource.gd"
+}, {
+"base": "Resource",
+"class": "WaveFunctionPrototypesResource",
+"language": "GDScript",
+"path": "res://resources/wfc_prototypes_resource.gd"
 } ]
 _global_script_class_icons={
-"GridmapPrototype": "",
-"WFC3D_Model": ""
+"WFC3D_Model": "",
+"WaveFunctionCellsResource": "",
+"WaveFunctionPrototypesResource": ""
 }
 
 [application]
 
 config/name="Wave Function Gridmap"
-run/main_scene="res://main.tscn"
+run/main_scene="res://demo.tscn"
 config/icon="res://icon.png"
 
 [input]
