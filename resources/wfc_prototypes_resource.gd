@@ -4,11 +4,13 @@ class_name WaveFunctionPrototypesResource
 
 
 export var size : Vector3 = Vector3(8.0,3.0,8.0)
+
+export var wave_function : Array  # Grid of cells containing prototypes
 export var cell_list : Dictionary = {}
+export var cell_stack : Dictionary = {}
 export var prototypes : Dictionary = {}
 
 
-var wave_function : Array  # Grid of cells containing prototypes
 var cell_states := {}
 var stack : Array
 var bounds : AABB

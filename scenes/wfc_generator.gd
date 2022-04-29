@@ -32,10 +32,9 @@ var siblings_offsets = {
 
 func update_prototypes() -> void:
 	#	initialize cell list
-	var cell_list := mesh_library.get_item_list()
-
-
 	var cells := get_used_cells()
+	print("Generate prototype: START")
+	print("used cells: %s" % cells.size() )
 	for cell_coordinates in cells:
 
 		var cell_index := get_cell_item(cell_coordinates.x,cell_coordinates.y,cell_coordinates.z)

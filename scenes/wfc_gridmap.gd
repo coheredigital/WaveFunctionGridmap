@@ -4,19 +4,16 @@ extends GridMap
 
 export var size : Vector3 = Vector3(8.0,3.0,8.0)
 export var prototype_data : Resource
-var prototypes := {}
-
-var wave_function : Array  # Grid of cells containing prototypes
-var cell_states := {}
-var cell_stack := {}
-var stack : Array
-var bounds : AABB
+export var initialize_cells : bool setget set_initialize
+export var generate_step : bool setget set_generate_step
+#export var generate_map : bool setget set_generate_map
+export var prototypes := {}
 
 
-enum CellStates {
-	READY,
-	COLLAPSED = -2
-}
+export var wave_function : Array  # Grid of cells containing prototypes
+export var cell_states := {}
+export var stack : Array
+export var bounds : AABB
 
 
 var siblings_offsets = {
@@ -28,21 +25,33 @@ var siblings_offsets = {
 	Vector3.DOWN : 'down',
 }
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	prototypes = prototype_data.prototypes
-	initialize_cells()
+	initialize()
+
+func set_generate_step(value):
+	iterate()
+
+#func set_generate_map(value):
+#	generate()
 
 func generate():
-
-	clear()
-	initialize_cells()
+	initialize()
 	seed(OS.get_unix_time())
 	while not is_collapsed():
 		iterate()
 		yield(get_tree(), "idle_frame")
 
-func initialize_cells():
+
+func set_initialize(value):
+	initialize()
+
+
+func initialize():
+	prototypes = prototype_data.prototypes.duplicate()
+	clear() #clear the gridmap
+	wave_function = []
 	bounds = AABB(Vector3.ZERO, size - Vector3(1.0,1.0,1.0))
 	for _z in range(size.z):
 		var y = []
@@ -52,37 +61,37 @@ func initialize_cells():
 				x.append(prototypes.duplicate())
 #				track each unique cell state
 				cell_states[Vector3(_x,_y,_z)] = prototypes.duplicate()
-				cell_stack[Vector3(_x,_y,_z)] = 1
 			y.append(x)
 		wave_function.append(y)
-	print('cells intialized: %s' % cell_states.size())
+	print_debug('cells intialized: %s' % cell_states.size())
+	prototype_data.wave_function = wave_function
 
 
 func is_collapsed() -> bool:
-	return cell_stack.size() == 0
+	return cell_states.size() == 0
 
 
 func iterate():
 	var coords = get_min_entropy_coords()
+	print_debug("Iterate cell: %s" % coords)
+	assert( coords != Vector3.INF, 'Invalid coords returned from get_min_entropy_coords.')
 	collapse_at(coords)
 	propagate(coords)
 
 
 func collapse_at(coords : Vector3):
-	if coords == Vector3.INF:
-		push_warning('Invalid coords passed.')
-		return
 
 	var possible_prototypes = wave_function[coords.z][coords.y][coords.x]
 	var selection = weighted_choice(possible_prototypes)
 
 	var prototype = possible_prototypes[selection]
+
 	possible_prototypes = {selection : prototype}
 	wave_function[coords.z][coords.y][coords.x] = possible_prototypes
-	cell_stack.erase(coords)
+	cell_states.erase(coords)
 #	apply cell
 	print('collapsed coord: %s' % coords)
-	set_cell_item(coords.x,coords.y,coords.z,selection)
+	set_cell_item(coords.x,coords.y,coords.z,prototype.cell_index,prototype.cell_orientation)
 
 
 func weighted_choice(prototypes):
@@ -97,20 +106,15 @@ func weighted_choice(prototypes):
 
 
 func get_min_entropy_coords() -> Vector3:
-	var min_entropy
-	var coords = Vector3.INF
-	for z in range(size.z):
-		for y in range(size.y):
-			for x in range(size.z):
-				var entropy = get_entropy(Vector3(x, y, z))
-				if entropy > 1:
-					entropy += rand_range(-0.1, 0.1)
-					if not min_entropy:
-						min_entropy = entropy
-						coords = Vector3(x, y, z)
-					elif entropy < min_entropy:
-						min_entropy = entropy
-						coords = Vector3(x, y, z)
+	var min_entropy := 1000.0
+	var coords := Vector3.INF
+	for cell_coords in cell_states:
+		var entropy = get_entropy(cell_coords)
+		if entropy > 1:
+			entropy += rand_range(-0.1, 0.1)
+			if entropy < min_entropy:
+				min_entropy = entropy
+				coords = cell_coords
 	return coords
 
 
@@ -126,6 +130,7 @@ func propagate(co_ords):
 	while len(stack) > 0:
 		var cur_coords = stack.pop_back()
 		var sibling_offsets := get_siblings_offsets(cur_coords)
+
 		for offset in sibling_offsets:
 			var sibling_coords = cur_coords + offset
 			var possible_siblings = get_possible_siblings(cur_coords, offset)
@@ -134,10 +139,9 @@ func propagate(co_ords):
 			if len(sibling_possible_prototypes) == 0:
 				continue
 
-			for sibling_prototype in sibling_possible_prototypes:
-				var sibling_cell = possible_siblings[sibling_prototype]
-				if not sibling_cell in possible_siblings:
-					constrain(sibling_coords, sibling_possible_prototypes[sibling_prototype])
+			for sibling_possible_prototype in sibling_possible_prototypes:
+				if not possible_siblings.has(sibling_possible_prototype):
+					constrain(sibling_coords, sibling_possible_prototype)
 					if not sibling_coords in stack:
 						stack.append(sibling_coords)
 
@@ -164,16 +168,16 @@ func get_siblings_offsets(coords) -> Array:
 	return dirs
 
 
-func get_possible_siblings(coordinates : Vector3, direction : Vector3) -> Array:
-	var valid_siblings = []
+func get_possible_siblings(coordinates : Vector3, direction : Vector3) -> Dictionary:
+	var valid_siblings = {}
+	var direction_name = siblings_offsets[direction]
 	var prototypes = get_possibilities(coordinates)
 	var sibling_coordinates = coordinates + direction
-	var direction_name = siblings_offsets[direction]
-	for prototype in prototypes:
-		var siblings = prototypes[prototype]['valid_siblings'][direction_name]
+	for item in prototypes:
+		var siblings = prototypes[item]['valid_siblings'][direction_name]
 		for n in siblings:
 			if not n in valid_siblings:
-				valid_siblings.append(n)
+				valid_siblings[n] = siblings[n]
 	return valid_siblings
 
 
