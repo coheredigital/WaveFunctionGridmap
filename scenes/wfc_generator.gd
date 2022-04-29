@@ -4,7 +4,7 @@ extends GridMap
 
 const FILE_NAME = "res://resources/prototypes.json"
 
-export var prototype_data : Resource
+export var resource_file : Resource
 var prototypes := {}
 
 var wave_function : Array  # Grid of cells containing prototypes
@@ -65,7 +65,7 @@ func update_prototypes() -> void:
 
 #			init sibling dictionary
 			if not offset_name in valid_siblings:
-				valid_siblings[offset_name] = {}
+				valid_siblings[offset_name] = []
 
 			var cell_valid_siblings = valid_siblings[offset_name]
 
@@ -73,15 +73,14 @@ func update_prototypes() -> void:
 
 			if not cell_valid_siblings.has(sibling_cell_id):
 #				TODO: may not be needed
-				cell_valid_siblings[sibling_cell_id] = {
-					'cell' : sibling_cell,
-					'orientation' : sibling_cell_orientation,
-				}
+				cell_valid_siblings.append(sibling_cell_id)
 
-
-	prototype_data.prototypes = prototypes
+	resource_file.prototypes = prototypes
 
 
 func set_export_definitions(value : bool) -> void:
+	if not value:
+		return
+	print('Update Protypes')
 	update_prototypes()
 

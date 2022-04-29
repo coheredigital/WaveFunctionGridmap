@@ -10,58 +10,12 @@ prototypes = {
 "cell_orientation": 10,
 "count": 4,
 "valid_siblings": {
-"back": {
-"0_10": {
-"cell": 0,
-"orientation": 10
-},
-"1_22": {
-"cell": 1,
-"orientation": 22
-}
-},
-"down": {
-"-1_-1": {
-"cell": -1,
-"orientation": -1
-}
-},
-"forward": {
-"0_10": {
-"cell": 0,
-"orientation": 10
-},
-"1_16": {
-"cell": 1,
-"orientation": 16
-}
-},
-"left": {
-"0_10": {
-"cell": 0,
-"orientation": 10
-},
-"1_10": {
-"cell": 1,
-"orientation": 10
-}
-},
-"right": {
-"0_10": {
-"cell": 0,
-"orientation": 10
-},
-"1_0": {
-"cell": 1,
-"orientation": 0
-}
-},
-"up": {
-"-1_-1": {
-"cell": -1,
-"orientation": -1
-}
-}
+"back": [ "1_22", "0_10" ],
+"down": [ "-1_-1" ],
+"forward": [ "0_10", "1_16" ],
+"left": [ "0_10", "1_10" ],
+"right": [ "1_0", "0_10" ],
+"up": [ "-1_-1" ]
 }
 },
 "1_0": {
@@ -69,50 +23,12 @@ prototypes = {
 "cell_orientation": 0,
 "count": 2,
 "valid_siblings": {
-"back": {
-"1_0": {
-"cell": 1,
-"orientation": 0
-},
-"2_22": {
-"cell": 2,
-"orientation": 22
-}
-},
-"down": {
-"-1_-1": {
-"cell": -1,
-"orientation": -1
-}
-},
-"forward": {
-"1_0": {
-"cell": 1,
-"orientation": 0
-},
-"2_0": {
-"cell": 2,
-"orientation": 0
-}
-},
-"left": {
-"0_10": {
-"cell": 0,
-"orientation": 10
-}
-},
-"right": {
-"-1_-1": {
-"cell": -1,
-"orientation": -1
-}
-},
-"up": {
-"-1_-1": {
-"cell": -1,
-"orientation": -1
-}
-}
+"back": [ "2_22", "1_0" ],
+"down": [ "-1_-1" ],
+"forward": [ "1_0", "2_0" ],
+"left": [ "0_10" ],
+"right": [ "-1_-1" ],
+"up": [ "-1_-1" ]
 }
 },
 "1_10": {
@@ -120,50 +36,12 @@ prototypes = {
 "cell_orientation": 10,
 "count": 2,
 "valid_siblings": {
-"back": {
-"1_10": {
-"cell": 1,
-"orientation": 10
-},
-"2_10": {
-"cell": 2,
-"orientation": 10
-}
-},
-"down": {
-"-1_-1": {
-"cell": -1,
-"orientation": -1
-}
-},
-"forward": {
-"1_10": {
-"cell": 1,
-"orientation": 10
-},
-"2_16": {
-"cell": 2,
-"orientation": 16
-}
-},
-"left": {
-"-1_-1": {
-"cell": -1,
-"orientation": -1
-}
-},
-"right": {
-"0_10": {
-"cell": 0,
-"orientation": 10
-}
-},
-"up": {
-"-1_-1": {
-"cell": -1,
-"orientation": -1
-}
-}
+"back": [ "2_10", "1_10" ],
+"down": [ "-1_-1" ],
+"forward": [ "1_10", "2_16" ],
+"left": [ "-1_-1" ],
+"right": [ "0_10" ],
+"up": [ "-1_-1" ]
 }
 },
 "1_16": {
@@ -171,50 +49,12 @@ prototypes = {
 "cell_orientation": 16,
 "count": 2,
 "valid_siblings": {
-"back": {
-"0_10": {
-"cell": 0,
-"orientation": 10
-}
-},
-"down": {
-"-1_-1": {
-"cell": -1,
-"orientation": -1
-}
-},
-"forward": {
-"-1_-1": {
-"cell": -1,
-"orientation": -1
-}
-},
-"left": {
-"1_16": {
-"cell": 1,
-"orientation": 16
-},
-"2_16": {
-"cell": 2,
-"orientation": 16
-}
-},
-"right": {
-"1_16": {
-"cell": 1,
-"orientation": 16
-},
-"2_0": {
-"cell": 2,
-"orientation": 0
-}
-},
-"up": {
-"-1_-1": {
-"cell": -1,
-"orientation": -1
-}
-}
+"back": [ "0_10" ],
+"down": [ "-1_-1" ],
+"forward": [ "-1_-1" ],
+"left": [ "1_16", "2_16" ],
+"right": [ "2_0", "1_16" ],
+"up": [ "-1_-1" ]
 }
 },
 "1_22": {
@@ -222,50 +62,12 @@ prototypes = {
 "cell_orientation": 22,
 "count": 2,
 "valid_siblings": {
-"back": {
-"-1_-1": {
-"cell": -1,
-"orientation": -1
-}
-},
-"down": {
-"-1_-1": {
-"cell": -1,
-"orientation": -1
-}
-},
-"forward": {
-"0_10": {
-"cell": 0,
-"orientation": 10
-}
-},
-"left": {
-"1_22": {
-"cell": 1,
-"orientation": 22
-},
-"2_10": {
-"cell": 2,
-"orientation": 10
-}
-},
-"right": {
-"1_22": {
-"cell": 1,
-"orientation": 22
-},
-"2_22": {
-"cell": 2,
-"orientation": 22
-}
-},
-"up": {
-"-1_-1": {
-"cell": -1,
-"orientation": -1
-}
-}
+"back": [ "-1_-1" ],
+"down": [ "-1_-1" ],
+"forward": [ "0_10" ],
+"left": [ "1_22", "2_10" ],
+"right": [ "2_22", "1_22" ],
+"up": [ "-1_-1" ]
 }
 },
 "2_0": {
@@ -273,42 +75,12 @@ prototypes = {
 "cell_orientation": 0,
 "count": 1,
 "valid_siblings": {
-"back": {
-"1_0": {
-"cell": 1,
-"orientation": 0
-}
-},
-"down": {
-"-1_-1": {
-"cell": -1,
-"orientation": -1
-}
-},
-"forward": {
-"-1_-1": {
-"cell": -1,
-"orientation": -1
-}
-},
-"left": {
-"1_16": {
-"cell": 1,
-"orientation": 16
-}
-},
-"right": {
-"-1_-1": {
-"cell": -1,
-"orientation": -1
-}
-},
-"up": {
-"-1_-1": {
-"cell": -1,
-"orientation": -1
-}
-}
+"back": [ "1_0" ],
+"down": [ "-1_-1" ],
+"forward": [ "-1_-1" ],
+"left": [ "1_16" ],
+"right": [ "-1_-1" ],
+"up": [ "-1_-1" ]
 }
 },
 "2_10": {
@@ -316,42 +88,12 @@ prototypes = {
 "cell_orientation": 10,
 "count": 1,
 "valid_siblings": {
-"back": {
-"-1_-1": {
-"cell": -1,
-"orientation": -1
-}
-},
-"down": {
-"-1_-1": {
-"cell": -1,
-"orientation": -1
-}
-},
-"forward": {
-"1_10": {
-"cell": 1,
-"orientation": 10
-}
-},
-"left": {
-"-1_-1": {
-"cell": -1,
-"orientation": -1
-}
-},
-"right": {
-"1_22": {
-"cell": 1,
-"orientation": 22
-}
-},
-"up": {
-"-1_-1": {
-"cell": -1,
-"orientation": -1
-}
-}
+"back": [ "-1_-1" ],
+"down": [ "-1_-1" ],
+"forward": [ "1_10" ],
+"left": [ "-1_-1" ],
+"right": [ "1_22" ],
+"up": [ "-1_-1" ]
 }
 },
 "2_16": {
@@ -359,42 +101,12 @@ prototypes = {
 "cell_orientation": 16,
 "count": 1,
 "valid_siblings": {
-"back": {
-"1_10": {
-"cell": 1,
-"orientation": 10
-}
-},
-"down": {
-"-1_-1": {
-"cell": -1,
-"orientation": -1
-}
-},
-"forward": {
-"-1_-1": {
-"cell": -1,
-"orientation": -1
-}
-},
-"left": {
-"-1_-1": {
-"cell": -1,
-"orientation": -1
-}
-},
-"right": {
-"1_16": {
-"cell": 1,
-"orientation": 16
-}
-},
-"up": {
-"-1_-1": {
-"cell": -1,
-"orientation": -1
-}
-}
+"back": [ "1_10" ],
+"down": [ "-1_-1" ],
+"forward": [ "-1_-1" ],
+"left": [ "-1_-1" ],
+"right": [ "1_16" ],
+"up": [ "-1_-1" ]
 }
 },
 "2_22": {
@@ -402,42 +114,12 @@ prototypes = {
 "cell_orientation": 22,
 "count": 1,
 "valid_siblings": {
-"back": {
-"-1_-1": {
-"cell": -1,
-"orientation": -1
-}
-},
-"down": {
-"-1_-1": {
-"cell": -1,
-"orientation": -1
-}
-},
-"forward": {
-"1_0": {
-"cell": 1,
-"orientation": 0
-}
-},
-"left": {
-"1_22": {
-"cell": 1,
-"orientation": 22
-}
-},
-"right": {
-"-1_-1": {
-"cell": -1,
-"orientation": -1
-}
-},
-"up": {
-"-1_-1": {
-"cell": -1,
-"orientation": -1
-}
-}
+"back": [ "-1_-1" ],
+"down": [ "-1_-1" ],
+"forward": [ "1_0" ],
+"left": [ "1_22" ],
+"right": [ "-1_-1" ],
+"up": [ "-1_-1" ]
 }
 }
 }

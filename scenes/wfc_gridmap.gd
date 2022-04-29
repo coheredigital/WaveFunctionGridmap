@@ -8,8 +8,8 @@ export var initialize_cells : bool setget set_initialize
 export var generate_step : bool setget set_generate_step
 #export var generate_map : bool setget set_generate_map
 
-export var cell_states := {}
-export var cell_queue := {}
+export var cell_states : Dictionary = {}
+export var cell_queue : Dictionary = {}
 var stack : Array
 
 var bounds : AABB
@@ -76,7 +76,7 @@ func initialize():
 			for z in range(size.z):
 				var coords = Vector3(x,y,z)
 #				track each unique cell state
-				cell_states[coords] = prototype_data.prototypes.duplicate()
+				cell_states[coords] = prototype_data.prototypes.duplicate(true)
 				cell_queue[coords] = [get_entropy(coords),coords]
 
 	sort_queue()
@@ -98,9 +98,11 @@ func iterate():
 
 func collapse_at(coords : Vector3):
 	var possible_prototypes = cell_states[coords]
+
 	var selection = weighted_choice(possible_prototypes)
 	var prototype = possible_prototypes[selection]
 	possible_prototypes = {selection : prototype}
+	print(possible_prototypes)
 	cell_states[coords] = possible_prototypes
 	cell_queue.erase(coords)
 #	apply cell
@@ -120,9 +122,7 @@ func weighted_choice(prototypes):
 
 
 func get_min_entropy_coords() -> Vector3:
-	var min_entropy := 1000.0
-	var entropy_array = cell_queue.values()
-	var queued_cell : Array = entropy_array.pop_front()
+	var queued_cell : Array = cell_queue.values().pop_front()
 	var queue_entropy : float = queued_cell[0]
 	var queue_coords : Vector3 = queued_cell[1]
 	print('queued: %s entropy: %s'  % [queue_coords, queue_entropy])
