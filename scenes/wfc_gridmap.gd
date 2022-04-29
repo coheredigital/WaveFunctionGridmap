@@ -8,10 +8,9 @@ export var initialize_cells : bool setget set_initialize
 export var generate_step : bool setget set_generate_step
 #export var generate_map : bool setget set_generate_map
 
-export var prototypes := {}
 export var cell_states := {}
 export var cell_queue := {}
-export var stack : Array
+var stack : Array
 
 var bounds : AABB
 var siblings_offsets = {
@@ -69,7 +68,6 @@ func set_initialize(value):
 
 func initialize():
 	clear() #clear the gridmap
-	prototypes = prototype_data.prototypes.duplicate()
 	cell_states = {}
 	cell_queue = {}
 	bounds = AABB(Vector3.ZERO, size - Vector3(1.0,1.0,1.0))
@@ -78,7 +76,7 @@ func initialize():
 			for z in range(size.z):
 				var coords = Vector3(x,y,z)
 #				track each unique cell state
-				cell_states[coords] = prototypes.duplicate()
+				cell_states[coords] = prototype_data.prototypes.duplicate()
 				cell_queue[coords] = [get_entropy(coords),coords]
 
 	sort_queue()
@@ -94,7 +92,6 @@ func is_collapsed() -> bool:
 func iterate():
 	var coords = get_min_entropy_coords()
 	print_debug("Iterate cell: %s" % coords)
-	assert( coords != Vector3.INF, 'Invalid coords returned from get_min_entropy_coords.')
 	collapse_at(coords)
 	propagate(coords)
 
