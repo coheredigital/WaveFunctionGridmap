@@ -4,6 +4,440 @@
 
 [resource]
 script = ExtResource( 1 )
-cell_states = null
-stack = null
-bounds = null
+prototypes = {
+"0_10": {
+"cell_index": 0,
+"cell_orientation": 10,
+"count": 4,
+"valid_siblings": {
+"back": {
+"0_10": {
+"cell": 0,
+"orientation": 10
+},
+"1_22": {
+"cell": 1,
+"orientation": 22
+}
+},
+"down": {
+"-1_-1": {
+"cell": -1,
+"orientation": -1
+}
+},
+"forward": {
+"0_10": {
+"cell": 0,
+"orientation": 10
+},
+"1_16": {
+"cell": 1,
+"orientation": 16
+}
+},
+"left": {
+"0_10": {
+"cell": 0,
+"orientation": 10
+},
+"1_10": {
+"cell": 1,
+"orientation": 10
+}
+},
+"right": {
+"0_10": {
+"cell": 0,
+"orientation": 10
+},
+"1_0": {
+"cell": 1,
+"orientation": 0
+}
+},
+"up": {
+"-1_-1": {
+"cell": -1,
+"orientation": -1
+}
+}
+}
+},
+"1_0": {
+"cell_index": 1,
+"cell_orientation": 0,
+"count": 2,
+"valid_siblings": {
+"back": {
+"1_0": {
+"cell": 1,
+"orientation": 0
+},
+"2_22": {
+"cell": 2,
+"orientation": 22
+}
+},
+"down": {
+"-1_-1": {
+"cell": -1,
+"orientation": -1
+}
+},
+"forward": {
+"1_0": {
+"cell": 1,
+"orientation": 0
+},
+"2_0": {
+"cell": 2,
+"orientation": 0
+}
+},
+"left": {
+"0_10": {
+"cell": 0,
+"orientation": 10
+}
+},
+"right": {
+"-1_-1": {
+"cell": -1,
+"orientation": -1
+}
+},
+"up": {
+"-1_-1": {
+"cell": -1,
+"orientation": -1
+}
+}
+}
+},
+"1_10": {
+"cell_index": 1,
+"cell_orientation": 10,
+"count": 2,
+"valid_siblings": {
+"back": {
+"1_10": {
+"cell": 1,
+"orientation": 10
+},
+"2_10": {
+"cell": 2,
+"orientation": 10
+}
+},
+"down": {
+"-1_-1": {
+"cell": -1,
+"orientation": -1
+}
+},
+"forward": {
+"1_10": {
+"cell": 1,
+"orientation": 10
+},
+"2_16": {
+"cell": 2,
+"orientation": 16
+}
+},
+"left": {
+"-1_-1": {
+"cell": -1,
+"orientation": -1
+}
+},
+"right": {
+"0_10": {
+"cell": 0,
+"orientation": 10
+}
+},
+"up": {
+"-1_-1": {
+"cell": -1,
+"orientation": -1
+}
+}
+}
+},
+"1_16": {
+"cell_index": 1,
+"cell_orientation": 16,
+"count": 2,
+"valid_siblings": {
+"back": {
+"0_10": {
+"cell": 0,
+"orientation": 10
+}
+},
+"down": {
+"-1_-1": {
+"cell": -1,
+"orientation": -1
+}
+},
+"forward": {
+"-1_-1": {
+"cell": -1,
+"orientation": -1
+}
+},
+"left": {
+"1_16": {
+"cell": 1,
+"orientation": 16
+},
+"2_16": {
+"cell": 2,
+"orientation": 16
+}
+},
+"right": {
+"1_16": {
+"cell": 1,
+"orientation": 16
+},
+"2_0": {
+"cell": 2,
+"orientation": 0
+}
+},
+"up": {
+"-1_-1": {
+"cell": -1,
+"orientation": -1
+}
+}
+}
+},
+"1_22": {
+"cell_index": 1,
+"cell_orientation": 22,
+"count": 2,
+"valid_siblings": {
+"back": {
+"-1_-1": {
+"cell": -1,
+"orientation": -1
+}
+},
+"down": {
+"-1_-1": {
+"cell": -1,
+"orientation": -1
+}
+},
+"forward": {
+"0_10": {
+"cell": 0,
+"orientation": 10
+}
+},
+"left": {
+"1_22": {
+"cell": 1,
+"orientation": 22
+},
+"2_10": {
+"cell": 2,
+"orientation": 10
+}
+},
+"right": {
+"1_22": {
+"cell": 1,
+"orientation": 22
+},
+"2_22": {
+"cell": 2,
+"orientation": 22
+}
+},
+"up": {
+"-1_-1": {
+"cell": -1,
+"orientation": -1
+}
+}
+}
+},
+"2_0": {
+"cell_index": 2,
+"cell_orientation": 0,
+"count": 1,
+"valid_siblings": {
+"back": {
+"1_0": {
+"cell": 1,
+"orientation": 0
+}
+},
+"down": {
+"-1_-1": {
+"cell": -1,
+"orientation": -1
+}
+},
+"forward": {
+"-1_-1": {
+"cell": -1,
+"orientation": -1
+}
+},
+"left": {
+"1_16": {
+"cell": 1,
+"orientation": 16
+}
+},
+"right": {
+"-1_-1": {
+"cell": -1,
+"orientation": -1
+}
+},
+"up": {
+"-1_-1": {
+"cell": -1,
+"orientation": -1
+}
+}
+}
+},
+"2_10": {
+"cell_index": 2,
+"cell_orientation": 10,
+"count": 1,
+"valid_siblings": {
+"back": {
+"-1_-1": {
+"cell": -1,
+"orientation": -1
+}
+},
+"down": {
+"-1_-1": {
+"cell": -1,
+"orientation": -1
+}
+},
+"forward": {
+"1_10": {
+"cell": 1,
+"orientation": 10
+}
+},
+"left": {
+"-1_-1": {
+"cell": -1,
+"orientation": -1
+}
+},
+"right": {
+"1_22": {
+"cell": 1,
+"orientation": 22
+}
+},
+"up": {
+"-1_-1": {
+"cell": -1,
+"orientation": -1
+}
+}
+}
+},
+"2_16": {
+"cell_index": 2,
+"cell_orientation": 16,
+"count": 1,
+"valid_siblings": {
+"back": {
+"1_10": {
+"cell": 1,
+"orientation": 10
+}
+},
+"down": {
+"-1_-1": {
+"cell": -1,
+"orientation": -1
+}
+},
+"forward": {
+"-1_-1": {
+"cell": -1,
+"orientation": -1
+}
+},
+"left": {
+"-1_-1": {
+"cell": -1,
+"orientation": -1
+}
+},
+"right": {
+"1_16": {
+"cell": 1,
+"orientation": 16
+}
+},
+"up": {
+"-1_-1": {
+"cell": -1,
+"orientation": -1
+}
+}
+}
+},
+"2_22": {
+"cell_index": 2,
+"cell_orientation": 22,
+"count": 1,
+"valid_siblings": {
+"back": {
+"-1_-1": {
+"cell": -1,
+"orientation": -1
+}
+},
+"down": {
+"-1_-1": {
+"cell": -1,
+"orientation": -1
+}
+},
+"forward": {
+"1_0": {
+"cell": 1,
+"orientation": 0
+}
+},
+"left": {
+"1_22": {
+"cell": 1,
+"orientation": 22
+}
+},
+"right": {
+"-1_-1": {
+"cell": -1,
+"orientation": -1
+}
+},
+"up": {
+"-1_-1": {
+"cell": -1,
+"orientation": -1
+}
+}
+}
+}
+}

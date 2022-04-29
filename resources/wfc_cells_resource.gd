@@ -1,25 +1,17 @@
 # WaveFunctionPrototypes
 extends Resource
-class_name WaveFunctionPrototypesResource
+class_name WaveFunctionCellsResource
 
 
 export var size : Vector3 = Vector3(8.0,3.0,8.0)
 
-export var wave_function : Array  # Grid of cells containing prototypes
+#export var wave_function : Array  # Grid of cells containing prototypes
 export var cell_list : Dictionary = {}
 export var cell_stack : Dictionary = {}
 export var prototypes : Dictionary = {}
-
-
-var cell_states := {}
+export var cell_states := {}
+export var bounds : AABB
 var stack : Array
-var bounds : AABB
-
-
-enum CellStates {
-	READY,
-	COLLAPSED = -2
-}
 
 
 var siblings_offsets = {
@@ -32,9 +24,9 @@ var siblings_offsets = {
 }
 
 
-func _init():
-	cell_list = {}
-	prototypes = {}
+#func _init():
+#	cell_list = {}
+#	prototypes = {}
 
 
 # Called when the node enters the scene tree for the first time.
@@ -48,16 +40,10 @@ func collapse():
 
 func initialize_cells():
 	bounds = AABB(Vector3.ZERO, size)
-	for _z in range(size.z):
-		var y = []
-		for _y in range(size.y):
-			var x = []
-			for _x in range(size.x):
-				x.append(prototypes.duplicate())
-#				track each unique cell state
-				cell_states[Vector3(_x,_y,_z)] = prototypes.duplicate()
-			y.append(x)
-		wave_function.append(y)
+	for x in range(size.x):
+		for y in range(size.y):
+			for z in range(size.z):
+				cell_states[Vector3(x,y,z)] = prototypes.duplicate()
 	print('cells intialized: %s' % cell_states.size())
 
 
@@ -76,12 +62,12 @@ func collapse_at(coords : Vector3):
 		push_warning('Invalid coords passed.')
 		return
 
-	var possible_prototypes = wave_function[coords.z][coords.y][coords.x]
+	var possible_prototypes = cell_states[coords]
 	var selection = weighted_choice(possible_prototypes)
 
 	var prototype = possible_prototypes[selection]
 	possible_prototypes = {selection : prototype}
-	wave_function[coords.z][coords.y][coords.x] = possible_prototypes
+	cell_states[coords] = possible_prototypes
 	cell_states.erase(coords)
 #	apply cell
 	print('collapsed coord: %s' % coords)

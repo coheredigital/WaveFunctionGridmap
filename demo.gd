@@ -1,5 +1,6 @@
 extends Spatial
 
+
 onready var gridmap := $wfc_gridmap
 
 

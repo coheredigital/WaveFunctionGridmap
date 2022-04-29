@@ -7,15 +7,13 @@ export var prototype_data : Resource
 export var initialize_cells : bool setget set_initialize
 export var generate_step : bool setget set_generate_step
 #export var generate_map : bool setget set_generate_map
+
 export var prototypes := {}
-
-
-export var wave_function : Array  # Grid of cells containing prototypes
 export var cell_states := {}
+export var cell_queue := {}
 export var stack : Array
-export var bounds : AABB
 
-
+var bounds : AABB
 var siblings_offsets = {
 	Vector3.FORWARD : 'forward',
 	Vector3.RIGHT : 'right',
@@ -26,15 +24,34 @@ var siblings_offsets = {
 }
 
 
+class EntropySorter:
+	static func sort_ascending(a, b):
+		if a[0] < b[0]:
+			return true
+		return false
+	static func sort_descending(a, b):
+		if a[0] > b[0]:
+			return true
+		return false
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	initialize()
 
+
 func set_generate_step(value):
+	if not value:
+		return
 	iterate()
 
+
 #func set_generate_map(value):
+#	if not value:
+#		return
+#	print('Generate map!')
 #	generate()
+
 
 func generate():
 	initialize()
@@ -45,30 +62,33 @@ func generate():
 
 
 func set_initialize(value):
+	if not value:
+		return
 	initialize()
 
 
 func initialize():
-	prototypes = prototype_data.prototypes.duplicate()
 	clear() #clear the gridmap
-	wave_function = []
+	prototypes = prototype_data.prototypes.duplicate()
+	cell_states = {}
+	cell_queue = {}
 	bounds = AABB(Vector3.ZERO, size - Vector3(1.0,1.0,1.0))
-	for _z in range(size.z):
-		var y = []
-		for _y in range(size.y):
-			var x = []
-			for _x in range(size.x):
-				x.append(prototypes.duplicate())
+	for x in range(size.x):
+		for y in range(size.y):
+			for z in range(size.z):
+				var coords = Vector3(x,y,z)
 #				track each unique cell state
-				cell_states[Vector3(_x,_y,_z)] = prototypes.duplicate()
-			y.append(x)
-		wave_function.append(y)
+				cell_states[coords] = prototypes.duplicate()
+				cell_queue[coords] = [get_entropy(coords),coords]
+
+	sort_queue()
+
 	print_debug('cells intialized: %s' % cell_states.size())
-	prototype_data.wave_function = wave_function
+
 
 
 func is_collapsed() -> bool:
-	return cell_states.size() == 0
+	return cell_queue.size() == 0
 
 
 func iterate():
@@ -80,15 +100,12 @@ func iterate():
 
 
 func collapse_at(coords : Vector3):
-
-	var possible_prototypes = wave_function[coords.z][coords.y][coords.x]
+	var possible_prototypes = cell_states[coords]
 	var selection = weighted_choice(possible_prototypes)
-
 	var prototype = possible_prototypes[selection]
-
 	possible_prototypes = {selection : prototype}
-	wave_function[coords.z][coords.y][coords.x] = possible_prototypes
-	cell_states.erase(coords)
+	cell_states[coords] = possible_prototypes
+	cell_queue.erase(coords)
 #	apply cell
 	print('collapsed coord: %s' % coords)
 	set_cell_item(coords.x,coords.y,coords.z,prototype.cell_index,prototype.cell_orientation)
@@ -107,20 +124,29 @@ func weighted_choice(prototypes):
 
 func get_min_entropy_coords() -> Vector3:
 	var min_entropy := 1000.0
-	var coords := Vector3.INF
-	for cell_coords in cell_states:
-		var entropy = get_entropy(cell_coords)
-		if entropy > 1:
-			entropy += rand_range(-0.1, 0.1)
-			if entropy < min_entropy:
-				min_entropy = entropy
-				coords = cell_coords
-	return coords
+	var entropy_array = cell_queue.values()
+	var queued_cell : Array = entropy_array.pop_front()
+	var queue_entropy : float = queued_cell[0]
+	var queue_coords : Vector3 = queued_cell[1]
+	print('queued: %s entropy: %s'  % [queue_coords, queue_entropy])
+	return queue_coords
+
+
+func sort_queue():
+	print_debug('Sort queue')
+	var entropy_array = cell_queue.values()
+	entropy_array.sort_custom(EntropySorter, "sort_ascending")
+#	reset queue order
+#	TODO: consider using a sorted array, may be easier
+	cell_queue = {}
+	for item in entropy_array:
+		cell_queue[item[1]] = [item[0],item[1]]
 
 
 func get_entropy(coords : Vector3):
-	var available_prototypes = wave_function[coords.z][coords.y][coords.x]
+	var available_prototypes = cell_states[coords]
 	var entropy = len(available_prototypes)
+	entropy += rand_range(-0.1, 0.1)
 	return entropy
 
 
@@ -147,7 +173,7 @@ func propagate(co_ords):
 
 
 func constrain(coords : Vector3, cell_name : String):
-	wave_function[coords.z][coords.y][coords.x].erase(cell_name)
+	cell_states[coords].erase(cell_name)
 
 
 func get_siblings_offsets(coords) -> Array:
@@ -182,7 +208,5 @@ func get_possible_siblings(coordinates : Vector3, direction : Vector3) -> Dictio
 
 
 func get_possibilities(coords : Vector3):
-	return wave_function[coords.z][coords.y][coords.x]
-
-
+	return cell_states[coords]
 
