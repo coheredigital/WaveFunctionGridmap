@@ -4,7 +4,6 @@ extends GridMap
 
 const FILE_NAME = "res://resources/prototypes.json"
 
-export var save_name : String
 export var prototype_data : Resource
 var prototypes := {}
 
@@ -34,10 +33,6 @@ var siblings_offsets = {
 func update_prototypes() -> void:
 	#	initialize cell list
 	var cell_list := mesh_library.get_item_list()
-	var default_cell_data := {
-			'count' : 0,
-			'valid_siblings': {}
-		}
 
 
 	var cells := get_used_cells()
@@ -47,8 +42,14 @@ func update_prototypes() -> void:
 		var cell_orientation := get_cell_item_orientation(cell_coordinates.x,cell_coordinates.y,cell_coordinates.z)
 		var cell_id = "%s_%s" %  [cell_index,cell_orientation]
 
+
 		if not prototypes.has(cell_id):
-			prototypes[cell_id] = default_cell_data.duplicate()
+			prototypes[cell_id] = {
+			'count' : 0,
+			'valid_siblings': {},
+			'cell_index': cell_index,
+			'cell_orientation': cell_orientation,
+		}
 
 
 		var cell_prototype = prototypes[cell_id]
@@ -61,16 +62,18 @@ func update_prototypes() -> void:
 			var cell_offset = cell_coordinates + offset
 			var sibling_cell = get_cell_item(cell_offset.x, cell_offset.y, cell_offset.z)
 			var sibling_cell_orientation = get_cell_item_orientation(cell_offset.x, cell_offset.y, cell_offset.z)
+			var sibling_cell_id = "%s_%s" %  [sibling_cell,sibling_cell_orientation]
 
 #			init sibling dictionary
 			if not offset_name in valid_siblings:
 				valid_siblings[offset_name] = {}
 
 			var cell_valid_siblings = valid_siblings[offset_name]
-			var sibling_cell_id = "%s_%s" %  [sibling_cell,sibling_cell_orientation]
+
 #			init valid sibling / orientation
 
 			if not cell_valid_siblings.has(sibling_cell_id):
+#				TODO: may not be needed
 				cell_valid_siblings[sibling_cell_id] = {
 					'cell' : sibling_cell,
 					'orientation' : sibling_cell_orientation,
