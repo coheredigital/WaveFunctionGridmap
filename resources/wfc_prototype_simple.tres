@@ -5,28 +5,41 @@
 [resource]
 script = ExtResource( 1 )
 prototypes = {
-"0_10": {
-"cell_index": 0,
-"cell_orientation": 10,
-"count": 4,
+"-1_-1": {
+"cell_index": -1,
+"cell_orientation": 0,
+"count": 0,
 "valid_siblings": {
-"back": [ "1_22", "0_10" ],
+"back": [ "2_0", "2_16", "1_16" ],
+"down": [ "2_22", "2_10", "1_22", "2_0", "2_16", "1_16", "1_0", "1_10", "0_22" ],
+"forward": [ "2_22", "2_10", "1_22" ],
+"left": [ "2_22", "2_0", "1_0" ],
+"right": [ "2_10", "2_16", "1_10" ],
+"up": [ "2_22", "2_10", "1_22", "2_0", "2_16", "1_16", "1_0", "1_10", "0_22" ]
+}
+},
+"0_22": {
+"cell_index": 0,
+"cell_orientation": 22,
+"count": 1,
+"valid_siblings": {
+"back": [ "1_22" ],
 "down": [ "-1_-1" ],
-"forward": [ "0_10", "1_16" ],
-"left": [ "0_10", "1_10" ],
-"right": [ "1_0", "0_10" ],
+"forward": [ "1_16" ],
+"left": [ "1_10" ],
+"right": [ "1_0" ],
 "up": [ "-1_-1" ]
 }
 },
 "1_0": {
 "cell_index": 1,
 "cell_orientation": 0,
-"count": 2,
+"count": 1,
 "valid_siblings": {
-"back": [ "2_22", "1_0" ],
+"back": [ "2_22" ],
 "down": [ "-1_-1" ],
-"forward": [ "1_0", "2_0" ],
-"left": [ "0_10" ],
+"forward": [ "2_0" ],
+"left": [ "0_22" ],
 "right": [ "-1_-1" ],
 "up": [ "-1_-1" ]
 }
@@ -34,39 +47,39 @@ prototypes = {
 "1_10": {
 "cell_index": 1,
 "cell_orientation": 10,
-"count": 2,
+"count": 1,
 "valid_siblings": {
-"back": [ "2_10", "1_10" ],
+"back": [ "2_10" ],
 "down": [ "-1_-1" ],
-"forward": [ "1_10", "2_16" ],
+"forward": [ "2_16" ],
 "left": [ "-1_-1" ],
-"right": [ "0_10" ],
+"right": [ "0_22" ],
 "up": [ "-1_-1" ]
 }
 },
 "1_16": {
 "cell_index": 1,
 "cell_orientation": 16,
-"count": 2,
+"count": 1,
 "valid_siblings": {
-"back": [ "0_10" ],
+"back": [ "0_22" ],
 "down": [ "-1_-1" ],
 "forward": [ "-1_-1" ],
-"left": [ "1_16", "2_16" ],
-"right": [ "2_0", "1_16" ],
+"left": [ "2_16" ],
+"right": [ "2_0" ],
 "up": [ "-1_-1" ]
 }
 },
 "1_22": {
 "cell_index": 1,
 "cell_orientation": 22,
-"count": 2,
+"count": 1,
 "valid_siblings": {
 "back": [ "-1_-1" ],
 "down": [ "-1_-1" ],
-"forward": [ "0_10" ],
-"left": [ "1_22", "2_10" ],
-"right": [ "2_22", "1_22" ],
+"forward": [ "0_22" ],
+"left": [ "2_10" ],
+"right": [ "2_22" ],
 "up": [ "-1_-1" ]
 }
 },

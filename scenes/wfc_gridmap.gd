@@ -2,14 +2,16 @@
 tool
 extends GridMap
 
-export var size : Vector3 = Vector3(8.0,3.0,8.0)
+export var size : Vector3 = Vector3(8.0,3.0,8.0) setget set_size
 export var prototype_data : Resource
-export var initialize_cells : bool setget set_initialize
+export var reset : bool setget set_reset
+export var refresh_queue : bool setget set_refresh_queue
 export var generate_step : bool setget set_generate_step
 #export var generate_map : bool setget set_generate_map
 
 export var cell_states : Dictionary = {}
 export var cell_queue : Dictionary = {}
+export var cell_order : Array = []
 var stack : Array
 
 var bounds : AABB
@@ -45,6 +47,12 @@ func set_generate_step(value):
 	iterate()
 
 
+func set_refresh_queue(value):
+	if not value:
+		return
+	update_queue()
+
+
 #func set_generate_map(value):
 #	if not value:
 #		return
@@ -60,17 +68,27 @@ func generate():
 		yield(get_tree(), "idle_frame")
 
 
-func set_initialize(value):
+func set_reset(value):
 	if not value:
 		return
 	initialize()
+
+
+func set_size(value : Vector3):
+	size = value
+	bounds = AABB(Vector3.ZERO, size - Vector3(1.0,1.0,1.0))
 
 
 func initialize():
 	clear() #clear the gridmap
 	cell_states = {}
 	cell_queue = {}
-	bounds = AABB(Vector3.ZERO, size - Vector3(1.0,1.0,1.0))
+	initialize_cells()
+	update_queue()
+	print_debug('cells intialized: %s' % cell_states.size())
+
+
+func initialize_cells():
 	for x in range(size.x):
 		for y in range(size.y):
 			for z in range(size.z):
@@ -79,10 +97,13 @@ func initialize():
 				cell_states[coords] = prototype_data.prototypes.duplicate(true)
 				cell_queue[coords] = [get_entropy(coords),coords]
 
+
+func update_queue() -> void:
+	cell_order = []
+	for coords in cell_queue:
+		cell_queue[coords] = [get_entropy(coords),coords]
+		cell_order.append([get_entropy(coords),coords])
 	sort_queue()
-
-	print_debug('cells intialized: %s' % cell_states.size())
-
 
 
 func is_collapsed() -> bool:
@@ -98,24 +119,25 @@ func iterate():
 
 func collapse_at(coords : Vector3):
 	var possible_prototypes = cell_states[coords]
-
-	var selection = weighted_choice(possible_prototypes)
-	var prototype = possible_prototypes[selection]
-	possible_prototypes = {selection : prototype}
-	print(possible_prototypes)
+	var selection_name = weighted_choice(possible_prototypes)
+	var prototype = possible_prototypes[selection_name].duplicate(true)
+	possible_prototypes = {selection_name : prototype}
 	cell_states[coords] = possible_prototypes
 	cell_queue.erase(coords)
 #	apply cell
-	print('collapsed coord: %s' % coords)
+	print_debug('collapsed coord: %s' % coords)
 	set_cell_item(coords.x,coords.y,coords.z,prototype.cell_index,prototype.cell_orientation)
 
 
 func weighted_choice(prototypes):
 	var proto_weights = {}
+
 	for p in prototypes:
 		var w = prototypes[p]['count']
 		w += rand_range(-1.0, 1.0)
 		proto_weights[w] = p
+		print_debug('weighted_choice: %s = %s' % [p,w])
+
 	var weight_list = proto_weights.keys()
 	weight_list.sort()
 	return proto_weights[weight_list[-1]]
@@ -133,6 +155,7 @@ func sort_queue():
 	print_debug('Sort queue')
 	var entropy_array = cell_queue.values()
 	entropy_array.sort_custom(EntropySorter, "sort_ascending")
+	cell_order.sort_custom(EntropySorter, "sort_ascending")
 #	reset queue order
 #	TODO: consider using a sorted array, may be easier
 	cell_queue = {}
@@ -157,7 +180,7 @@ func propagate(co_ords):
 		for offset in sibling_offsets:
 			var sibling_coords = cur_coords + offset
 			var possible_siblings = get_possible_siblings(cur_coords, offset)
-			var sibling_possible_prototypes = get_possibilities(sibling_coords).duplicate()
+			var sibling_possible_prototypes = get_possibilities(sibling_coords).duplicate(true)
 
 			if len(sibling_possible_prototypes) == 0:
 				continue
@@ -170,6 +193,7 @@ func propagate(co_ords):
 
 
 func constrain(coords : Vector3, cell_name : String):
+#	print_debug('constrain at: %s = %s' % [coords, cell_name])
 	cell_states[coords].erase(cell_name)
 
 
@@ -192,18 +216,21 @@ func get_siblings_offsets(coords) -> Array:
 
 
 func get_possible_siblings(coordinates : Vector3, direction : Vector3) -> Dictionary:
-	var valid_siblings = {}
+	var valid_siblings = []
 	var direction_name = siblings_offsets[direction]
 	var prototypes = get_possibilities(coordinates)
-	var sibling_coordinates = coordinates + direction
 	for item in prototypes:
-		var siblings = prototypes[item]['valid_siblings'][direction_name]
-		for n in siblings:
-			if not n in valid_siblings:
-				valid_siblings[n] = siblings[n]
+		var item_valid_siblings = prototypes[item]['valid_siblings']
+		if item_valid_siblings.size() == 0:
+			return valid_siblings
+		var direction_valid_siblings = item_valid_siblings[direction_name]
+		for prototype_name in item_valid_siblings:
+			if not prototype_name in valid_siblings:
+				valid_siblings.append(prototype_name)
 	return valid_siblings
 
 
 func get_possibilities(coords : Vector3):
+#	print_debug('get_possibilities at: %s' % coords)
 	return cell_states[coords]
 
