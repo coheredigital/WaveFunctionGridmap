@@ -180,10 +180,7 @@ func sort_queue():
 
 
 func get_entropy(coords : Vector3):
-	var available_prototypes = cell_states[coords]
-	var entropy = len(available_prototypes)
-	entropy += rand_range(-0.1, 0.1)
-	return entropy
+	return len(cell_states[coords])
 
 
 func propagate(co_ords):
@@ -193,10 +190,11 @@ func propagate(co_ords):
 		var cur_coords = stack.pop_back()
 		var sibling_offsets := get_siblings_offsets(cur_coords)
 
-		for offset in sibling_offsets:
-			var sibling_coords = cur_coords + offset
-			var possible_siblings = get_possible_siblings(cur_coords, offset)
-			var sibling_possible_prototypes = get_possibilities(sibling_coords).duplicate(true)
+		# Iterate over each adjacent cell to this one
+		for direction in sibling_offsets:
+			var sibling_coords = (cur_coords + direction)
+			var possible_siblings = get_possible_siblings(cur_coords, direction)
+			var sibling_possible_prototypes = get_possibilities(sibling_coords).duplicate()
 
 			if len(sibling_possible_prototypes) == 0:
 				continue
@@ -209,11 +207,8 @@ func propagate(co_ords):
 
 
 func constrain(coords : Vector3, cell_name : String):
-#	print_debug('constrain at: %s = %s' % [coords, cell_name])
 	cell_states[coords].erase(cell_name)
 
-#func constrain(coords : Vector3, prototype_name : String):
-#	wave_function[coords.z][coords.y][coords.x].erase(prototype_name)
 
 func get_siblings_offsets(coords) -> Array:
 	var x = coords.x
