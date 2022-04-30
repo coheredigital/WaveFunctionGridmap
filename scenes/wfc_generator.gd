@@ -38,7 +38,8 @@ func update_prototypes() -> void:
 	print("used cells: %s" % cells.size() )
 
 	var blank_prototype = {
-		'count' : 0,
+		'count' : 1,
+		'weight' : 1,
 		'valid_siblings': {},
 		'cell_index': -1,
 		'cell_orientation': 0,

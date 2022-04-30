@@ -9,9 +9,8 @@ export var refresh_queue : bool setget set_refresh_queue
 export var generate_step : bool setget set_generate_step
 #export var generate_map : bool setget set_generate_map
 
-export var cell_states : Dictionary = {}
-export var cell_queue : Dictionary = {}
-export var cell_order : Array = []
+var cell_states : Dictionary = {}
+var cell_queue : Dictionary = {}
 var stack : Array
 
 var bounds : AABB
@@ -99,10 +98,10 @@ func initialize_cells():
 
 
 func update_queue() -> void:
-	cell_order = []
+#	cell_order = []
 	for coords in cell_queue:
 		cell_queue[coords] = [get_entropy(coords),coords]
-		cell_order.append([get_entropy(coords),coords])
+#		cell_order.append([get_entropy(coords),coords])
 	sort_queue()
 
 
@@ -115,7 +114,7 @@ func iterate():
 	print_debug("Iterate cell: %s" % coords)
 	collapse_at(coords)
 	propagate(coords)
-
+	update_queue()
 
 func collapse_at(coords : Vector3):
 	var possible_prototypes = cell_states[coords]
@@ -155,7 +154,7 @@ func sort_queue():
 	print_debug('Sort queue')
 	var entropy_array = cell_queue.values()
 	entropy_array.sort_custom(EntropySorter, "sort_ascending")
-	cell_order.sort_custom(EntropySorter, "sort_ascending")
+#	cell_order.sort_custom(EntropySorter, "sort_ascending")
 #	reset queue order
 #	TODO: consider using a sorted array, may be easier
 	cell_queue = {}
@@ -186,7 +185,7 @@ func propagate(co_ords):
 				continue
 
 			for sibling_possible_prototype in sibling_possible_prototypes:
-				if not possible_siblings.has(sibling_possible_prototype):
+				if not sibling_possible_prototype in possible_siblings:
 					constrain(sibling_coords, sibling_possible_prototype)
 					if not sibling_coords in stack:
 						stack.append(sibling_coords)

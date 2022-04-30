@@ -141,7 +141,7 @@ mesh_library = ExtResource( 2 )
 cell_size = Vector3( 1, 1, 1 )
 cell_center_y = false
 data = {
-"cells": PoolIntArray( 1, 0, 1441793 )
+"cells": PoolIntArray(  )
 }
 script = ExtResource( 5 )
 __meta__ = {
@@ -150,58 +150,6 @@ __meta__ = {
 }
 size = Vector3( 4, 1, 4 )
 prototype_data = ExtResource( 6 )
-cell_states = {
-Vector3( 0, 0, 0 ): {
-},
-Vector3( 0, 0, 1 ): {
-},
-Vector3( 0, 0, 2 ): {
-},
-Vector3( 0, 0, 3 ): {
-},
-Vector3( 1, 0, 0 ): {
-},
-Vector3( 1, 0, 1 ): {
-},
-Vector3( 1, 0, 2 ): {
-},
-Vector3( 1, 0, 3 ): {
-},
-Vector3( 2, 0, 0 ): {
-},
-Vector3( 2, 0, 1 ): {
-},
-Vector3( 2, 0, 2 ): {
-},
-Vector3( 2, 0, 3 ): {
-},
-Vector3( 3, 0, 0 ): {
-},
-Vector3( 3, 0, 1 ): {
-},
-Vector3( 3, 0, 2 ): {
-},
-Vector3( 3, 0, 3 ): {
-}
-}
-cell_queue = {
-Vector3( 0, 0, 0 ): [ 9.95363, Vector3( 0, 0, 0 ) ],
-Vector3( 0, 0, 1 ): [ 9.99078, Vector3( 0, 0, 1 ) ],
-Vector3( 0, 0, 2 ): [ 10.0963, Vector3( 0, 0, 2 ) ],
-Vector3( 0, 0, 3 ): [ 10.0757, Vector3( 0, 0, 3 ) ],
-Vector3( 1, 0, 1 ): [ 9.9667, Vector3( 1, 0, 1 ) ],
-Vector3( 1, 0, 2 ): [ 10.0224, Vector3( 1, 0, 2 ) ],
-Vector3( 1, 0, 3 ): [ 10.0928, Vector3( 1, 0, 3 ) ],
-Vector3( 2, 0, 0 ): [ 10.0196, Vector3( 2, 0, 0 ) ],
-Vector3( 2, 0, 1 ): [ 10.064, Vector3( 2, 0, 1 ) ],
-Vector3( 2, 0, 2 ): [ 9.9273, Vector3( 2, 0, 2 ) ],
-Vector3( 2, 0, 3 ): [ 10.0442, Vector3( 2, 0, 3 ) ],
-Vector3( 3, 0, 0 ): [ 10.0132, Vector3( 3, 0, 0 ) ],
-Vector3( 3, 0, 1 ): [ 9.93066, Vector3( 3, 0, 1 ) ],
-Vector3( 3, 0, 2 ): [ 10.0935, Vector3( 3, 0, 2 ) ],
-Vector3( 3, 0, 3 ): [ 10.0203, Vector3( 3, 0, 3 ) ]
-}
-cell_order = [ [ 9.91342, Vector3( 1, 0, 2 ) ], [ 9.92019, Vector3( 3, 0, 0 ) ], [ 9.96975, Vector3( 1, 0, 3 ) ], [ 9.9726, Vector3( 2, 0, 2 ) ], [ 9.98053, Vector3( 3, 0, 1 ) ], [ 10.0038, Vector3( 1, 0, 0 ) ], [ 10.0126, Vector3( 2, 0, 1 ) ], [ 10.0342, Vector3( 0, 0, 0 ) ], [ 10.0408, Vector3( 0, 0, 1 ) ], [ 10.0461, Vector3( 0, 0, 2 ) ], [ 10.0514, Vector3( 0, 0, 3 ) ], [ 10.0596, Vector3( 3, 0, 2 ) ], [ 10.0707, Vector3( 1, 0, 1 ) ], [ 10.078, Vector3( 2, 0, 3 ) ], [ 10.0817, Vector3( 3, 0, 3 ) ], [ 10.0841, Vector3( 2, 0, 0 ) ] ]
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 0.781684, -0.488959, 0.387155, 0, 0.620765, 0.783997, -0.623675, -0.612838, 0.485242, 0, 0, 0 )
