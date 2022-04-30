@@ -2,6 +2,9 @@
 tool
 extends GridMap
 
+const SIBLINGS = "valid_siblings"
+const WEIGHT = "count"
+
 export var size : Vector3 = Vector3(8.0,3.0,8.0) setget set_size
 export var prototype_data : Resource
 export var reset : bool setget set_reset
@@ -9,22 +12,31 @@ export var reset : bool setget set_reset
 export var generate_step : bool setget set_generate_step
 #export var generate_map : bool setget set_generate_map
 
-export var cell_states : Dictionary = {}
+var cell_states : Dictionary = {}
 #var cell_queue : Dictionary = {}
 var stack : Array
 
-export var wave_function : Array  # Grid of modules containing prototypes
 
 var bounds : AABB
+
+
 var siblings_offsets = {
-	Vector3.FORWARD : 'forward',
-	Vector3.RIGHT : 'right',
-	Vector3.BACK : 'back',
 	Vector3.LEFT : 'left',
+	Vector3.RIGHT : 'right',
+	Vector3.FORWARD : 'forward',
+	Vector3.BACK : 'back',
 	Vector3.UP : 'up',
-	Vector3.DOWN : 'down',
+	Vector3.DOWN : 'down'
 }
 
+var siblings_index = {
+	Vector3.LEFT : 2,
+	Vector3.RIGHT : 0,
+	Vector3.FORWARD : 1, # should be 3?
+	Vector3.BACK : 3, # should be 1?
+	Vector3.UP : 4,
+	Vector3.DOWN : 5
+}
 
 class EntropySorter:
 	static func sort_ascending(a, b):
@@ -85,32 +97,18 @@ func set_size(value : Vector3):
 func initialize():
 	clear() #clear the gridmap
 	cell_states = {}
-#	cell_queue = {}
-	initialize_cells()
-	initialize_wave_funtion()
+	initialize_cells(prototype_data.prototypes)
+	#	cell_queue = {}
 #	update_queue()
 	print_debug('cells intialized: %s' % cell_states.size())
 
 
-func initialize_wave_funtion():
-	for _z in range(size.z):
-		var y = []
-		for _y in range(size.y):
-			var x = []
-			for _x in range(size.x):
-				x.append(prototype_data.prototypes.duplicate(true))
-			y.append(x)
-		wave_function.append(y)
-	print_debug('Wave function initialized')
-
-func initialize_cells():
+func initialize_cells(all_prototypes : Dictionary) -> void:
 	for x in range(size.x):
 		for y in range(size.y):
 			for z in range(size.z):
 				var coords = Vector3(x,y,z)
-#				track each unique cell state
-				cell_states[coords] = prototype_data.prototypes.duplicate(true)
-#				cell_queue[coords] = [get_entropy(coords),coords]
+				cell_states[coords] = all_prototypes.duplicate()
 
 
 #func update_queue() -> void:
@@ -122,15 +120,15 @@ func initialize_cells():
 #	return cell_queue.size() == 0
 
 
-func is_collapsed():
+func is_collapsed() -> bool:
 	for item in cell_states:
 		if len(cell_states[item]) > 1:
 			return false
 	return true
 
 
-func iterate():
-	var coords = get_min_entropy_coords()
+func iterate() -> void:
+	var coords := get_min_entropy_coords()
 	print_debug("Iterate cell: %s" % coords)
 	collapse_at(coords)
 	propagate(coords)
@@ -139,9 +137,9 @@ func iterate():
 
 func collapse_at(coords : Vector3):
 	var possible_prototypes = cell_states[coords]
-	var selection_name = weighted_choice(possible_prototypes)
-	var prototype = possible_prototypes[selection_name].duplicate(true)
-	possible_prototypes = {selection_name : prototype}
+	var selection = weighted_choice(possible_prototypes)
+	var prototype = possible_prototypes[selection]
+	possible_prototypes = {selection : prototype}
 	cell_states[coords] = possible_prototypes
 #	cell_queue.erase(coords)
 #	apply cell
@@ -149,15 +147,12 @@ func collapse_at(coords : Vector3):
 	set_cell_item(coords.x,coords.y,coords.z,prototype.cell_index,prototype.cell_orientation)
 
 
-func weighted_choice(prototypes):
+func weighted_choice(prototypes : Dictionary) -> String:
 	var proto_weights = {}
-
 	for p in prototypes:
-		var w = prototypes[p]['count']
+		var w = prototypes[p][WEIGHT]
 		w += rand_range(-1.0, 1.0)
 		proto_weights[w] = p
-		print_debug('weighted_choice: %s = %s' % [p,w])
-
 	var weight_list = proto_weights.keys()
 	weight_list.sort()
 	return proto_weights[weight_list[-1]]
@@ -198,12 +193,12 @@ func get_min_entropy_coords() -> Vector3:
 #		cell_queue[item[1]] = [item[0],item[1]]
 
 
-func get_entropy(coords : Vector3):
+func get_entropy(coords : Vector3) -> int:
 	return len(cell_states[coords])
 
 
-func propagate(co_ords):
-	if co_ords:
+func propagate(co_ords : Vector3) -> void:
+	if co_ords != Vector3.INF:
 		stack.append(co_ords)
 	while len(stack) > 0:
 		var cur_coords = stack.pop_back()
@@ -225,7 +220,7 @@ func propagate(co_ords):
 						stack.append(sibling_coords)
 
 
-func constrain(coords : Vector3, cell_name : String):
+func constrain(coords : Vector3, cell_name : String) -> void:
 	cell_states[coords].erase(cell_name)
 
 
@@ -247,16 +242,16 @@ func get_siblings_offsets(coords) -> Array:
 	return dirs
 
 
-func get_possible_siblings(coordinates : Vector3, direction : Vector3) -> Dictionary:
+func get_possible_siblings(coords : Vector3, direction : Vector3) -> Array:
 	var valid_siblings = []
-	var direction_name = siblings_offsets[direction]
-	var prototypes = get_possibilities(coordinates)
-	for item in prototypes:
-		var item_valid_siblings = prototypes[item]['valid_siblings']
-		var direction_valid_siblings = item_valid_siblings[direction_name]
-		for prototype_name in item_valid_siblings:
-			if not prototype_name in valid_siblings:
-				valid_siblings.append(prototype_name)
+	var direction_index = siblings_offsets[direction]
+	var prototypes = get_possibilities(coords)
+	for prototype in prototypes:
+		var item_valid_siblings = prototypes[prototype][SIBLINGS]
+		var siblings = item_valid_siblings[direction_index]
+		for item in siblings:
+			if not item in valid_siblings:
+				valid_siblings.append(item)
 	return valid_siblings
 
 
