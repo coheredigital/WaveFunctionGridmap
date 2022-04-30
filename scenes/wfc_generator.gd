@@ -49,7 +49,7 @@ func update_prototypes() -> void:
 	print("used cells: %s" % cells.size() )
 
 	var blank_prototype = {
-		'weight' : 0,
+		'weight' : 1,
 		'valid_siblings_dictionary': {
 			'right' : [BLANK_CELL_ID],
 			'forward' : [BLANK_CELL_ID],
@@ -60,8 +60,8 @@ func update_prototypes() -> void:
 		},
 		'cell_index': -1,
 		'cell_orientation': 0,
-		'constrain_to': '',
-		'constrain_from': '',
+		'constrain_to': '-1',
+		'constrain_from': '-1',
 	}
 
 	for cell_coordinates in cells:

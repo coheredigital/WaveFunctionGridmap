@@ -791,7 +791,6 @@ __meta__ = {
 }
 
 [node name="wfc_generator" type="GridMap"]
-visible = false
 mesh_library = SubResource( 49 )
 use_in_baked_light = true
 cell_size = Vector3( 1, 1, 1 )
