@@ -244,7 +244,7 @@ func get_siblings_offsets(coords) -> Array:
 
 func get_possible_siblings(coords : Vector3, direction : Vector3) -> Array:
 	var valid_siblings = []
-	var direction_index = siblings_offsets[direction]
+	var direction_index = siblings_index[direction]
 	var prototypes = get_possibilities(coords)
 	for prototype in prototypes:
 		var item_valid_siblings = prototypes[prototype][SIBLINGS]

@@ -17,4 +17,4 @@ __meta__ = {
 "_editor_clip_": 0,
 "_editor_floor_": Vector3( 0, 0, 0 )
 }
-prototype_data = ExtResource( 2 )
+resource_file = ExtResource( 2 )

@@ -1,6 +1,6 @@
 # WaveFunctionCells
 extends Resource
-class_name WaveFunctionCellsResource
+class_name WaveFunctionCellsResourceNew
 
 const MESH_NAME = "mesh_name"
 const MESH_ROT = "mesh_rotation"
@@ -10,7 +10,7 @@ const CONSTRAIN_TO = "constrain_to"
 const CONSTRAIN_FROM = "constrain_from"
 const CONSTRAINT_BOTTOM = "bot"
 const CONSTRAINT_TOP = "top"
-const WEIGHT = "weight"
+const WEIGHT = "count"
 
 
 const pX = 0

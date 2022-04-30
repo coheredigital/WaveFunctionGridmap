@@ -1,6 +1,7 @@
 # A little test combining Martin Donald's work with WFC with Godots Gridmap
 tool
 extends GridMap
+class_name WaveFunctionDefinitionGenerator
 
 const FILE_NAME = "res://resources/prototypes.json"
 
@@ -47,7 +48,7 @@ func update_prototypes() -> void:
 	print("used cells: %s" % cells.size() )
 
 	var blank_prototype = {
-		'count' : 0,
+		'weight' : 0,
 		'valid_siblings_dictionary': {},
 		'cell_index': -1,
 		'cell_orientation': 0,
@@ -62,7 +63,7 @@ func update_prototypes() -> void:
 
 		if not prototypes.has(cell_id):
 			prototypes[cell_id] = {
-			'count' : 0,
+			'weight' : 0,
 			'valid_siblings_dictionary': {},
 			'cell_index': cell_index,
 			'cell_orientation': cell_orientation,
@@ -70,7 +71,7 @@ func update_prototypes() -> void:
 
 
 		var cell_prototype = prototypes[cell_id]
-		cell_prototype.count += 1
+		cell_prototype.weight += 1
 
 #		check valid nearby cells
 		for offset in siblings_offsets:
