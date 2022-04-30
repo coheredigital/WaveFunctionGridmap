@@ -5,18 +5,15 @@ const DATA_FILE = "res://blender/prototype_data_simple.json"
 const DATA_FILE_NEW = "res://resources/prototypes.json"
 
 export var size = Vector3(3, 4, 8)
-#export var prototype_data : Resource
+export var prototype_data : Resource
 
 onready var gridmap := $GridMap
 var cell_data : WaveFunctionCellsResource
-#var cell_data_new : WaveFunctionCellsResourceNew
 var prototypes : Dictionary
-var prototypes_new : Dictionary
 
 
 func _ready():
 	prototypes = load_prototype_data()
-	prototypes_new = load_prototype_data_new()
 
 	cell_data = WaveFunctionCellsResource.new()
 
@@ -28,23 +25,17 @@ func _input(event):
 		generate()
 
 
+
 func generate():
 	seed(OS.get_unix_time())
 
-	cell_data.initialize(size, prototypes)
-	apply_custom_constraints(cell_data)  # see definition
-
-#	my data structure
-#	cell_data_new = WaveFunctionCellsResourceNew.new()
-#	cell_data_new.initialize(size, prototype_data.prototypes)
-#	cell_data_new.initialize(size, prototypes_new)
+	var data = get_cell_data()
 
 	gridmap.clear()
-	while not cell_data.is_collapsed():
-
+	while not data.is_collapsed():
 
 		yield(get_tree(), "idle_frame")
-		var result = cell_data.step_collapse()
+		var result = data.step_collapse()
 
 #		render_gridmap(cell_data)
 		var coords : Vector3 = result.coords
@@ -53,13 +44,17 @@ func generate():
 #		yield(cell_data, "cell_collapsed")
 #		render_cell(coords, cell_index,cell_orientation)
 
-		render_gridmap(cell_data)
+		render_gridmap(data)
 
-	if cell_data.is_collapsed():
+	if data.is_collapsed():
 		print('Cells collapsed')
 
 
-
+func get_cell_data():
+#	cell_data.initialize(size, prototype_data.prototypes)
+	cell_data.initialize(size, prototypes)
+#	apply_custom_constraints(cell_data)
+	return cell_data
 
 
 func render_gridmap(data : WaveFunctionCellsResource):
@@ -148,18 +143,11 @@ func apply_custom_constraints(wfc : WaveFunctionCellsResource):
 
 func load_prototype_data():
 	var file = File.new()
-	file.open(DATA_FILE, file.READ)
-	var text = file.get_as_text()
-	var prototypes = JSON.parse(text).result
-	return prototypes
-
-
-func load_prototype_data_new():
-	var file = File.new()
 	file.open(DATA_FILE_NEW, file.READ)
 	var text = file.get_as_text()
 	var prototypes = JSON.parse(text).result
 	return prototypes
+
 
 
 func generate_gridmap(wfc : WaveFunctionCellsResource):

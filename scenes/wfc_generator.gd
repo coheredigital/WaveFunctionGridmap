@@ -1,9 +1,10 @@
 # A little test combining Martin Donald's work with WFC with Godots Gridmap
 tool
 extends GridMap
-class_name WaveFunctionDefinitionGenerator
+class_name WaveFunctionDefinitionGridMap
 
 const FILE_NAME = "res://resources/prototypes.json"
+const BLANK_CELL_ID = "-1_-1"
 
 export var clear_canvas : bool setget set_clear_canvas
 export var resource_file : Resource
@@ -49,12 +50,30 @@ func update_prototypes() -> void:
 
 	var blank_prototype = {
 		'weight' : 0,
-		'valid_siblings_dictionary': {},
+		'valid_siblings_dictionary': {
+			'right' : [BLANK_CELL_ID],
+			'forward' : [BLANK_CELL_ID],
+			'left': [BLANK_CELL_ID],
+			'back': [BLANK_CELL_ID],
+			'up': [BLANK_CELL_ID],
+			'down': [BLANK_CELL_ID]
+		},
 		'cell_index': -1,
 		'cell_orientation': 0,
+		'constrain_to': '',
+		'constrain_from': '',
 	}
 
 	for cell_coordinates in cells:
+
+		var contrain_to = 'bot'
+		var contrain_from = 'bot'
+
+		if cell_coordinates.y != 0.0:
+			contrain_to = ''
+
+		if cell_coordinates.y == 0.0:
+			contrain_from = ''
 
 		var cell_index := get_cell_item(cell_coordinates.x,cell_coordinates.y,cell_coordinates.z)
 		var cell_orientation := get_cell_item_orientation(cell_coordinates.x,cell_coordinates.y,cell_coordinates.z)
@@ -67,7 +86,10 @@ func update_prototypes() -> void:
 			'valid_siblings_dictionary': {},
 			'cell_index': cell_index,
 			'cell_orientation': cell_orientation,
+			'constrain_to': contrain_to,
+			'constrain_from': contrain_from,
 		}
+
 
 
 		var cell_prototype = prototypes[cell_id]
@@ -118,12 +140,10 @@ func update_prototypes() -> void:
 			var direction_name = siblings_offsets[direction]
 			prototypes[prototype].valid_siblings.append(siblings_copy[direction_name])
 
-#	unset dictionary
-	 prototypes[prototype].erase('valid_siblings_dictionary')
+#		unset dictionary
+		prototypes[prototype].erase('valid_siblings_dictionary')
 
-#	save
-	resource_file.prototypes = prototypes
-	save_json()
+
 
 func save_json() -> void:
 	var file = File.new()
@@ -142,4 +162,6 @@ func set_export_definitions(value : bool) -> void:
 		return
 	print('Update Protypes')
 	update_prototypes()
-
+#	save
+	resource_file.prototypes = prototypes
+	save_json()
