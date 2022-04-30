@@ -37,11 +37,13 @@ func generate():
 #	cell_data_new.initialize(size, prototype_data.prototypes)
 	cell_data_new.initialize(size, prototypes_new)
 
-	clear_meshes()
+
+	gridmap.clear()
 	while not cell_data.is_collapsed():
 		cell_data.iterate()
+		print('gridmap')
 		yield(get_tree(), "idle_frame")
-		visualize_wave_function(cell_data)
+		generate_gridmap(cell_data)
 
 #	gridmap.clear()
 #	while not cell_data_new.is_collapsed():
@@ -141,7 +143,7 @@ func load_prototype_data_new():
 	return prototypes
 
 
-func visualize_wave_function(wfc : WaveFunctionCellsResource):
+func generate_gridmap(wfc : WaveFunctionCellsResource):
 	for coords in wfc.cell_states:
 
 		var prototypes = wfc.cell_states[coords]
@@ -151,34 +153,12 @@ func visualize_wave_function(wfc : WaveFunctionCellsResource):
 
 		for prototype in prototypes:
 			var dict = wfc.cell_states[coords][prototype]
-			var mesh_rot = dict[wfc.MESH_ROT]
-			var mesh_index = dict[wfc.MESH_INDEX]
-
-			if mesh_index == -1:
-				continue
-
-			var cell_orientation = Basis(Vector3.UP,(PI/2) * mesh_rot).get_orthogonal_index()
-
-			print('orientation: %s -> %s' % [mesh_rot,cell_orientation])
-			gridmap.set_cell_item(coords.x,coords.y,coords.z,mesh_index, cell_orientation)
-
-
-func generate_gridmap(wfc : WaveFunctionCellsResourceNew):
-	for coords in wfc.cell_states:
-
-		var prototypes = wfc.cell_states[coords]
-
-		if len(prototypes) > 1:
-			continue
-
-		for prototype in prototypes:
-			var dict = wfc.cell_states[coords][prototype]
-			var mesh_index = dict['cell_index']
-			if mesh_index == -1:
+			var cell_index = dict['cell_index']
+			if cell_index == -1:
 				continue
 
 			var cell_orientation = dict['cell_orientation']
-			gridmap.set_cell_item(coords.x,coords.y,coords.z,mesh_index, cell_orientation)
+			gridmap.set_cell_item(coords.x, coords.y, coords.z, cell_index, cell_orientation)
 
 func clear_meshes():
 	gridmap.clear()
