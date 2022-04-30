@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://meshes/simple.meshlib" type="MeshLibrary" id=1]
+[ext_resource path="res://blender/wfc_simple.meshlib" type="MeshLibrary" id=1]
 [ext_resource path="res://scenes/wfc_generator.gd" type="Script" id=2]
 [ext_resource path="res://resources/wfc_prototype_simple.tres" type="Resource" id=3]
 

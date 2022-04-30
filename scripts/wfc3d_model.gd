@@ -1,9 +1,11 @@
 extends Node
 class_name WFC3D_Model
 
+
 const MESH_NAME = "mesh_name"
 const MESH_ROT = "mesh_rotation"
-const NEIGHBOURS = "valid_neighbours"
+const MESH_INDEX = "gridmap_index"
+const SIBLINGS = "valid_neighbours"
 const CONSTRAIN_TO = "constrain_to"
 const CONSTRAIN_FROM = "constrain_from"
 const CONSTRAINT_BOTTOM = "bot"
@@ -18,7 +20,8 @@ const nY = 3
 const pZ = 4
 const nZ = 5
 
-var direction_to_index = {
+
+var siblings_offsets = {
 	Vector3.LEFT : 2,
 	Vector3.RIGHT : 0,
 	Vector3.FORWARD : 1, # should be 3?
@@ -27,63 +30,59 @@ var direction_to_index = {
 	Vector3.DOWN : 5
 }
 
-var wave_function : Array  # Grid of modules containing prototypes
+var cell_states : Dictionary = {}
+var cell_queue : Dictionary = {}
 var size : Vector3
 var stack : Array
 
 
 func initialize(new_size : Vector3, all_prototypes : Dictionary):
 	size = new_size
-
-	for _z in range(size.z):
-		var y = []
-		for _y in range(size.y):
-			var x = []
-			for _x in range(size.x):
-				x.append(all_prototypes.duplicate())
-			y.append(x)
-		wave_function.append(y)
+	initialize_cells(all_prototypes)
+	print_debug('Wave function initialized')
 
 
-func is_collapsed():
-	for z in wave_function:
-		for y in z:
-			for x in y:
-				if len(x) > 1:
-					return false
+func initialize_cells(all_prototypes : Dictionary) -> void:
+	for x in range(size.x):
+		for y in range(size.y):
+			for z in range(size.z):
+				var coords = Vector3(x,y,z)
+				cell_states[coords] = all_prototypes.duplicate()
+
+
+func is_collapsed() -> bool:
+	for item in cell_states:
+		if len(cell_states[item]) > 1:
+			return false
 	return true
 
 
-func get_possibilities(coords : Vector3):
-	return wave_function[coords.z][coords.y][coords.x]
+func get_possibilities(coords : Vector3) -> Array:
+	return cell_states[coords]
 
 
-func get_possible_neighbours(coords : Vector3, dir : Vector3):
-	var valid_neighbours = []
+func get_possible_siblings(coords : Vector3, direction : Vector3) -> Array:
+	var valid_siblings = []
+	var direction_index = siblings_offsets[direction]
 	var prototypes = get_possibilities(coords)
-	var dir_idx = direction_to_index[dir]
 	for prototype in prototypes:
-		var neighbours = prototypes[prototype][NEIGHBOURS][dir_idx]
-		for n in neighbours:
-			if not n in valid_neighbours:
-				valid_neighbours.append(n)
-	return valid_neighbours
-
-
-func collapse_coords_to(coords : Vector3, prototype_name : String):
-	var prototype = wave_function[coords.z][coords.y][coords.x][prototype_name]
-	wave_function[coords.z][coords.y][coords.x] = {prototype_name : prototype}
+		var item_valid_siblings = prototypes[prototype][SIBLINGS]
+		var siblings = item_valid_siblings[direction_index]
+		for item in siblings:
+			if not item in valid_siblings:
+				valid_siblings.append(item)
+	return valid_siblings
 
 
 func collapse_at(coords : Vector3):
-	var possible_prototypes = wave_function[coords.z][coords.y][coords.x]
+	var possible_prototypes = cell_states[coords]
 	var selection = weighted_choice(possible_prototypes)
 	var prototype = possible_prototypes[selection]
 	possible_prototypes = {selection : prototype}
-	wave_function[coords.z][coords.y][coords.x] = possible_prototypes
+	cell_states[coords] = possible_prototypes
 
 
-func weighted_choice(prototypes):
+func weighted_choice(prototypes : Dictionary) -> String:
 	var proto_weights = {}
 	for p in prototypes:
 		var w = prototypes[p][WEIGHT]
@@ -94,70 +93,59 @@ func weighted_choice(prototypes):
 	return proto_weights[weight_list[-1]]
 
 
-func collapse():
-	var coords = get_min_entropy_coords()
-	collapse_at(coords)
+func constrain(coords : Vector3, cell_name : String) -> void:
+	cell_states[coords].erase(cell_name)
 
 
-func constrain(coords : Vector3, prototype_name : String):
-	wave_function[coords.z][coords.y][coords.x].erase(prototype_name)
+func get_entropy(coords : Vector3) -> int:
+	return len(cell_states[coords])
 
 
-func get_entropy(coords : Vector3):
-	return len(wave_function[coords.z][coords.y][coords.x])
-
-
-func get_min_entropy_coords():
-	var min_entropy
+func get_min_entropy_coords() -> Vector3:
+	var min_entropy = 1000.0
 	var coords
-	for z in range(size.z):
-		for y in range(size.y):
-			for x in range(size.z):
-				var entropy = get_entropy(Vector3(x, y, z))
-				if entropy > 1:
-					entropy += rand_range(-0.1, 0.1)
 
-					if not min_entropy:
-						min_entropy = entropy
-						coords = Vector3(x, y, z)
-					elif entropy < min_entropy:
-						min_entropy = entropy
-						coords = Vector3(x, y, z)
+	for cell_coords in cell_states:
+		var entropy = get_entropy(cell_coords)
+		if entropy > 1:
+			entropy += rand_range(-0.1, 0.1)
+			if entropy < min_entropy:
+				min_entropy = entropy
+				coords = cell_coords
+
 	return coords
 
 
-func iterate():
-	var coords = get_min_entropy_coords()
+func iterate() -> void:
+	var coords := get_min_entropy_coords()
 	collapse_at(coords)
 	propagate(coords)
 
 
-func propagate(co_ords, single_iteration=false):
-	if co_ords:
+func propagate(co_ords : Vector3) -> void:
+	if co_ords != Vector3.INF:
 		stack.append(co_ords)
 	while len(stack) > 0:
 		var cur_coords = stack.pop_back()
+		var sibling_offsets := get_siblings_offsets(cur_coords)
 
 		# Iterate over each adjacent cell to this one
-		for d in valid_dirs(cur_coords):
+		for direction in sibling_offsets:
+			var sibling_coords = (cur_coords + direction)
+			var possible_siblings = get_possible_siblings(cur_coords, direction)
+			var sibling_possible_prototypes = get_possibilities(sibling_coords).duplicate()
 
-			var other_coords = (cur_coords + d)
-			var possible_neighbours = get_possible_neighbours(cur_coords, d)
-			var other_possible_prototypes = get_possibilities(other_coords).duplicate()
-
-			if len(other_possible_prototypes) == 0:
+			if len(sibling_possible_prototypes) == 0:
 				continue
 
-			for other_prototype in other_possible_prototypes:
-				if not other_prototype in possible_neighbours:
-					constrain(other_coords, other_prototype)
-					if not other_coords in stack:
-						stack.append(other_coords)
-		if single_iteration:
-			break
+			for sibling_possible_prototype in sibling_possible_prototypes:
+				if not sibling_possible_prototype in possible_siblings:
+					constrain(sibling_coords, sibling_possible_prototype)
+					if not sibling_coords in stack:
+						stack.append(sibling_coords)
 
 
-func valid_dirs(coords):
+func get_siblings_offsets(coords) -> Array:
 	var x = coords.x
 	var y = coords.y
 	var z = coords.z

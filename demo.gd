@@ -1,7 +1,7 @@
 extends Spatial
 
 
-onready var gridmap := $wfc_gridmap
+onready var gridmap := $Gridmap
 
 
 func _on_ButtonClear_pressed():

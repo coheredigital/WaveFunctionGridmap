@@ -1,1 +1,0 @@
-{"name":"wfc_floor","points":[{"name":"Origin","pos":{"x":0,"y":0,"z":0}}],"billboard":{"enabled":false,"y":false},"custom":[],"instances":[{"name":"wfc_floor","uuid":"5F250F79-D8AA-4AE7-9BF4-D1B30050A354","parent":null,"pos":{"x":0,"y":0,"z":4},"rot":{"x":0,"y":0,"z":0,"order":"XYZ"},"sca":{"x":1,"y":1,"z":1},"custom":[]}]}

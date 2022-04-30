@@ -10,9 +10,9 @@ export var prototype_data : Resource
 export var reset : bool setget set_reset
 #export var refresh_queue : bool setget set_refresh_queue
 export var generate_step : bool setget set_generate_step
-#export var generate_map : bool setget set_generate_map
+export var generate_map : bool setget set_generate_map
 
-var cell_states : Dictionary = {}
+export var cell_states : Dictionary = {}
 #var cell_queue : Dictionary = {}
 var stack : Array
 
@@ -66,11 +66,11 @@ func set_generate_step(value):
 #	update_queue()
 
 
-#func set_generate_map(value):
-#	if not value:
-#		return
-#	print('Generate map!')
-#	generate()
+func set_generate_map(value):
+	if not value:
+		return
+	print('Generate map!')
+	generate()
 
 
 func generate():
