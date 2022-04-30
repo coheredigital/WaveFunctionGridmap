@@ -2,7 +2,7 @@ extends Node
 
 
 const unit_size = Vector3(1.0, 1.0, 1.0)
-const DATA_FILE = "res://prototype_data_simple.json"
+const DATA_FILE = "res://blender/prototype_data_simple.json"
 
 export var size = Vector3(3, 4, 8)
 
@@ -98,7 +98,6 @@ func apply_custom_constraints():
 					protos.erase(proto)
 					if not coords in wfc.stack:
 						wfc.stack.append(coords)
-
 
 	wfc.propagate(Vector3.INF)
 
