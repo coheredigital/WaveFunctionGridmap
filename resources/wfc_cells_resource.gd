@@ -15,19 +15,19 @@ const CONSTRAINT_TOP = "top"
 const WEIGHT = "weight"
 
 
-const pX = 0
-const pY = 1
 const nX = 2
+const pX = 0
 const nY = 3
-const pZ = 4
+const pY = 1
 const nZ = 5
+const pZ = 4
 
 
 var siblings_offsets = {
 	Vector3.LEFT : 2,
 	Vector3.RIGHT : 0,
-	Vector3.FORWARD : 1, # should be 3?
 	Vector3.BACK : 3, # should be 1?
+	Vector3.FORWARD : 1, # should be 3?
 	Vector3.UP : 4,
 	Vector3.DOWN : 5
 }
