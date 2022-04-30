@@ -9,9 +9,11 @@ export var refresh_queue : bool setget set_refresh_queue
 export var generate_step : bool setget set_generate_step
 #export var generate_map : bool setget set_generate_map
 
-var cell_states : Dictionary = {}
+export var cell_states : Dictionary = {}
 var cell_queue : Dictionary = {}
 var stack : Array
+
+export var wave_function : Array  # Grid of modules containing prototypes
 
 var bounds : AABB
 var siblings_offsets = {
@@ -60,11 +62,13 @@ func set_refresh_queue(value):
 
 
 func generate():
+
 	initialize()
 	seed(OS.get_unix_time())
 	while not is_collapsed():
 		iterate()
 		yield(get_tree(), "idle_frame")
+
 
 
 func set_reset(value):
@@ -83,9 +87,21 @@ func initialize():
 	cell_states = {}
 	cell_queue = {}
 	initialize_cells()
+	initialize_wave_funtion()
 	update_queue()
 	print_debug('cells intialized: %s' % cell_states.size())
 
+
+func initialize_wave_funtion():
+	for _z in range(size.z):
+		var y = []
+		for _y in range(size.y):
+			var x = []
+			for _x in range(size.x):
+				x.append(prototype_data.prototypes.duplicate(true))
+			y.append(x)
+		wave_function.append(y)
+	print_debug('Wave function initialized')
 
 func initialize_cells():
 	for x in range(size.x):
@@ -114,7 +130,8 @@ func iterate():
 	print_debug("Iterate cell: %s" % coords)
 	collapse_at(coords)
 	propagate(coords)
-	update_queue()
+#	update_queue()
+
 
 func collapse_at(coords : Vector3):
 	var possible_prototypes = cell_states[coords]
@@ -195,6 +212,8 @@ func constrain(coords : Vector3, cell_name : String):
 #	print_debug('constrain at: %s = %s' % [coords, cell_name])
 	cell_states[coords].erase(cell_name)
 
+#func constrain(coords : Vector3, prototype_name : String):
+#	wave_function[coords.z][coords.y][coords.x].erase(prototype_name)
 
 func get_siblings_offsets(coords) -> Array:
 	var x = coords.x
@@ -220,8 +239,6 @@ func get_possible_siblings(coordinates : Vector3, direction : Vector3) -> Dictio
 	var prototypes = get_possibilities(coordinates)
 	for item in prototypes:
 		var item_valid_siblings = prototypes[item]['valid_siblings']
-		if item_valid_siblings.size() == 0:
-			return valid_siblings
 		var direction_valid_siblings = item_valid_siblings[direction_name]
 		for prototype_name in item_valid_siblings:
 			if not prototype_name in valid_siblings:
@@ -231,5 +248,5 @@ func get_possible_siblings(coordinates : Vector3, direction : Vector3) -> Dictio
 
 func get_possibilities(coords : Vector3):
 #	print_debug('get_possibilities at: %s' % coords)
-	return cell_states[coords]
+	return cell_states[coords].duplicate(true)
 
