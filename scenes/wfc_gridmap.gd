@@ -5,12 +5,12 @@ extends GridMap
 export var size : Vector3 = Vector3(8.0,3.0,8.0) setget set_size
 export var prototype_data : Resource
 export var reset : bool setget set_reset
-export var refresh_queue : bool setget set_refresh_queue
+#export var refresh_queue : bool setget set_refresh_queue
 export var generate_step : bool setget set_generate_step
 #export var generate_map : bool setget set_generate_map
 
 export var cell_states : Dictionary = {}
-var cell_queue : Dictionary = {}
+#var cell_queue : Dictionary = {}
 var stack : Array
 
 export var wave_function : Array  # Grid of modules containing prototypes
@@ -47,11 +47,11 @@ func set_generate_step(value):
 		return
 	iterate()
 
-
-func set_refresh_queue(value):
-	if not value:
-		return
-	update_queue()
+#
+#func set_refresh_queue(value):
+#	if not value:
+#		return
+#	update_queue()
 
 
 #func set_generate_map(value):
@@ -85,10 +85,10 @@ func set_size(value : Vector3):
 func initialize():
 	clear() #clear the gridmap
 	cell_states = {}
-	cell_queue = {}
+#	cell_queue = {}
 	initialize_cells()
 	initialize_wave_funtion()
-	update_queue()
+#	update_queue()
 	print_debug('cells intialized: %s' % cell_states.size())
 
 
@@ -110,19 +110,23 @@ func initialize_cells():
 				var coords = Vector3(x,y,z)
 #				track each unique cell state
 				cell_states[coords] = prototype_data.prototypes.duplicate(true)
-				cell_queue[coords] = [get_entropy(coords),coords]
+#				cell_queue[coords] = [get_entropy(coords),coords]
 
 
-func update_queue() -> void:
-#	cell_order = []
-	for coords in cell_queue:
-		cell_queue[coords] = [get_entropy(coords),coords]
-#		cell_order.append([get_entropy(coords),coords])
-	sort_queue()
+#func update_queue() -> void:
+#	for coords in cell_queue:
+#		cell_queue[coords] = [get_entropy(coords),coords]
+#	sort_queue()
+
+#func is_collapsed() -> bool:
+#	return cell_queue.size() == 0
 
 
-func is_collapsed() -> bool:
-	return cell_queue.size() == 0
+func is_collapsed():
+	for item in cell_states:
+		if len(cell_states[item]) > 1:
+			return false
+	return true
 
 
 func iterate():
@@ -139,9 +143,9 @@ func collapse_at(coords : Vector3):
 	var prototype = possible_prototypes[selection_name].duplicate(true)
 	possible_prototypes = {selection_name : prototype}
 	cell_states[coords] = possible_prototypes
-	cell_queue.erase(coords)
+#	cell_queue.erase(coords)
 #	apply cell
-	print_debug('collapsed coord: %s' % coords)
+#	print_debug('collapsed coord: %s' % coords)
 	set_cell_item(coords.x,coords.y,coords.z,prototype.cell_index,prototype.cell_orientation)
 
 
@@ -159,24 +163,39 @@ func weighted_choice(prototypes):
 	return proto_weights[weight_list[-1]]
 
 
+#func get_min_entropy_coords() -> Vector3:
+##	var queued_cell : Array = cell_queue.values().pop_front()
+#	var queue_entropy : float = queued_cell[0]
+#	var queue_coords : Vector3 = queued_cell[1]
+#	print('queued: %s entropy: %s'  % [queue_coords, queue_entropy])
+#	return queue_coords
+
+
 func get_min_entropy_coords() -> Vector3:
-	var queued_cell : Array = cell_queue.values().pop_front()
-	var queue_entropy : float = queued_cell[0]
-	var queue_coords : Vector3 = queued_cell[1]
-	print('queued: %s entropy: %s'  % [queue_coords, queue_entropy])
-	return queue_coords
+	var min_entropy = 1000.0
+	var coords
+
+	for cell_coords in cell_states:
+		var entropy = get_entropy(cell_coords)
+		if entropy > 1:
+			entropy += rand_range(-0.1, 0.1)
+			if entropy < min_entropy:
+				min_entropy = entropy
+				coords = cell_coords
+
+	return coords
 
 
-func sort_queue():
-	print_debug('Sort queue')
-	var entropy_array = cell_queue.values()
-	entropy_array.sort_custom(EntropySorter, "sort_ascending")
-#	cell_order.sort_custom(EntropySorter, "sort_ascending")
-#	reset queue order
-#	TODO: consider using a sorted array, may be easier
-	cell_queue = {}
-	for item in entropy_array:
-		cell_queue[item[1]] = [item[0],item[1]]
+#func sort_queue():
+#	print_debug('Sort queue')
+#	var entropy_array = cell_queue.values()
+#	entropy_array.sort_custom(EntropySorter, "sort_ascending")
+##	cell_order.sort_custom(EntropySorter, "sort_ascending")
+##	reset queue order
+##	TODO: consider using a sorted array, may be easier
+#	cell_queue = {}
+#	for item in entropy_array:
+#		cell_queue[item[1]] = [item[0],item[1]]
 
 
 func get_entropy(coords : Vector3):
