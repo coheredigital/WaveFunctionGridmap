@@ -19,7 +19,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://resources/wfc_cells_resource.gd"
 }, {
-"base": "WaveFunctionCellsResource",
+"base": "Resource",
 "class": "WaveFunctionCellsResourceNew",
 "language": "GDScript",
 "path": "res://resources/wfc_cells_resource_new.gd"

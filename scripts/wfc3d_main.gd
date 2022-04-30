@@ -1,16 +1,15 @@
 extends Node
 
 
-const unit_size = Vector3(1.0, 1.0, 1.0)
 const DATA_FILE = "res://blender/prototype_data_simple.json"
 const DATA_FILE_NEW = "res://resources/prototypes.json"
 
 export var size = Vector3(3, 4, 8)
-export var prototype_data : Resource
+#export var prototype_data : Resource
 
 onready var gridmap := $GridMap
 var cell_data : WaveFunctionCellsResource
-var cell_data_new : WaveFunctionCellsResourceNew
+#var cell_data_new : WaveFunctionCellsResourceNew
 var prototypes : Dictionary
 var prototypes_new : Dictionary
 
@@ -18,6 +17,10 @@ var prototypes_new : Dictionary
 func _ready():
 	prototypes = load_prototype_data()
 	prototypes_new = load_prototype_data_new()
+
+	cell_data = WaveFunctionCellsResource.new()
+
+#	cell_data.connect("cell_collapsed" , self, "_on_cell_collapsed")
 
 
 func _input(event):
@@ -28,29 +31,45 @@ func _input(event):
 func generate():
 	seed(OS.get_unix_time())
 
-	cell_data = WaveFunctionCellsResource.new()
 	cell_data.initialize(size, prototypes)
 	apply_custom_constraints(cell_data)  # see definition
 
 #	my data structure
-	cell_data_new = WaveFunctionCellsResourceNew.new()
+#	cell_data_new = WaveFunctionCellsResourceNew.new()
 #	cell_data_new.initialize(size, prototype_data.prototypes)
-	cell_data_new.initialize(size, prototypes_new)
-
+#	cell_data_new.initialize(size, prototypes_new)
 
 	gridmap.clear()
 	while not cell_data.is_collapsed():
-		cell_data.iterate()
-		print('gridmap')
-		yield(get_tree(), "idle_frame")
-		generate_gridmap(cell_data)
 
-#	gridmap.clear()
-#	while not cell_data_new.is_collapsed():
-#		cell_data_new.iterate()
-#		print('gridmap')
-#		yield(get_tree(), "idle_frame")
-#		generate_gridmap(cell_data_new)
+
+		yield(get_tree(), "idle_frame")
+		var result = cell_data.step_collapse()
+
+#		render_gridmap(cell_data)
+		var coords : Vector3 = result.coords
+		var cell_index : int = result.prototype.cell_index
+		var cell_orientation : int = result.prototype.cell_orientation
+#		yield(cell_data, "cell_collapsed")
+#		render_cell(coords, cell_index,cell_orientation)
+
+		render_gridmap(cell_data)
+
+	if cell_data.is_collapsed():
+		print('Cells collapsed')
+
+
+
+
+
+func render_gridmap(data : WaveFunctionCellsResource):
+
+	generate_gridmap(data)
+
+
+func render_cell(coords : Vector3, cell_index: int,cell_orientation : int):
+	gridmap.set_cell_item(coords.x, coords.y, coords.z, cell_index, cell_orientation)
+
 
 
 func apply_custom_constraints(wfc : WaveFunctionCellsResource):
@@ -158,7 +177,12 @@ func generate_gridmap(wfc : WaveFunctionCellsResource):
 				continue
 
 			var cell_orientation = dict['cell_orientation']
-			gridmap.set_cell_item(coords.x, coords.y, coords.z, cell_index, cell_orientation)
+			render_cell(coords, cell_index, cell_orientation)
+
+
+func _on_cell_collapsed(coords : Vector3, cell_index: int, cell_orientation : int) -> void:
+	render_cell(coords, cell_index, cell_orientation)
+
 
 func clear_meshes():
 	gridmap.clear()

@@ -2,6 +2,8 @@
 extends Resource
 class_name WaveFunctionCellsResource
 
+signal cell_collapsed(coors, cell_index, cell_orientation)
+
 const MESH_NAME = "mesh_name"
 const MESH_ROT = "mesh_rotation"
 const MESH_INDEX = "gridmap_index"
@@ -74,13 +76,13 @@ func get_possible_siblings(coords : Vector3, direction : Vector3) -> Array:
 	return valid_siblings
 
 
-func collapse_at(coords : Vector3):
+func collapse_at(coords : Vector3) -> Dictionary:
 	var possible_prototypes = cell_states[coords]
 	var selection = weighted_choice(possible_prototypes)
 	var prototype = possible_prototypes[selection]
 	possible_prototypes = {selection : prototype}
 	cell_states[coords] = possible_prototypes
-
+	return prototype
 
 func weighted_choice(prototypes : Dictionary) -> String:
 	var proto_weights = {}
@@ -116,11 +118,15 @@ func get_min_entropy_coords() -> Vector3:
 	return coords
 
 
-func iterate() -> void:
+func step_collapse() -> Dictionary:
 	var coords := get_min_entropy_coords()
-	collapse_at(coords)
+	var prototype := collapse_at(coords)
 	propagate(coords)
-
+#	emit_signal("cell_collapsed", coords, prototype.cell_index, prototype.cell_orientation)
+	return {
+		'coords' : coords,
+		'prototype' : prototype,
+	}
 
 func propagate(co_ords : Vector3) -> void:
 	if co_ords != Vector3.INF:

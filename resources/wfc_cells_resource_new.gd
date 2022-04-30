@@ -1,7 +1,39 @@
 # WaveFunctionCells
-extends WaveFunctionCellsResource
+extends Resource
 class_name WaveFunctionCellsResourceNew
 
+const MESH_NAME = "mesh_name"
+const MESH_ROT = "mesh_rotation"
+const MESH_INDEX = "gridmap_index"
+const SIBLINGS = "valid_siblings"
+const CONSTRAIN_TO = "constrain_to"
+const CONSTRAIN_FROM = "constrain_from"
+const CONSTRAINT_BOTTOM = "bot"
+const CONSTRAINT_TOP = "top"
+const WEIGHT = "weight"
+
+
+const pX = 0
+const pY = 1
+const nX = 2
+const nY = 3
+const pZ = 4
+const nZ = 5
+
+
+var siblings_offsets = {
+	Vector3.LEFT : 2,
+	Vector3.RIGHT : 0,
+	Vector3.FORWARD : 1, # should be 3?
+	Vector3.BACK : 3, # should be 1?
+	Vector3.UP : 4,
+	Vector3.DOWN : 5
+}
+
+var cell_states : Dictionary = {}
+var cell_queue : Dictionary = {}
+var size : Vector3
+var stack : Array
 
 func initialize(new_size : Vector3, all_prototypes : Dictionary):
 	size = new_size
@@ -83,7 +115,7 @@ func get_min_entropy_coords() -> Vector3:
 	return coords
 
 
-func iterate() -> void:
+func step_collapse() -> void:
 	var coords := get_min_entropy_coords()
 	collapse_at(coords)
 	propagate(coords)

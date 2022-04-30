@@ -1,8 +1,6 @@
 {
     "p0": {
-        "mesh_name": "wfc_module_0",
         "cell_index": 0,
-        "mesh_rotation": 0,
         "cell_orientation": 0,
         "constrain_to": "",
         "constrain_from": "",
@@ -93,9 +91,7 @@
         ]
     },
     "p1": {
-        "mesh_name": "wfc_module_0",
         "cell_index": 0,
-        "mesh_rotation": 1,
         "cell_orientation": 16,
         "constrain_to": "",
         "constrain_from": "",
@@ -186,9 +182,7 @@
         ]
     },
     "p2": {
-        "mesh_name": "wfc_module_0",
         "cell_index": 0,
-        "mesh_rotation": 2,
         "cell_orientation": 10,
         "constrain_to": "",
         "constrain_from": "",
@@ -279,9 +273,7 @@
         ]
     },
     "p3": {
-        "mesh_name": "wfc_module_0",
         "cell_index": 0,
-        "mesh_rotation": 3,
         "cell_orientation": 22,
         "constrain_to": "",
         "constrain_from": "",
@@ -372,9 +364,7 @@
         ]
     },
     "p4": {
-        "mesh_name": "wfc_module_1",
         "cell_index": 1,
-        "mesh_rotation": 0,
         "cell_orientation": 0,
         "constrain_to": "bot",
         "constrain_from": "",
@@ -425,9 +415,7 @@
         ]
     },
     "p5": {
-        "mesh_name": "wfc_module_1",
         "cell_index": 1,
-        "mesh_rotation": 1,
         "cell_orientation": 16,
         "constrain_to": "bot",
         "constrain_from": "",
@@ -478,9 +466,7 @@
         ]
     },
     "p6": {
-        "mesh_name": "wfc_module_1",
         "cell_index": 1,
-        "mesh_rotation": 2,
         "cell_orientation": 10,
         "constrain_to": "bot",
         "constrain_from": "",
@@ -531,9 +517,7 @@
         ]
     },
     "p7": {
-        "mesh_name": "wfc_module_1",
         "cell_index": 1,
-        "mesh_rotation": 3,
         "cell_orientation": 22,
         "constrain_to": "bot",
         "constrain_from": "",
@@ -584,9 +568,7 @@
         ]
     },
     "p8": {
-        "mesh_name": "wfc_module_2",
         "cell_index": 2,
-        "mesh_rotation": 0,
         "cell_orientation": 0,
         "constrain_to": "bot",
         "constrain_from": "",
@@ -621,9 +603,7 @@
         ]
     },
     "p9": {
-        "mesh_name": "wfc_module_2",
         "cell_index": 2,
-        "mesh_rotation": 1,
         "cell_orientation": 16,
         "constrain_to": "bot",
         "constrain_from": "",
@@ -658,9 +638,7 @@
         ]
     },
     "p10": {
-        "mesh_name": "wfc_module_2",
         "cell_index": 2,
-        "mesh_rotation": 2,
         "cell_orientation": 10,
         "constrain_to": "bot",
         "constrain_from": "",
@@ -695,9 +673,7 @@
         ]
     },
     "p11": {
-        "mesh_name": "wfc_module_2",
         "cell_index": 2,
-        "mesh_rotation": 3,
         "cell_orientation": 22,
         "constrain_to": "bot",
         "constrain_from": "",
@@ -732,9 +708,7 @@
         ]
     },
     "p12": {
-        "mesh_name": "wfc_module_3",
         "cell_index": 3,
-        "mesh_rotation": 0,
         "cell_orientation": 0,
         "constrain_to": "bot",
         "constrain_from": "",
@@ -801,9 +775,7 @@
         ]
     },
     "p13": {
-        "mesh_name": "wfc_module_3",
         "cell_index": 3,
-        "mesh_rotation": 1,
         "cell_orientation": 16,
         "constrain_to": "bot",
         "constrain_from": "",
@@ -870,9 +842,7 @@
         ]
     },
     "p14": {
-        "mesh_name": "wfc_module_3",
         "cell_index": 3,
-        "mesh_rotation": 2,
         "cell_orientation": 10,
         "constrain_to": "bot",
         "constrain_from": "",
@@ -939,9 +909,7 @@
         ]
     },
     "p15": {
-        "mesh_name": "wfc_module_3",
         "cell_index": 3,
-        "mesh_rotation": 3,
         "cell_orientation": 22,
         "constrain_to": "bot",
         "constrain_from": "",
@@ -1008,9 +976,7 @@
         ]
     },
     "p16": {
-        "mesh_name": "wfc_module_4",
         "cell_index": 4,
-        "mesh_rotation": 0,
         "cell_orientation": 0,
         "constrain_to": "",
         "constrain_from": "",
@@ -1044,9 +1010,7 @@
         ]
     },
     "p17": {
-        "mesh_name": "wfc_module_4",
         "cell_index": 4,
-        "mesh_rotation": 1,
         "cell_orientation": 16,
         "constrain_to": "",
         "constrain_from": "",
@@ -1080,9 +1044,7 @@
         ]
     },
     "p18": {
-        "mesh_name": "wfc_module_4",
         "cell_index": 4,
-        "mesh_rotation": 2,
         "cell_orientation": 10,
         "constrain_to": "",
         "constrain_from": "",
@@ -1116,9 +1078,7 @@
         ]
     },
     "p19": {
-        "mesh_name": "wfc_module_4",
         "cell_index": 4,
-        "mesh_rotation": 3,
         "cell_orientation": 22,
         "constrain_to": "",
         "constrain_from": "",
@@ -1152,9 +1112,7 @@
         ]
     },
     "p20": {
-        "mesh_name": "wfc_module_5",
         "cell_index": 5,
-        "mesh_rotation": 0,
         "cell_orientation": 0,
         "constrain_to": "",
         "constrain_from": "",
@@ -1221,9 +1179,7 @@
         ]
     },
     "p21": {
-        "mesh_name": "wfc_module_5",
         "cell_index": 5,
-        "mesh_rotation": 1,
         "cell_orientation": 16,
         "constrain_to": "",
         "constrain_from": "",
@@ -1290,9 +1246,7 @@
         ]
     },
     "p22": {
-        "mesh_name": "wfc_module_5",
         "cell_index": 5,
-        "mesh_rotation": 2,
         "cell_orientation": 10,
         "constrain_to": "",
         "constrain_from": "",
@@ -1359,9 +1313,7 @@
         ]
     },
     "p23": {
-        "mesh_name": "wfc_module_5",
         "cell_index": 5,
-        "mesh_rotation": 3,
         "cell_orientation": 22,
         "constrain_to": "",
         "constrain_from": "",
@@ -1428,9 +1380,7 @@
         ]
     },
     "p24": {
-        "mesh_name": "wfc_module_6",
         "cell_index": 6,
-        "mesh_rotation": 0,
         "cell_orientation": 0,
         "constrain_to": "bot",
         "constrain_from": "",
@@ -1473,9 +1423,7 @@
         ]
     },
     "p25": {
-        "mesh_name": "wfc_module_6",
         "cell_index": 6,
-        "mesh_rotation": 1,
         "cell_orientation": 16,
         "constrain_to": "bot",
         "constrain_from": "",
@@ -1518,9 +1466,7 @@
         ]
     },
     "p26": {
-        "mesh_name": "wfc_module_6",
         "cell_index": 6,
-        "mesh_rotation": 2,
         "cell_orientation": 10,
         "constrain_to": "bot",
         "constrain_from": "",
@@ -1563,9 +1509,7 @@
         ]
     },
     "p27": {
-        "mesh_name": "wfc_module_6",
         "cell_index": 6,
-        "mesh_rotation": 3,
         "cell_orientation": 22,
         "constrain_to": "bot",
         "constrain_from": "",
@@ -1608,9 +1552,7 @@
         ]
     },
     "p28": {
-        "mesh_name": "wfc_module_7",
         "cell_index": 7,
-        "mesh_rotation": 0,
         "cell_orientation": 0,
         "constrain_to": "",
         "constrain_from": "",
@@ -1659,9 +1601,7 @@
         ]
     },
     "p29": {
-        "mesh_name": "wfc_module_7",
         "cell_index": 7,
-        "mesh_rotation": 1,
         "cell_orientation": 16,
         "constrain_to": "",
         "constrain_from": "",
@@ -1710,9 +1650,7 @@
         ]
     },
     "p30": {
-        "mesh_name": "wfc_module_7",
         "cell_index": 7,
-        "mesh_rotation": 2,
         "cell_orientation": 10,
         "constrain_to": "",
         "constrain_from": "",
@@ -1761,9 +1699,7 @@
         ]
     },
     "p31": {
-        "mesh_name": "wfc_module_7",
         "cell_index": 7,
-        "mesh_rotation": 3,
         "cell_orientation": 22,
         "constrain_to": "",
         "constrain_from": "",
@@ -1812,9 +1748,7 @@
         ]
     },
     "p32": {
-        "mesh_name": "wfc_module_8",
         "cell_index": 8,
-        "mesh_rotation": 0,
         "cell_orientation": 0,
         "constrain_to": "",
         "constrain_from": "",
@@ -1846,9 +1780,7 @@
         ]
     },
     "p33": {
-        "mesh_name": "wfc_module_8",
         "cell_index": 8,
-        "mesh_rotation": 1,
         "cell_orientation": 16,
         "constrain_to": "",
         "constrain_from": "",
@@ -1880,9 +1812,7 @@
         ]
     },
     "p34": {
-        "mesh_name": "wfc_module_8",
         "cell_index": 8,
-        "mesh_rotation": 2,
         "cell_orientation": 10,
         "constrain_to": "",
         "constrain_from": "",
@@ -1914,9 +1844,7 @@
         ]
     },
     "p35": {
-        "mesh_name": "wfc_module_8",
         "cell_index": 8,
-        "mesh_rotation": 3,
         "cell_orientation": 22,
         "constrain_to": "",
         "constrain_from": "",
@@ -1948,9 +1876,7 @@
         ]
     },
     "p36": {
-        "mesh_name": "wfc_module_9",
         "cell_index": 9,
-        "mesh_rotation": 0,
         "cell_orientation": 0,
         "constrain_to": "",
         "constrain_from": "",
@@ -2002,9 +1928,7 @@
         ]
     },
     "p37": {
-        "mesh_name": "wfc_module_9",
         "cell_index": 9,
-        "mesh_rotation": 1,
         "cell_orientation": 16,
         "constrain_to": "",
         "constrain_from": "",
@@ -2056,9 +1980,7 @@
         ]
     },
     "p38": {
-        "mesh_name": "wfc_module_9",
         "cell_index": 9,
-        "mesh_rotation": 2,
         "cell_orientation": 10,
         "constrain_to": "",
         "constrain_from": "",
@@ -2110,9 +2032,7 @@
         ]
     },
     "p39": {
-        "mesh_name": "wfc_module_9",
         "cell_index": 9,
-        "mesh_rotation": 3,
         "cell_orientation": 22,
         "constrain_to": "",
         "constrain_from": "",
@@ -2164,9 +2084,7 @@
         ]
     },
     "p40": {
-        "mesh_name": "wfc_module_10",
         "cell_index": 10,
-        "mesh_rotation": 0,
         "cell_orientation": 0,
         "constrain_to": "",
         "constrain_from": "bot",
@@ -2257,9 +2175,7 @@
         ]
     },
     "p41": {
-        "mesh_name": "wfc_module_10",
         "cell_index": 10,
-        "mesh_rotation": 1,
         "cell_orientation": 16,
         "constrain_to": "",
         "constrain_from": "bot",
@@ -2350,9 +2266,7 @@
         ]
     },
     "p42": {
-        "mesh_name": "wfc_module_10",
         "cell_index": 10,
-        "mesh_rotation": 2,
         "cell_orientation": 10,
         "constrain_to": "",
         "constrain_from": "bot",
@@ -2443,9 +2357,7 @@
         ]
     },
     "p43": {
-        "mesh_name": "wfc_module_10",
         "cell_index": 10,
-        "mesh_rotation": 3,
         "cell_orientation": 22,
         "constrain_to": "",
         "constrain_from": "bot",
@@ -2536,9 +2448,7 @@
         ]
     },
     "p44": {
-        "mesh_name": "wfc_module_11",
         "cell_index": 11,
-        "mesh_rotation": 0,
         "cell_orientation": 0,
         "constrain_to": "bot",
         "constrain_from": "",
@@ -2574,9 +2484,7 @@
         ]
     },
     "p45": {
-        "mesh_name": "wfc_module_11",
         "cell_index": 11,
-        "mesh_rotation": 1,
         "cell_orientation": 16,
         "constrain_to": "bot",
         "constrain_from": "",
@@ -2612,9 +2520,7 @@
         ]
     },
     "p46": {
-        "mesh_name": "wfc_module_11",
         "cell_index": 11,
-        "mesh_rotation": 2,
         "cell_orientation": 10,
         "constrain_to": "bot",
         "constrain_from": "",
@@ -2650,9 +2556,7 @@
         ]
     },
     "p47": {
-        "mesh_name": "wfc_module_11",
         "cell_index": 11,
-        "mesh_rotation": 3,
         "cell_orientation": 22,
         "constrain_to": "bot",
         "constrain_from": "",
@@ -2688,9 +2592,7 @@
         ]
     },
     "p48": {
-        "mesh_name": "wfc_module_12",
         "cell_index": 12,
-        "mesh_rotation": 0,
         "cell_orientation": 0,
         "constrain_to": "",
         "constrain_from": "",
@@ -2753,9 +2655,7 @@
         ]
     },
     "p49": {
-        "mesh_name": "wfc_module_12",
         "cell_index": 12,
-        "mesh_rotation": 1,
         "cell_orientation": 16,
         "constrain_to": "",
         "constrain_from": "",
@@ -2818,9 +2718,7 @@
         ]
     },
     "p50": {
-        "mesh_name": "wfc_module_12",
         "cell_index": 12,
-        "mesh_rotation": 2,
         "cell_orientation": 10,
         "constrain_to": "",
         "constrain_from": "",
@@ -2883,9 +2781,7 @@
         ]
     },
     "p51": {
-        "mesh_name": "wfc_module_12",
         "cell_index": 12,
-        "mesh_rotation": 3,
         "cell_orientation": 22,
         "constrain_to": "",
         "constrain_from": "",
@@ -2948,9 +2844,7 @@
         ]
     },
     "p52": {
-        "mesh_name": "wfc_module_13",
         "cell_index": 13,
-        "mesh_rotation": 0,
         "cell_orientation": 0,
         "constrain_to": "",
         "constrain_from": "",
@@ -2985,9 +2879,7 @@
         ]
     },
     "p53": {
-        "mesh_name": "wfc_module_13",
         "cell_index": 13,
-        "mesh_rotation": 1,
         "cell_orientation": 16,
         "constrain_to": "",
         "constrain_from": "",
@@ -3022,9 +2914,7 @@
         ]
     },
     "p54": {
-        "mesh_name": "wfc_module_13",
         "cell_index": 13,
-        "mesh_rotation": 2,
         "cell_orientation": 10,
         "constrain_to": "",
         "constrain_from": "",
@@ -3059,9 +2949,7 @@
         ]
     },
     "p55": {
-        "mesh_name": "wfc_module_13",
         "cell_index": 13,
-        "mesh_rotation": 3,
         "cell_orientation": 22,
         "constrain_to": "",
         "constrain_from": "",
@@ -3096,9 +2984,7 @@
         ]
     },
     "p56": {
-        "mesh_name": "wfc_module_14",
         "cell_index": 14,
-        "mesh_rotation": 0,
         "cell_orientation": 0,
         "constrain_to": "bot",
         "constrain_from": "",
@@ -3128,9 +3014,7 @@
         ]
     },
     "p57": {
-        "mesh_name": "wfc_module_14",
         "cell_index": 14,
-        "mesh_rotation": 1,
         "cell_orientation": 16,
         "constrain_to": "bot",
         "constrain_from": "",
@@ -3160,9 +3044,7 @@
         ]
     },
     "p58": {
-        "mesh_name": "wfc_module_14",
         "cell_index": 14,
-        "mesh_rotation": 2,
         "cell_orientation": 10,
         "constrain_to": "bot",
         "constrain_from": "",
@@ -3192,9 +3074,7 @@
         ]
     },
     "p59": {
-        "mesh_name": "wfc_module_14",
         "cell_index": 14,
-        "mesh_rotation": 3,
         "cell_orientation": 22,
         "constrain_to": "bot",
         "constrain_from": "",
@@ -3224,9 +3104,7 @@
         ]
     },
     "p60": {
-        "mesh_name": "wfc_module_15",
         "cell_index": 15,
-        "mesh_rotation": 0,
         "cell_orientation": 0,
         "constrain_to": "bot",
         "constrain_from": "",
@@ -3262,9 +3140,7 @@
         ]
     },
     "p61": {
-        "mesh_name": "wfc_module_15",
         "cell_index": 15,
-        "mesh_rotation": 1,
         "cell_orientation": 16,
         "constrain_to": "bot",
         "constrain_from": "",
@@ -3300,9 +3176,7 @@
         ]
     },
     "p62": {
-        "mesh_name": "wfc_module_15",
         "cell_index": 15,
-        "mesh_rotation": 2,
         "cell_orientation": 10,
         "constrain_to": "bot",
         "constrain_from": "",
@@ -3338,9 +3212,7 @@
         ]
     },
     "p63": {
-        "mesh_name": "wfc_module_15",
         "cell_index": 15,
-        "mesh_rotation": 3,
         "cell_orientation": 22,
         "constrain_to": "bot",
         "constrain_from": "",
@@ -3376,9 +3248,8 @@
         ]
     },
     "p-1": {
-        "mesh_name": "-1",
         "cell_index": -1,
-        "mesh_rotation": 0,
+        "cell_orientation": 0,
         "constrain_to": "-1",
         "constrain_from": "-1",
         "weight": 1,
