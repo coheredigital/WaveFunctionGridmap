@@ -15,15 +15,8 @@ const CONSTRAINT_TOP = "top"
 const WEIGHT = "weight"
 const BLANK_CELL_ID = "-1_-1"
 
-const nX = 2
-const pX = 0
-const nY = 3
-const pY = 1
-const nZ = 5
-const pZ = 4
 
-
-var siblings_offsets = {
+const siblings_offsets = {
 	Vector3.LEFT : 'left',
 	Vector3.RIGHT : 'right',
 	Vector3.FORWARD : 'forward',
@@ -33,7 +26,7 @@ var siblings_offsets = {
 }
 
 
-var siblings_index = {
+const siblings_index = {
 	Vector3.LEFT : 2,
 	Vector3.RIGHT : 0,
 	Vector3.BACK : 3, # should be 1?
@@ -94,7 +87,7 @@ func get_possibilities(coords : Vector3) -> Array:
 
 func get_possible_siblings(coords : Vector3, direction : Vector3) -> Array:
 	var valid_siblings = []
-	var direction_name = siblings_index[direction]
+	var direction_name = siblings_offsets[direction]
 	var prototypes = get_possibilities(coords)
 	for prototype in prototypes:
 		var item_valid_siblings = prototypes[prototype][SIBLINGS]
@@ -205,12 +198,14 @@ func apply_constraints():
 
 	var add_to_stack = []
 
+	var sibling_directions = siblings_offsets.duplicate()
+
 	for coords in cell_states:
 
 		var protos = get_possibilities(coords)
 		if coords.y == size.y - 1:  # constrain top layer to not contain any uncapped prototypes
 			for proto in protos.duplicate():
-				var neighs  = protos[proto][SIBLINGS][pZ]
+				var neighs  = protos[proto][SIBLINGS][sibling_directions[Vector3.UP]]
 				if not BLANK_CELL_ID in neighs:
 					protos.erase(proto)
 					if not coords in stack:
@@ -231,7 +226,7 @@ func apply_constraints():
 						stack.append(coords)
 		if coords.y == 0:  # constrain bottom layer so we don't start with any top-cliff parts at the bottom
 			for proto in protos.duplicate():
-				var neighs  = protos[proto][SIBLINGS][nZ]
+				var neighs  = protos[proto][SIBLINGS][sibling_directions[Vector3.DOWN]]
 				var custom_constraint = protos[proto][CONSTRAIN_FROM]
 				if (not BLANK_CELL_ID in neighs) or (custom_constraint == CONSTRAINT_BOTTOM):
 					protos.erase(proto)
@@ -239,28 +234,28 @@ func apply_constraints():
 						stack.append(coords)
 		if coords.x == size.x - 1: # constrain +x-
 			for proto in protos.duplicate():
-				var neighs  = protos[proto][SIBLINGS][pX]
+				var neighs  = protos[proto][SIBLINGS][sibling_directions[Vector3.RIGHT]]
 				if not BLANK_CELL_ID in neighs:
 					protos.erase(proto)
 					if not coords in stack:
 						stack.append(coords)
 		if coords.x == 0: # constrain -x
 			for proto in protos.duplicate():
-				var neighs  = protos[proto][SIBLINGS][nX]
+				var neighs  = protos[proto][SIBLINGS][sibling_directions[Vector3.LEFT]]
 				if not BLANK_CELL_ID in neighs:
 					protos.erase(proto)
 					if not coords in stack:
 						stack.append(coords)
 		if coords.z == size.z - 1: # constrain +z
 			for proto in protos.duplicate():
-				var neighs  = protos[proto][SIBLINGS][nY]
+				var neighs  = protos[proto][SIBLINGS][sibling_directions[Vector3.BACK]]
 				if not BLANK_CELL_ID in neighs:
 					protos.erase(proto)
 					if not coords in stack:
 						stack.append(coords)
 		if coords.z == 0: # constrain -z
 			for proto in protos.duplicate():
-				var neighs  = protos[proto][SIBLINGS][pY]
+				var neighs  = protos[proto][SIBLINGS][sibling_directions[Vector3.FORWARD]]
 				if not BLANK_CELL_ID in neighs:
 					protos.erase(proto)
 					if not coords in stack:

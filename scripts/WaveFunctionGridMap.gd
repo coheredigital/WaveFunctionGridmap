@@ -51,7 +51,7 @@ func update_prototypes() -> void:
 	prototypes = {}
 	var blank_prototype = {
 		'weight' : 1,
-		'valid_siblings_dictionary': {
+		'valid_siblings': {
 			'right' : [BLANK_CELL_ID],
 			'forward' : [BLANK_CELL_ID],
 			'left': [BLANK_CELL_ID],
@@ -88,7 +88,7 @@ func update_prototypes() -> void:
 		if not prototypes.has(cell_id):
 			prototypes[cell_id] = {
 			'weight' : 0,
-			'valid_siblings_dictionary': {},
+			'valid_siblings': {},
 			'cell_index': cell_index,
 			'cell_orientation': cell_orientation,
 			'constrain_to': contrain_to,
@@ -110,16 +110,16 @@ func update_prototypes() -> void:
 			if sibling_cell_id == '-1_-1':
 				var offset_inverse = offset * Vector3(-1.0,-1.0,-1.0)
 				var offset_inverse_name = siblings_offsets[offset_inverse]
-				if not blank_prototype['valid_siblings_dictionary'].has(offset_inverse_name):
-					blank_prototype['valid_siblings_dictionary'][offset_inverse_name] = []
-				if not blank_prototype['valid_siblings_dictionary'][offset_inverse_name].has(cell_id):
-					blank_prototype['valid_siblings_dictionary'][offset_inverse_name].append(cell_id)
+				if not blank_prototype['valid_siblings'].has(offset_inverse_name):
+					blank_prototype['valid_siblings'][offset_inverse_name] = []
+				if not blank_prototype['valid_siblings'][offset_inverse_name].has(cell_id):
+					blank_prototype['valid_siblings'][offset_inverse_name].append(cell_id)
 
 #			init sibling dictionary
-			if not offset_id in cell_prototype.valid_siblings_dictionary:
-				cell_prototype.valid_siblings_dictionary[offset_id] = []
+			if not offset_id in cell_prototype.valid_siblings:
+				cell_prototype.valid_siblings[offset_id] = []
 
-			var cell_valid_siblings = cell_prototype.valid_siblings_dictionary[offset_id]
+			var cell_valid_siblings = cell_prototype.valid_siblings[offset_id]
 
 #			init valid sibling / orientation
 
@@ -127,28 +127,16 @@ func update_prototypes() -> void:
 #				TODO: may not be needed
 				cell_valid_siblings.append(sibling_cell_id)
 
-#		conver valid siblings to arrays only
-		for offset_name in valid_siblings:
-			cell_prototype.valid_siblings_dictionary.append(valid_siblings[offset_name])
+#		cap the weight
+		cell_prototype.weight = min(cell_prototype.weight, 1.0)
 
 
 #	add blankj prototype
 	prototypes['-1_-1'] = blank_prototype
 
-#	convert valid_sibling dictionaries to arrays
-	for prototype in prototypes:
-		var siblings_copy = prototypes[prototype].valid_siblings_dictionary.duplicate()
-		prototypes[prototype].valid_siblings = []
-		for direction in siblings_offsets:
-			var direction_name = siblings_offsets[direction]
-			prototypes[prototype].valid_siblings.append(siblings_copy[direction_name])
-
-#		unset dictionary
-		prototypes[prototype].erase('valid_siblings_dictionary')
 
 	var total_time = OS.get_ticks_msec() - time_start
 	print("Time taken: " + str(total_time))
-
 
 
 func save_json() -> void:
@@ -156,6 +144,7 @@ func save_json() -> void:
 	file.open(FILE_NAME, File.WRITE)
 	file.store_line(to_json(prototypes))
 	file.close()
+
 
 func set_clear_canvas(value : bool) -> void:
 	if not value:

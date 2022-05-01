@@ -29,7 +29,9 @@ func generate():
 		var coords : Vector3 = result.coords
 		var cell_index : int = result.prototype.cell_index
 		var cell_orientation : int = result.prototype.cell_orientation
-		render_gridmap(cell_data)
+		render_cell(coords,cell_index,cell_orientation)
+
+	render_gridmap(cell_data)
 
 	if cell_data.is_collapsed():
 		print('Cells collapsed')
