@@ -9,13 +9,14 @@ export var size = Vector3(3, 4, 8)
 export var prototype_data : Resource
 
 onready var gridmap := $GridMap
+onready var camera_focus := $CamFocus
 var cell_data : WaveFunctionCellsResource
 var prototypes : Dictionary
 
 
 func _ready():
-	prototypes = load_prototype_data()
-
+	prototypes = load_json_data()
+	camera_focus.translation = Vector3(0.5,0.5,0.5) * size
 	cell_data = WaveFunctionCellsResource.new()
 
 #	cell_data.connect("cell_collapsed" , self, "_on_cell_collapsed")
@@ -54,8 +55,7 @@ func generate():
 func get_cell_data():
 #	cell_data.initialize(size, prototype_data.prototypes)
 	cell_data.initialize(size, prototypes)
-#	apply_custom_constraints(cell_data, "p-1")
-	apply_custom_constraints(cell_data, '-1_-1')
+	apply_custom_constraints(cell_data)
 	return cell_data
 
 
@@ -69,7 +69,7 @@ func render_cell(coords : Vector3, cell_index: int,cell_orientation : int):
 
 
 
-func apply_custom_constraints(wfc : WaveFunctionCellsResource, blank_name : String):
+func apply_custom_constraints(wfc : WaveFunctionCellsResource):
 	# This function isn't covered in the video but what we do here is basically
 	# go over the wavefunction and remove certain modules from specific places
 	# for example in my Blender scene I've marked all of the beach tiles with
@@ -85,7 +85,7 @@ func apply_custom_constraints(wfc : WaveFunctionCellsResource, blank_name : Stri
 		if coords.y == size.y - 1:  # constrain top layer to not contain any uncapped prototypes
 			for proto in protos.duplicate():
 				var neighs  = protos[proto][WaveFunctionCellsResource.SIBLINGS][WaveFunctionCellsResource.pZ]
-				if not blank_name in neighs:
+				if not BLANK_CELL_ID in neighs:
 					protos.erase(proto)
 					if not coords in wfc.stack:
 						wfc.stack.append(coords)
@@ -107,35 +107,35 @@ func apply_custom_constraints(wfc : WaveFunctionCellsResource, blank_name : Stri
 			for proto in protos.duplicate():
 				var neighs  = protos[proto][WaveFunctionCellsResource.SIBLINGS][WaveFunctionCellsResource.nZ]
 				var custom_constraint = protos[proto][WaveFunctionCellsResource.CONSTRAIN_FROM]
-				if (not blank_name in neighs) or (custom_constraint == WaveFunctionCellsResource.CONSTRAINT_BOTTOM):
+				if (not BLANK_CELL_ID in neighs) or (custom_constraint == WaveFunctionCellsResource.CONSTRAINT_BOTTOM):
 					protos.erase(proto)
 					if not coords in wfc.stack:
 						wfc.stack.append(coords)
-		if coords.x == size.x - 1: # constrain +x
+		if coords.x == size.x - 1: # constrain +x-
 			for proto in protos.duplicate():
 				var neighs  = protos[proto][WaveFunctionCellsResource.SIBLINGS][WaveFunctionCellsResource.pX]
-				if not blank_name in neighs:
+				if not BLANK_CELL_ID in neighs:
 					protos.erase(proto)
 					if not coords in wfc.stack:
 						wfc.stack.append(coords)
 		if coords.x == 0: # constrain -x
 			for proto in protos.duplicate():
 				var neighs  = protos[proto][WaveFunctionCellsResource.SIBLINGS][WaveFunctionCellsResource.nX]
-				if not blank_name in neighs:
+				if not BLANK_CELL_ID in neighs:
 					protos.erase(proto)
 					if not coords in wfc.stack:
 						wfc.stack.append(coords)
 		if coords.z == size.z - 1: # constrain +z
 			for proto in protos.duplicate():
 				var neighs  = protos[proto][WaveFunctionCellsResource.SIBLINGS][WaveFunctionCellsResource.nY]
-				if not blank_name in neighs:
+				if not BLANK_CELL_ID in neighs:
 					protos.erase(proto)
 					if not coords in wfc.stack:
 						wfc.stack.append(coords)
 		if coords.z == 0: # constrain -z
 			for proto in protos.duplicate():
 				var neighs  = protos[proto][WaveFunctionCellsResource.SIBLINGS][WaveFunctionCellsResource.pY]
-				if not blank_name in neighs:
+				if not BLANK_CELL_ID in neighs:
 					protos.erase(proto)
 					if not coords in wfc.stack:
 						wfc.stack.append(coords)
@@ -143,7 +143,7 @@ func apply_custom_constraints(wfc : WaveFunctionCellsResource, blank_name : Stri
 	wfc.propagate(Vector3.INF)
 
 
-func load_prototype_data():
+func load_json_data():
 	var file = File.new()
 	file.open(DATA_FILE_NEW, file.READ)
 	var text = file.get_as_text()

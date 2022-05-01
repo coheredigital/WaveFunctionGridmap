@@ -1,14 +1,14 @@
 # A little test combining Martin Donald's work with WFC with Godots Gridmap
 tool
 extends GridMap
-class_name WaveFunctionDefinitionGridMap
+class_name WaveFunctionGridMap
 
 const FILE_NAME = "res://resources/prototypes.json"
 const BLANK_CELL_ID = "-1_-1"
 
 export var clear_canvas : bool setget set_clear_canvas
 export var resource_file : Resource
-var prototypes := {}
+export var prototypes := {}
 
 var wave_function : Array  # Grid of cells containing prototypes
 var cell_states := {}
@@ -43,6 +43,9 @@ var siblings_index = {
 
 
 func update_prototypes() -> void:
+	prototypes = {}
+	var time_start = OS.get_ticks_msec()
+
 	#	initialize cell list
 	var cells := get_used_cells()
 	print("Generate prototype: START")
@@ -91,7 +94,6 @@ func update_prototypes() -> void:
 		}
 
 
-
 		var cell_prototype = prototypes[cell_id]
 		cell_prototype.weight += 1
 
@@ -110,7 +112,6 @@ func update_prototypes() -> void:
 					blank_prototype['valid_siblings_dictionary'][offset_inverse_name] = []
 				if not blank_prototype['valid_siblings_dictionary'][offset_inverse_name].has(cell_id):
 					blank_prototype['valid_siblings_dictionary'][offset_inverse_name].append(cell_id)
-
 
 #			init sibling dictionary
 			if not offset_name in cell_prototype.valid_siblings_dictionary:
@@ -143,7 +144,8 @@ func update_prototypes() -> void:
 #		unset dictionary
 		prototypes[prototype].erase('valid_siblings_dictionary')
 
-
+	var total_time = OS.get_ticks_msec() - time_start
+	print("Time taken: " + str(total_time))
 
 func save_json() -> void:
 	var file = File.new()

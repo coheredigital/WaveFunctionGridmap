@@ -25,9 +25,9 @@ _global_script_classes=[ {
 "path": "res://resources/wfc_cells_resource_new.gd"
 }, {
 "base": "GridMap",
-"class": "WaveFunctionDefinitionGridMap",
+"class": "WaveFunctionGridMap",
 "language": "GDScript",
-"path": "res://scenes/wfc_generator.gd"
+"path": "res://scenes/WaveFunctionGridMap.gd"
 }, {
 "base": "Resource",
 "class": "WaveFunctionPrototypesResource",
@@ -38,7 +38,7 @@ _global_script_class_icons={
 "WFC3D_Model": "",
 "WaveFunctionCellsResource": "",
 "WaveFunctionCellsResourceNew": "",
-"WaveFunctionDefinitionGridMap": "",
+"WaveFunctionGridMap": "",
 "WaveFunctionPrototypesResource": ""
 }
 

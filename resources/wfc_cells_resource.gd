@@ -23,7 +23,19 @@ const nZ = 5
 const pZ = 4
 
 
+
+
 var siblings_offsets = {
+	Vector3.LEFT : 'left',
+	Vector3.RIGHT : 'right',
+	Vector3.FORWARD : 'forward',
+	Vector3.BACK : 'back',
+	Vector3.UP : 'up',
+	Vector3.DOWN : 'down'
+}
+
+
+var siblings_index = {
 	Vector3.LEFT : 2,
 	Vector3.RIGHT : 0,
 	Vector3.BACK : 3, # should be 1?
@@ -31,6 +43,17 @@ var siblings_offsets = {
 	Vector3.UP : 4,
 	Vector3.DOWN : 5
 }
+
+
+class EntropySorter:
+	static func sort_ascending(a, b):
+		if a[0] < b[0]:
+			return true
+		return false
+	static func sort_descending(a, b):
+		if a[0] > b[0]:
+			return true
+		return false
 
 var cell_states : Dictionary = {}
 var cell_queue : Dictionary = {}
@@ -65,7 +88,7 @@ func get_possibilities(coords : Vector3) -> Array:
 
 func get_possible_siblings(coords : Vector3, direction : Vector3) -> Array:
 	var valid_siblings = []
-	var direction_index = siblings_offsets[direction]
+	var direction_index = siblings_index[direction]
 	var prototypes = get_possibilities(coords)
 	for prototype in prototypes:
 		var item_valid_siblings = prototypes[prototype][SIBLINGS]
@@ -133,10 +156,10 @@ func propagate(co_ords : Vector3) -> void:
 		stack.append(co_ords)
 	while len(stack) > 0:
 		var cur_coords = stack.pop_back()
-		var sibling_offsets := get_siblings_offsets(cur_coords)
+		var valid_directions := get_valid_directions(cur_coords)
 
 		# Iterate over each adjacent cell to this one
-		for direction in sibling_offsets:
+		for direction in valid_directions:
 			var sibling_coords = (cur_coords + direction)
 			var possible_siblings = get_possible_siblings(cur_coords, direction)
 			var sibling_possible_prototypes = get_possibilities(sibling_coords).duplicate()
@@ -151,7 +174,7 @@ func propagate(co_ords : Vector3) -> void:
 						stack.append(sibling_coords)
 
 
-func get_siblings_offsets(coords) -> Array:
+func get_valid_directions(coords) -> Array:
 	var x = coords.x
 	var y = coords.y
 	var z = coords.z
@@ -161,6 +184,8 @@ func get_siblings_offsets(coords) -> Array:
 	var length = size.z
 	var dirs = []
 
+
+
 	if x > 0: dirs.append(Vector3.LEFT)
 	if x < width-1: dirs.append(Vector3.RIGHT)
 	if y > 0: dirs.append(Vector3.DOWN)
@@ -169,3 +194,5 @@ func get_siblings_offsets(coords) -> Array:
 	if z < length-1: dirs.append(Vector3.BACK)
 
 	return dirs
+
+
