@@ -53,7 +53,8 @@ class EntropySorter:
 			return true
 		return false
 
-var cell_states : Dictionary = {}
+export var cell_template : Dictionary = {}
+export var cell_states : Dictionary = {}
 var cell_queue : Dictionary = {}
 var size : Vector3
 var stack : Array
@@ -62,6 +63,9 @@ var stack : Array
 func initialize(new_size : Vector3, all_prototypes : Dictionary):
 	size = new_size
 	initialize_cells(all_prototypes)
+	apply_constraints()
+	cell_template = cell_states.duplicate(true)
+	reset()
 	print_debug('Wave function initialized')
 
 
@@ -71,6 +75,10 @@ func initialize_cells(all_prototypes : Dictionary) -> void:
 			for z in range(size.z):
 				var coords = Vector3(x,y,z)
 				cell_states[coords] = all_prototypes.duplicate()
+
+
+func reset():
+	cell_states = cell_template.duplicate(true)
 
 
 func is_collapsed() -> bool:
@@ -104,6 +112,7 @@ func collapse_at(coords : Vector3) -> Dictionary:
 	possible_prototypes = {selection : prototype}
 	cell_states[coords] = possible_prototypes
 	return prototype
+
 
 func weighted_choice(prototypes : Dictionary) -> String:
 	var proto_weights = {}

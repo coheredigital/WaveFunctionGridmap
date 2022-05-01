@@ -1,18 +1,16 @@
 extends Node
 
-
-
 export var size = Vector3(3, 4, 8)
 onready var gridmap := $GridMap
 onready var camera_focus := $CamFocus
-var cell_data : WaveFunctionCellsResource
+export var cell_data : Resource
 
 
 func _ready():
 	gridmap.export_definitions = true
 	camera_focus.translation = Vector3(0.5,0.5,0.5) * size
 	cell_data = WaveFunctionCellsResource.new()
-
+	cell_data.initialize(size, gridmap.prototypes)
 
 func _input(event):
 	if Input.is_action_just_pressed("ui_accept"):
@@ -20,27 +18,22 @@ func _input(event):
 
 
 func generate():
-	var data = get_cell_data()
+	cell_data.reset()
 	gridmap.clear()
-	while not data.is_collapsed():
+	while not cell_data.is_collapsed():
 
 		yield(get_tree(), "idle_frame")
-		var result = data.step_collapse()
+		var result = cell_data.step_collapse()
 
 #		render_gridmap(cell_data)
 		var coords : Vector3 = result.coords
 		var cell_index : int = result.prototype.cell_index
 		var cell_orientation : int = result.prototype.cell_orientation
-		render_gridmap(data)
+		render_gridmap(cell_data)
 
-	if data.is_collapsed():
+	if cell_data.is_collapsed():
 		print('Cells collapsed')
 
-
-func get_cell_data():
-	cell_data.initialize(size, gridmap.prototypes)
-	cell_data.apply_constraints()
-	return cell_data
 
 
 func render_gridmap(data : WaveFunctionCellsResource):
@@ -49,8 +42,6 @@ func render_gridmap(data : WaveFunctionCellsResource):
 
 func render_cell(coords : Vector3, cell_index: int,cell_orientation : int):
 	gridmap.set_cell_item(coords.x, coords.y, coords.z, cell_index, cell_orientation)
-
-
 
 
 func generate_gridmap(wfc : WaveFunctionCellsResource):
