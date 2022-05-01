@@ -1,4 +1,3 @@
-# A little test combining Martin Donald's work with WFC with Godots Gridmap
 tool
 extends GridMap
 class_name WaveFunctionGridMap
@@ -7,7 +6,7 @@ const FILE_NAME = "res://resources/prototypes.json"
 const BLANK_CELL_ID = "-1_-1"
 
 export var clear_canvas : bool setget set_clear_canvas
-export var resource_file : Resource
+#export var resource_file : Resource
 export var prototypes := {}
 
 var wave_function : Array  # Grid of cells containing prototypes
@@ -17,10 +16,11 @@ var bounds : AABB
 
 export var export_definitions : bool = false setget set_export_definitions
 
-enum CellStates {
-	READY,
-	COLLAPSED = -2
-}
+class WaveFunctionProtoype:
+	var cell_name := ''
+	var cell_index := -1
+	var cell_orientation := -1
+	var valid_siblings = []
 
 
 var siblings_offsets = {
@@ -43,14 +43,12 @@ var siblings_index = {
 
 
 func update_prototypes() -> void:
-	prototypes = {}
+
 	var time_start = OS.get_ticks_msec()
+	print_debug("Generate prototype: START")
 
-	#	initialize cell list
-	var cells := get_used_cells()
-	print("Generate prototype: START")
-	print("used cells: %s" % cells.size() )
-
+#	clear existing definitions
+	prototypes = {}
 	var blank_prototype = {
 		'weight' : 1,
 		'valid_siblings_dictionary': {
@@ -66,6 +64,10 @@ func update_prototypes() -> void:
 		'constrain_to': '-1',
 		'constrain_from': '-1',
 	}
+	#	initialize cell list
+	var cells := get_used_cells()
+	print("used cells: %s" % cells.size() )
+
 
 	for cell_coordinates in cells:
 
@@ -99,7 +101,7 @@ func update_prototypes() -> void:
 
 #		check valid nearby cells
 		for offset in siblings_offsets:
-			var offset_name = siblings_offsets[offset]
+			var offset_id = siblings_offsets[offset]
 			var cell_offset = cell_coordinates + offset
 			var sibling_cell = get_cell_item(cell_offset.x, cell_offset.y, cell_offset.z)
 			var sibling_cell_orientation = get_cell_item_orientation(cell_offset.x, cell_offset.y, cell_offset.z)
@@ -114,10 +116,10 @@ func update_prototypes() -> void:
 					blank_prototype['valid_siblings_dictionary'][offset_inverse_name].append(cell_id)
 
 #			init sibling dictionary
-			if not offset_name in cell_prototype.valid_siblings_dictionary:
-				cell_prototype.valid_siblings_dictionary[offset_name] = []
+			if not offset_id in cell_prototype.valid_siblings_dictionary:
+				cell_prototype.valid_siblings_dictionary[offset_id] = []
 
-			var cell_valid_siblings = cell_prototype.valid_siblings_dictionary[offset_name]
+			var cell_valid_siblings = cell_prototype.valid_siblings_dictionary[offset_id]
 
 #			init valid sibling / orientation
 
@@ -130,7 +132,7 @@ func update_prototypes() -> void:
 			cell_prototype.valid_siblings_dictionary.append(valid_siblings[offset_name])
 
 
-#	add empty prototype
+#	add blankj prototype
 	prototypes['-1_-1'] = blank_prototype
 
 #	convert valid_sibling dictionaries to arrays
@@ -146,6 +148,8 @@ func update_prototypes() -> void:
 
 	var total_time = OS.get_ticks_msec() - time_start
 	print("Time taken: " + str(total_time))
+
+
 
 func save_json() -> void:
 	var file = File.new()
@@ -165,5 +169,5 @@ func set_export_definitions(value : bool) -> void:
 	print('Update Protypes')
 	update_prototypes()
 #	save
-	resource_file.prototypes = prototypes
+#	resource_file.prototypes = prototypes
 	save_json()

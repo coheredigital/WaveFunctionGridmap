@@ -1,33 +1,22 @@
 extends Node
 
 
-const DATA_FILE = "res://blender/prototype_data_simple.json"
-const DATA_FILE_NEW = "res://resources/prototypes.json"
-const BLANK_CELL_ID = "-1_-1"
 
 export var size = Vector3(3, 4, 8)
-export var prototype_data : Resource
-
 onready var gridmap := $GridMap
 onready var camera_focus := $CamFocus
 var cell_data : WaveFunctionCellsResource
-var prototypes : Dictionary
-
 
 
 func _ready():
 	gridmap.export_definitions = true
-	prototypes = load_json_data()
 	camera_focus.translation = Vector3(0.5,0.5,0.5) * size
 	cell_data = WaveFunctionCellsResource.new()
-
-#	cell_data.connect("cell_collapsed" , self, "_on_cell_collapsed")
 
 
 func _input(event):
 	if Input.is_action_just_pressed("ui_accept"):
 		generate()
-
 
 
 func generate():
@@ -49,9 +38,8 @@ func generate():
 
 
 func get_cell_data():
-#	cell_data.initialize(size, prototype_data.prototypes)
-	cell_data.initialize(size, prototypes)
-	apply_custom_constraints(cell_data)
+	cell_data.initialize(size, gridmap.prototypes)
+	cell_data.apply_constraints()
 	return cell_data
 
 
@@ -63,86 +51,6 @@ func render_cell(coords : Vector3, cell_index: int,cell_orientation : int):
 	gridmap.set_cell_item(coords.x, coords.y, coords.z, cell_index, cell_orientation)
 
 
-func apply_custom_constraints(wfc : WaveFunctionCellsResource):
-	# This function isn't covered in the video but what we do here is basically
-	# go over the wavefunction and remove certain modules from specific places
-	# for example in my Blender scene I've marked all of the beach tiles with
-	# an attribute called "constrain_to" with the value "bot". This is recalled
-	# in this function, and all tiles with this attribute and value are removed
-	# from cells that are not at the bottom i.e., if y > 0: constrain.
-
-	var add_to_stack = []
-
-	for coords in wfc.cell_states:
-
-		var protos = wfc.get_possibilities(coords)
-		if coords.y == size.y - 1:  # constrain top layer to not contain any uncapped prototypes
-			for proto in protos.duplicate():
-				var neighs  = protos[proto][WaveFunctionCellsResource.SIBLINGS][WaveFunctionCellsResource.pZ]
-				if not BLANK_CELL_ID in neighs:
-					protos.erase(proto)
-					if not coords in wfc.stack:
-						wfc.stack.append(coords)
-		if coords.y > 0:  # everything other than the bottom
-			for proto in protos.duplicate():
-				var custom_constraint = protos[proto][WaveFunctionCellsResource.CONSTRAIN_TO]
-				if custom_constraint == WaveFunctionCellsResource.CONSTRAINT_BOTTOM:
-					protos.erase(proto)
-					if not coords in wfc.stack:
-						wfc.stack.append(coords)
-		if coords.y < size.y - 1:  # everything other than the top
-			for proto in protos.duplicate():
-				var custom_constraint = protos[proto][WaveFunctionCellsResource.CONSTRAIN_TO]
-				if custom_constraint == WaveFunctionCellsResource.CONSTRAINT_TOP:
-					protos.erase(proto)
-					if not coords in wfc.stack:
-						wfc.stack.append(coords)
-		if coords.y == 0:  # constrain bottom layer so we don't start with any top-cliff parts at the bottom
-			for proto in protos.duplicate():
-				var neighs  = protos[proto][WaveFunctionCellsResource.SIBLINGS][WaveFunctionCellsResource.nZ]
-				var custom_constraint = protos[proto][WaveFunctionCellsResource.CONSTRAIN_FROM]
-				if (not BLANK_CELL_ID in neighs) or (custom_constraint == WaveFunctionCellsResource.CONSTRAINT_BOTTOM):
-					protos.erase(proto)
-					if not coords in wfc.stack:
-						wfc.stack.append(coords)
-		if coords.x == size.x - 1: # constrain +x-
-			for proto in protos.duplicate():
-				var neighs  = protos[proto][WaveFunctionCellsResource.SIBLINGS][WaveFunctionCellsResource.pX]
-				if not BLANK_CELL_ID in neighs:
-					protos.erase(proto)
-					if not coords in wfc.stack:
-						wfc.stack.append(coords)
-		if coords.x == 0: # constrain -x
-			for proto in protos.duplicate():
-				var neighs  = protos[proto][WaveFunctionCellsResource.SIBLINGS][WaveFunctionCellsResource.nX]
-				if not BLANK_CELL_ID in neighs:
-					protos.erase(proto)
-					if not coords in wfc.stack:
-						wfc.stack.append(coords)
-		if coords.z == size.z - 1: # constrain +z
-			for proto in protos.duplicate():
-				var neighs  = protos[proto][WaveFunctionCellsResource.SIBLINGS][WaveFunctionCellsResource.nY]
-				if not BLANK_CELL_ID in neighs:
-					protos.erase(proto)
-					if not coords in wfc.stack:
-						wfc.stack.append(coords)
-		if coords.z == 0: # constrain -z
-			for proto in protos.duplicate():
-				var neighs  = protos[proto][WaveFunctionCellsResource.SIBLINGS][WaveFunctionCellsResource.pY]
-				if not BLANK_CELL_ID in neighs:
-					protos.erase(proto)
-					if not coords in wfc.stack:
-						wfc.stack.append(coords)
-
-	wfc.propagate(Vector3.INF)
-
-
-func load_json_data():
-	var file = File.new()
-	file.open(DATA_FILE_NEW, file.READ)
-	var text = file.get_as_text()
-	var prototypes = JSON.parse(text).result
-	return prototypes
 
 
 func generate_gridmap(wfc : WaveFunctionCellsResource):

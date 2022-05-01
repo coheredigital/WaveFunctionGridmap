@@ -9,37 +9,19 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Node",
-"class": "WFC3D_Model",
-"language": "GDScript",
-"path": "res://scripts/wfc3d_model.gd"
-}, {
 "base": "Resource",
 "class": "WaveFunctionCellsResource",
 "language": "GDScript",
-"path": "res://resources/wfc_cells_resource.gd"
-}, {
-"base": "Resource",
-"class": "WaveFunctionCellsResourceNew",
-"language": "GDScript",
-"path": "res://resources/wfc_cells_resource_new.gd"
+"path": "res://resources/WaveFunctionCellsResource.gd"
 }, {
 "base": "GridMap",
 "class": "WaveFunctionGridMap",
 "language": "GDScript",
-"path": "res://scenes/WaveFunctionGridMap.gd"
-}, {
-"base": "Resource",
-"class": "WaveFunctionPrototypesResource",
-"language": "GDScript",
-"path": "res://resources/wfc_prototypes_resource.gd"
+"path": "res://scripts/WaveFunctionGridMap.gd"
 } ]
 _global_script_class_icons={
-"WFC3D_Model": "",
 "WaveFunctionCellsResource": "",
-"WaveFunctionCellsResourceNew": "",
-"WaveFunctionGridMap": "",
-"WaveFunctionPrototypesResource": ""
+"WaveFunctionGridMap": ""
 }
 
 [application]
