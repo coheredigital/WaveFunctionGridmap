@@ -7,10 +7,12 @@ export var cell_data : Resource
 
 
 func _ready():
-	gridmap.export_definitions = true
+
 	camera_focus.translation = Vector3(0.5,0.5,0.5) * size
 	cell_data = WaveFunctionCellsResource.new()
-	cell_data.initialize(size, gridmap.prototypes)
+#	get fresh prototypes
+	gridmap.export_definitions = true
+	cell_data.initialize(size, gridmap.template.prototypes)
 
 func _input(event):
 	if Input.is_action_just_pressed("ui_accept"):
@@ -21,10 +23,8 @@ func generate():
 	cell_data.reset()
 	gridmap.clear()
 	while not cell_data.is_collapsed():
-
 		yield(get_tree(), "idle_frame")
 		var result = cell_data.step_collapse()
-
 #		render_gridmap(cell_data)
 		var coords : Vector3 = result.coords
 		var cell_index : int = result.prototype.cell_index
@@ -37,8 +37,7 @@ func generate():
 		print('Cells collapsed')
 
 
-
-func render_gridmap(data : WaveFunctionCellsResource):
+func render_gridmap(data : Resource):
 	generate_gridmap(data)
 
 
@@ -46,7 +45,7 @@ func render_cell(coords : Vector3, cell_index: int,cell_orientation : int):
 	gridmap.set_cell_item(coords.x, coords.y, coords.z, cell_index, cell_orientation)
 
 
-func generate_gridmap(wfc : WaveFunctionCellsResource):
+func generate_gridmap(wfc : Resource):
 	for coords in wfc.cell_states:
 
 		var prototypes = wfc.cell_states[coords]
