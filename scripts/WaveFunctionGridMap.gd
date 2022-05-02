@@ -4,11 +4,42 @@ class_name WaveFunctionGridMap
 
 const FILE_NAME = "res://resources/prototypes.json"
 const BLANK_CELL_ID = "-1_-1"
+const PROTOTYPE_DEFINITION = {
+	'weight' : 1,
+	'valid_siblings': {
+		'right' : [],
+		'forward' : [],
+		'left': [],
+		'back': [],
+		'up': [],
+		'down': []
+	},
+	'cell_index': -1,
+	'cell_orientation': 0,
+	'constrain_to': 'bot',
+	'constrain_from': 'bot',
+	'constraints': {
+		'x': {
+			'to': -1,
+			'from': -1,
+		},
+		'y': {
+			'to': 0,
+			'from': 0,
+		},
+		'z': {
+			'to': -1,
+			'from': -1,
+		}
+	}
+}
+
 
 export var clear_canvas : bool setget set_clear_canvas
 #export var resource_file : Resource
 export var prototypes := {}
 
+var template : WaveFunctionTemplateResource
 var wave_function : Array  # Grid of cells containing prototypes
 var cell_states := {}
 var stack : Array
@@ -32,14 +63,21 @@ var siblings_offsets = {
 	Vector3.DOWN : 'down'
 }
 
-var siblings_index = {
-	Vector3.RIGHT : 0,
-	Vector3.FORWARD : 1, # should be 3?
-	Vector3.LEFT : 2,
-	Vector3.BACK : 3, # should be 1?
-	Vector3.UP : 4,
-	Vector3.DOWN : 5
-}
+
+func get_template() -> Dictionary:
+	var prototypes_template = {}
+	var blank_prototype = PROTOTYPE_DEFINITION.duplicate(true)
+
+	for direction in siblings_offsets:
+		var direction_name = siblings_offsets[direction]
+		blank_prototype['valid_siblings'][direction_name].append(BLANK_CELL_ID)
+
+	blank_prototype.constrain_to = '-1'
+	blank_prototype.constrain_from = '-1'
+
+	prototypes_template[BLANK_CELL_ID] = blank_prototype
+
+	return prototypes_template
 
 
 func update_prototypes() -> void:
@@ -47,26 +85,14 @@ func update_prototypes() -> void:
 	var time_start = OS.get_ticks_msec()
 	print_debug("Generate prototype: START")
 
-#	clear existing definitions
-	prototypes = {}
-	var blank_prototype = {
-		'weight' : 1,
-		'valid_siblings': {
-			'right' : [BLANK_CELL_ID],
-			'forward' : [BLANK_CELL_ID],
-			'left': [BLANK_CELL_ID],
-			'back': [BLANK_CELL_ID],
-			'up': [BLANK_CELL_ID],
-			'down': [BLANK_CELL_ID]
-		},
-		'cell_index': -1,
-		'cell_orientation': 0,
-		'constrain_to': '-1',
-		'constrain_from': '-1',
-	}
 	#	initialize cell list
 	var cells := get_used_cells()
 	print("used cells: %s" % cells.size() )
+
+#	clear existing definitions
+	prototypes = get_template()
+
+	var blank_prototype = prototypes[BLANK_CELL_ID]
 
 
 	for cell_coordinates in cells:
@@ -86,18 +112,17 @@ func update_prototypes() -> void:
 		var valid_siblings = {}
 
 		if not prototypes.has(cell_id):
-			prototypes[cell_id] = {
-			'weight' : 0,
-			'valid_siblings': {},
-			'cell_index': cell_index,
-			'cell_orientation': cell_orientation,
-			'constrain_to': contrain_to,
-			'constrain_from': contrain_from,
-		}
-
+			prototypes[cell_id] = PROTOTYPE_DEFINITION.duplicate(true)
 
 		var cell_prototype = prototypes[cell_id]
 		cell_prototype.weight += 1
+
+#		vertical constraints
+		if cell_coordinates.y != 0.0:
+			cell_prototype.constraints.y.to = -1
+
+		if cell_coordinates.y == 0.0:
+			cell_prototype.constraints.y.from = -1
 
 #		check valid nearby cells
 		for offset in siblings_offsets:
@@ -127,12 +152,18 @@ func update_prototypes() -> void:
 #				TODO: may not be needed
 				cell_valid_siblings.append(sibling_cell_id)
 
+#			a different way to track siblings potentially
+#			if not cell_prototype.has('siblings'):
+#				cell_prototype['siblings'] = {}
+#			if not cell_prototype['siblings'].has(offset_id):
+#				cell_prototype['siblings'][offset_id] = {}
+#			if not cell_prototype['siblings'][offset_id].has(sibling_cell):
+#				cell_prototype['siblings'][offset_id][sibling_cell] = {}
+#			cell_prototype['siblings'][offset_id][sibling_cell][sibling_cell_orientation] = 1
+
 #		cap the weight
 		cell_prototype.weight = min(cell_prototype.weight, 1.0)
 
-
-#	add blankj prototype
-	prototypes['-1_-1'] = blank_prototype
 
 
 	var total_time = OS.get_ticks_msec() - time_start

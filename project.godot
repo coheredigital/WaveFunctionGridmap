@@ -12,16 +12,22 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "WaveFunctionCellsResource",
 "language": "GDScript",
-"path": "res://resources/WaveFunctionCellsResource.gd"
+"path": "res://resources/WaveFunctionTemplateResource.gd"
 }, {
 "base": "GridMap",
 "class": "WaveFunctionGridMap",
 "language": "GDScript",
 "path": "res://scripts/WaveFunctionGridMap.gd"
+}, {
+"base": "Resource",
+"class": "WaveFunctionTemplateResource",
+"language": "GDScript",
+"path": "res://resources/WaveFunctionCellsResource.gd"
 } ]
 _global_script_class_icons={
 "WaveFunctionCellsResource": "",
-"WaveFunctionGridMap": ""
+"WaveFunctionGridMap": "",
+"WaveFunctionTemplateResource": ""
 }
 
 [application]
