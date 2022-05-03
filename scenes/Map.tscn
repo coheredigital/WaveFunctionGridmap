@@ -797,7 +797,7 @@ use_in_baked_light = true
 cell_size = Vector3( 1, 1, 1 )
 cell_center_y = false
 data = {
-"cells": PoolIntArray( 0, 0, 1441794, 65535, 0, 655362 )
+"cells": PoolIntArray( 0, 0, 1441794, 65535, 0, 655362, 0, 65535, 2, 65535, 65535, 1048578 )
 }
 script = ExtResource( 24 )
 __meta__ = {

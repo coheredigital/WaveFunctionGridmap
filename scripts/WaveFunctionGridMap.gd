@@ -2,8 +2,10 @@ tool
 extends GridMap
 class_name WaveFunctionGridMap
 
-const FILE_NAME = "res://resources/prototypes.json"
-const FILE_TEST = "res://resources/cells.json"
+const FILE_PROTOTYPES = "res://resources/prototypes.json"
+const FILE_CELLS = "res://resources/cells.json"
+const FILE_SOCKETS = "res://resources/sockets.json"
+const FILE_REGISTRY = "res://resources/sockets_registry.json"
 
 export var clear_canvas : bool setget set_clear_canvas
 export var export_definitions : bool = false setget set_export_definitions
@@ -67,10 +69,29 @@ func set_export_definitions(value : bool) -> void:
 
 
 func save_json() -> void:
-	var file = File.new()
+	var file_prototypes = File.new()
 	var prototype_data = {}
 	for id in template.prototypes:
 		prototype_data[id] = template.prototypes[id].get_dictionary()
-	file.open(FILE_NAME, File.WRITE)
-	file.store_line(to_json(prototype_data))
-	file.close()
+	file_prototypes.open(FILE_PROTOTYPES, File.WRITE)
+	file_prototypes.store_line(to_json(prototype_data))
+	file_prototypes.close()
+
+	var file_sockets = File.new()
+	var sockets = {
+		'protypes' : template.prototype_sockets,
+		'coords' : template.sockets
+	}
+	file_sockets.open(FILE_SOCKETS, File.WRITE)
+	file_sockets.store_line(to_json(sockets))
+	file_sockets.close()
+
+	var file_registry = File.new()
+	file_registry.open(FILE_REGISTRY, File.WRITE)
+	file_registry.store_line(to_json(template.socket_registry))
+	file_registry.close()
+
+#	var file_cells = File.new()
+#	file_cells.open(FILE_PROTOTYPES, File.WRITE)
+#	file_cells.store_line(to_json(template.cells))
+#	file_cells.close()
