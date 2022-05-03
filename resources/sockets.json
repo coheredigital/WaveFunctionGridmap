@@ -1,0 +1,25 @@
+{
+
+
+	"0_0": {
+		"sockets" : {
+			"front": "0_0F",
+			"back": "0_0B",
+			"left": "0_0L",
+			"right": "0_0R",
+			"top": "0_0T",
+			"bottom": "0_0B"
+		}
+	},
+	"1_0": {
+		"sockets" : {
+			"front": "0_0B",
+			"back": "1_0B",
+			"left": "1_0L",
+			"right": "1_0R",
+			"top": "1_0T",
+			"bottom": "1_0B"
+		}
+	}
+
+}

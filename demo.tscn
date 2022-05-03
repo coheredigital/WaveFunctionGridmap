@@ -74,7 +74,6 @@ shader_param/noise = SubResource( 127 )
 
 [node name="Demo" type="Node"]
 script = ExtResource( 4 )
-size = Vector3( 16, 3, 16 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 5 )
@@ -101,13 +100,4 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="ButtonGenerate" type="Button" parent="."]
-margin_left = 14.0
-margin_top = 15.0
-margin_right = 124.0
-margin_bottom = 48.0
-text = "Generate"
-
 [node name="Map" parent="." instance=ExtResource( 2 )]
-
-[connection signal="pressed" from="ButtonGenerate" to="." method="_on_ButtonGenerate_pressed"]

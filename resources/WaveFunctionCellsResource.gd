@@ -3,6 +3,7 @@ extends Resource
 class_name WaveFunctionCellsResource
 
 signal cell_collapsed(coors, cell_index, cell_orientation)
+signal collapsed
 
 const MESH_NAME = "mesh_name"
 const MESH_ROT = "mesh_rotation"
@@ -48,17 +49,18 @@ class EntropySorter:
 
 
 export var cell_template : Dictionary = {}
-export var cell_states : Dictionary = {}
+export var states : Dictionary = {}
 var cell_queue : Dictionary = {}
 var size : Vector3
 var stack : Array
+var is_ready := true
 
 
 func initialize(new_size : Vector3, all_prototypes : Dictionary):
 	size = new_size
 	initialize_cells(all_prototypes)
 	apply_constraints()
-	cell_template = cell_states.duplicate(true)
+	cell_template = states.duplicate(true)
 	reset()
 	print_debug('Wave function initialized')
 
@@ -68,22 +70,31 @@ func initialize_cells(all_prototypes : Dictionary) -> void:
 		for y in range(size.y):
 			for z in range(size.z):
 				var coords = Vector3(x,y,z)
-				cell_states[coords] = all_prototypes.duplicate()
+				states[coords] = all_prototypes.duplicate()
 
 
 func reset():
-	cell_states = cell_template.duplicate(true)
+	is_ready = true
+	states = cell_template.duplicate(true)
 
+func collapse() -> void:
+	if not is_ready:
+		return
+	while not is_collapsed():
+		is_ready = false
+		step_collapse()
+	is_ready = true
 
 func is_collapsed() -> bool:
-	for item in cell_states:
-		if len(cell_states[item]) > 1:
+
+	for item in states:
+		if len(states[item]) > 1:
 			return false
 	return true
 
 
 func get_possibilities(coords : Vector3) -> Array:
-	return cell_states[coords]
+	return states[coords]
 
 
 func get_possible_siblings(coords : Vector3, direction : Vector3) -> Array:
@@ -100,11 +111,11 @@ func get_possible_siblings(coords : Vector3, direction : Vector3) -> Array:
 
 
 func collapse_at(coords : Vector3) -> Dictionary:
-	var possible_prototypes = cell_states[coords]
+	var possible_prototypes = states[coords]
 	var selection = weighted_choice(possible_prototypes)
 	var prototype = possible_prototypes[selection]
 	possible_prototypes = {selection : prototype}
-	cell_states[coords] = possible_prototypes
+	states[coords] = possible_prototypes
 	return prototype
 
 
@@ -120,18 +131,18 @@ func weighted_choice(prototypes : Dictionary) -> String:
 
 
 func constrain(coords : Vector3, cell_name : String) -> void:
-	cell_states[coords].erase(cell_name)
+	states[coords].erase(cell_name)
 
 
 func get_entropy(coords : Vector3) -> int:
-	return len(cell_states[coords])
+	return len(states[coords])
 
 
 func get_min_entropy_coords() -> Vector3:
 	var min_entropy = 1000.0
 	var coords
 
-	for cell_coords in cell_states:
+	for cell_coords in states:
 		var entropy = get_entropy(cell_coords)
 		if entropy > 1:
 			entropy += rand_range(-0.1, 0.1)
@@ -146,8 +157,6 @@ func step_collapse() -> void:
 	var coords := get_min_entropy_coords()
 	var prototype := collapse_at(coords)
 	propagate(coords)
-#	emit_signal("cell_collapsed", coords, prototype.cell_index, prototype.cell_orientation)
-
 
 
 func propagate(co_ords : Vector3) -> void:
@@ -199,7 +208,7 @@ func apply_constraints():
 
 	var sibling_directions = siblings_offsets.duplicate()
 
-	for coords in cell_states:
+	for coords in states:
 
 		var protos = get_possibilities(coords)
 		if coords.y == size.y - 1:  # constrain top layer to not contain any uncapped prototypes
