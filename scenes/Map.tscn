@@ -805,14 +805,5 @@ __meta__ = {
 "_editor_floor_": Vector3( 0, 0, 0 )
 }
 
-[node name="Button" type="Button" parent="."]
-margin_left = 9.0
-margin_top = 9.0
-margin_right = 102.0
-margin_bottom = 42.0
-text = "Generate"
-
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 4, 8 )
-
-[connection signal="pressed" from="Button" to="GridMap" method="_on_Button_pressed"]

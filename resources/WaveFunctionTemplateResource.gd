@@ -80,8 +80,6 @@ class WaveFunctionProtoype:
 		'down': []
 	}
 
-	func init(coords: Vector3, cell_index: int,cell_orientation: int) -> void:
-		id = get_id(cell_index, cell_orientation)
 
 	func get_id(cell_index: int,cell_orientation: int) -> String:
 		return "%s_%s" %  [cell_index,cell_orientation]
@@ -90,7 +88,6 @@ class WaveFunctionProtoype:
 	func add_sibling(direction: Vector3,sibling_cell_index: int,sibling_cell_orientation: int):
 		var direction_name = directions[direction]
 		var sibling_id = get_id(sibling_cell_index,sibling_cell_orientation)
-
 		if not valid_siblings[direction_name].has(sibling_id):
 			valid_siblings[direction_name].append(sibling_id)
 
@@ -117,19 +114,15 @@ func reset_prototypes() -> void:
 	}
 
 
-func get_prototype(id: String) -> WaveFunctionProtoype:
+func get_prototype(cell_index: int, cell_orientation: int) -> WaveFunctionProtoype:
+	var id = "%s_%s" %  [cell_index,cell_orientation]
 	if not prototypes.has(id):
 		prototypes[id] = WaveFunctionProtoype.new()
 	return prototypes[id]
 
 
-#func get_cell_prototype(cell_index: int, cell_orientation: int) -> Dictionary:
-#	var cell_id = "%s_%s" %  [cell_index,cell_orientation]
-#	return get_prototype(cell_id)
-
-
 func get_null_prototype() -> WaveFunctionProtoype:
-	var null_prototype = get_prototype(NULL_CELL_ID)
+	var null_prototype = get_prototype(-1,-1)
 #	null prototype can always have null prototype as siblings
 	for direction in sibling_directions:
 		var direction_name = sibling_directions[direction]
@@ -139,6 +132,17 @@ func get_null_prototype() -> WaveFunctionProtoype:
 	null_prototype.constrain_from = '-1'
 	return null_prototype
 
+
+func add_prototype(coords : Vector3, cell_index: int, cell_orientation: int):
+	var prototype = get_prototype(cell_index,cell_orientation)
+
+
+func add_prototype_sibling(cell_index: int, cell_orientation: int, direction : Vector3, sibling_cell_index: int, sibling_cell_orientation: int):
+	var prototype := get_prototype(cell_index,cell_orientation)
+	prototype.add_sibling(direction,sibling_cell_index,sibling_cell_orientation)
+#	add inverse relationship
+	var sibling_prototype := get_prototype(sibling_cell_index,sibling_cell_orientation)
+	sibling_prototype.add_sibling(direction * VECTOR_INVERSE,cell_index,cell_orientation)
 
 #func append_cell_prototype(coords : Vector3, cell_index: int, cell_orientation: int) -> void:
 #
@@ -174,19 +178,6 @@ func get_null_prototype() -> WaveFunctionProtoype:
 #	track_unique_siblings(sibling_prototype,direction,cell_index, cell_orientation)
 
 
-func add_prototype(coords : Vector3, cell_index: int, cell_orientation: int):
-	var id = "%s_%s" %  [cell_index,cell_orientation]
-	var prototype = get_prototype(id)
-	prototype.init(coords,cell_index,cell_orientation)
-	prototypes[prototype.id] = prototype
-
-
-func add_prototype_sibling(cell_index: int, cell_orientation: int, direction : Vector3, sibling_cell_index: int, sibling_cell_orientation: int):
-	var cell_id = "%s_%s" %  [cell_index,cell_orientation]
-	var prototype := get_prototype(cell_id)
-	prototype.add_sibling(direction,sibling_cell_index,sibling_cell_orientation)
-
-
 #func track_unique_siblings(cell_prototype: Dictionary, direction : Vector3, sibling_cell_index: int, sibling_cell_orientation: int):
 #	var direction_name = sibling_directions[direction]
 #	if not cell_prototype.siblings.has(direction_name):
@@ -202,10 +193,8 @@ func add_prototype_sibling(cell_index: int, cell_orientation: int, direction : V
 #	var direction_name = sibling_directions[direction]
 #	if not prototype.valid_siblings[direction_name].has(sibling_cell_id):
 #		prototype.valid_siblings[direction_name].append(sibling_cell_id)
-#
-#
-#
-## use some simple logic to progogate siblings in cases where cell are symmetrical
+
+
 #func update_symmetry() -> void:
 #
 #	for id in prototypes:
@@ -229,7 +218,6 @@ func add_prototype_sibling(cell_index: int, cell_orientation: int, direction : V
 #			prototype.mirror.z = max(prototype.mirror.x,direction_symmetry.z)
 
 
-#
 #func get_prototypes() -> Dictionary:
 #	return prototypes
 
