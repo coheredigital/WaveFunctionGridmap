@@ -10,7 +10,6 @@ export var export_definitions : bool = false setget set_export_definitions
 
 var template : WaveFunctionTemplateResource
 
-export var cells := {}
 
 var directions = {
 	Vector3.FORWARD: 0,
@@ -31,30 +30,31 @@ const sibling_directions = {
 func update_prototypes() -> void:
 	template = WaveFunctionTemplateResource.new()
 	var used_cells := get_used_cells()
-	print_debug("Generate prototype: %s cells in use." % cells.size())
+
 	for cell_coordinates in used_cells:
 		var cell_index := get_cell_item(cell_coordinates.x,cell_coordinates.y,cell_coordinates.z)
 		var cell_orientation := get_cell_item_orientation(cell_coordinates.x,cell_coordinates.y,cell_coordinates.z)
-		add_cell_prototype(cell_coordinates,cell_index,cell_orientation)
+		add_cell_prototype(cell_coordinates,cell_index, cell_orientation)
+
+	print_debug("Generated prototype: %s cells in use." % used_cells.size())
 
 
 func add_cell_prototype(coords: Vector3, cell_index: int, cell_orientation: int):
-	template.append_cell_prototype(coords, cell_index, cell_orientation)
+#	template.append_cell_prototype(coords, cell_index, cell_orientation)
+	template.add_prototype(coords,cell_index,cell_orientation)
 #	check valid nearby cells
 	for direction in template.sibling_directions:
 		var sibling_coords = coords + direction
 		var sibling_cell = get_cell_item(sibling_coords.x, sibling_coords.y, sibling_coords.z)
 		var sibling_cell_orientation = get_cell_item_orientation(sibling_coords.x, sibling_coords.y, sibling_coords.z)
-		template.append_cell_sibling(cell_index, cell_orientation, direction, sibling_cell, sibling_cell_orientation)
+#		template.append_cell_sibling(cell_index, cell_orientation, direction, sibling_cell, sibling_cell_orientation)
 		template.add_prototype_sibling(cell_index, cell_orientation, direction, sibling_cell, sibling_cell_orientation)
-#	template.update_symmetry()
-
 
 # (EDITOR ONLY!) override set cell item to ensure active prototype management
-func set_cell_item(x: int, y: int, z: int, item: int, orientation: int = 0) -> void:
-	.set_cell_item(x, y, z, item, orientation)
-	if Engine.editor_hint:
-		var coords = Vector3(x,y,z)
+#func set_cell_item(x: int, y: int, z: int, item: int, orientation: int = 0) -> void:
+#	.set_cell_item(x, y, z, item, orientation)
+#	if Engine.editor_hint:
+#		var coords = Vector3(x,y,z)
 #		update_prototypes()
 #		update_cell_state()
 
@@ -117,8 +117,14 @@ func set_export_definitions(value : bool) -> void:
 
 func save_json() -> void:
 	var file = File.new()
+	var prototype_data = {}
+	for id in template.prototypes:
+		prototype_data[id] = template.prototypes[id].get_dictionary()
 	file.open(FILE_NAME, File.WRITE)
-	file.store_line(to_json(template.prototypes))
+	file.store_line(to_json(prototype_data))
 	file.close()
 
 
+func _on_Button_pressed():
+	self.export_definitions = true
+	print_debug("Exported prototypes")
