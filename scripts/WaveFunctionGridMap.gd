@@ -20,6 +20,22 @@ const orientations = {
 	Vector3.LEFT: 16
 }
 
+const oriented_directions = {
+	0 : {
+		Vector3.FORWARD: Vector3.FORWARD,
+		Vector3.RIGHT: Vector3.RIGHT,
+		Vector3.BACK: Vector3.BACK,
+		Vector3.LEFT: Vector3.LEFT
+	},
+	22 : {
+		Vector3.FORWARD: Vector3.FORWARD,
+		Vector3.RIGHT: Vector3.RIGHT,
+		Vector3.BACK: Vector3.BACK,
+		Vector3.LEFT: Vector3.LEFT
+	},
+
+}
+
 const sibling_directions = {
 	Vector3.RIGHT : 'right',
 	Vector3.FORWARD : 'forward',
@@ -29,6 +45,43 @@ const sibling_directions = {
 	Vector3.DOWN : 'down'
 }
 
+var structure := {}
+
+
+func get_oriented_directions(cell_orientation: int) -> Dictionary:
+	var directions : Dictionary
+	match cell_orientation:
+		0: # Forward (default)
+			directions = {
+				Vector3.FORWARD: Vector3.FORWARD,
+				Vector3.RIGHT: Vector3.RIGHT,
+				Vector3.BACK: Vector3.BACK,
+				Vector3.LEFT: Vector3.LEFT
+			}
+		22: # Right (90)
+			directions = {
+				Vector3.FORWARD: Vector3.LEFT,
+				Vector3.RIGHT: Vector3.FORWARD,
+				Vector3.BACK: Vector3.RIGHT,
+				Vector3.LEFT: Vector3.BACK
+			}
+		10: # Back (180)
+			directions = {
+				Vector3.FORWARD: Vector3.BACK,
+				Vector3.RIGHT: Vector3.LEFT,
+				Vector3.BACK: Vector3.FORWARD,
+				Vector3.LEFT: Vector3.RIGHT
+			}
+		16: # Left (270)
+			directions = {
+				Vector3.FORWARD: Vector3.RIGHT,
+				Vector3.RIGHT: Vector3.BACK,
+				Vector3.BACK: Vector3.LEFT,
+				Vector3.LEFT: Vector3.FORWARD
+			}
+
+	return directions
+
 
 func update_prototypes() -> void:
 	template = WaveFunctionTemplateResource.new()
@@ -37,9 +90,23 @@ func update_prototypes() -> void:
 	for cell_coordinates in used_cells:
 		var cell_index := get_cell_item(cell_coordinates.x,cell_coordinates.y,cell_coordinates.z)
 		var cell_orientation := get_cell_item_orientation(cell_coordinates.x,cell_coordinates.y,cell_coordinates.z)
-		add_cell_prototype(cell_coordinates,cell_index, cell_orientation)
+		print("cell: %s_%s" % [cell_index,cell_orientation] )
 
-	print_debug("Generated prototype: %s cells in use." % used_cells.size())
+		if not structure.has(cell_index):
+			structure[cell_index] = {}
+
+		var directions : Dictionary = get_oriented_directions(cell_orientation)
+		print(directions)
+#		if not structure[cell_index].has()
+
+		for direction in sibling_directions:
+
+			var sibling_cell_index := get_cell_item(cell_coordinates.x,cell_coordinates.y,cell_coordinates.z)
+			var sibling_cell_orientation := get_cell_item_orientation(cell_coordinates.x,cell_coordinates.y,cell_coordinates.z)
+
+#		add_cell_prototype(cell_coordinates,cell_index, cell_orientation)
+
+#	print_debug("Generated prototype: %s cells in use." % used_cells.size())
 
 
 func add_cell_prototype(coords: Vector3, cell_index: int, cell_orientation: int):
@@ -79,8 +146,9 @@ func save_json() -> void:
 
 	var file_sockets = File.new()
 	var sockets = {
-		'protypes' : template.prototype_sockets,
-		'coords' : template.sockets
+		'prototypes' : template.prototype_sockets,
+		'cells' : template.sockets,
+		'registry' : template.socket_registry
 	}
 	file_sockets.open(FILE_SOCKETS, File.WRITE)
 	file_sockets.store_line(to_json(sockets))

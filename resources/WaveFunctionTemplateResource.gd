@@ -159,61 +159,55 @@ func add_prototype(coords : Vector3, cell_index: int, cell_orientation: int):
 
 
 func add_sockets(coords : Vector3, cell_index: int, cell_orientation: int):
-
+	var id = "%s_%s" %  [cell_index,cell_orientation]
 	for socket_direction in sibling_directions:
-		if not get_socket_id(cell_index, cell_orientation):
-			set_socket_id(coords,socket_direction,prototype_id)
-
-	for direction in sibling_directions:
-		var sibling_coords = coords + direction
-		var direction_inverse = direction * VECTOR_INVERSE
-		var sibling_socket_id = get_socket_id(sibling_coords, direction_inverse)
-
-#	prototype_sockets[prototype_id] = sockets[coords]
+		if not get_socket_id(cell_index, socket_direction):
+			set_socket_id(cell_index,socket_direction,id)
 
 
-func get_socket_id(coords: Vector3, direction: Vector3):
-	if not sockets.has(coords):
+
+
+func get_socket_id(cell_index: int, direction: Vector3):
+	if not sockets.has(cell_index):
 		return ''
-	var socket = sockets[coords]
+	var socket = sockets[cell_index]
 	if not socket.has(direction):
 		return ''
 	return socket[direction]
 
 
-
-func set_socket_id(coords: Vector3, direction: Vector3, id: String):
+func set_socket_id(cell_index: int, direction: Vector3, id: String):
 
 	var default_sockets = {
-		Vector3.FORWARD : 'F%s' % id,
-		Vector3.BACK : 'B%s' % id,
-		Vector3.LEFT : 'L%s' % id,
-		Vector3.RIGHT : 'R%s' % id,
-		Vector3.UP : 'U%s' % id,
-		Vector3.DOWN : 'D%s' % id
+		Vector3.FORWARD : 'F%s' % cell_index,
+		Vector3.BACK : 'B%s' % cell_index,
+		Vector3.LEFT : 'L%s' % cell_index,
+		Vector3.RIGHT : 'R%s' % cell_index,
+		Vector3.UP : 'U%s' % cell_index,
+		Vector3.DOWN : 'D%s' % cell_index
 	}
 
 	var socket_id = default_sockets[direction]
 
-	if not sockets.has(coords):
-		sockets[coords] = default_sockets.duplicate()
+	if not sockets.has(cell_index):
+		sockets[cell_index] = {}
 
-	var socket = sockets[coords]
+	var socket = sockets[cell_index]
 	if not socket.has(direction):
 		socket[direction] = default_sockets[direction]
 
-	if not socket_registry.has(socket_id):
-		socket_registry[socket_id] = {
-			Vector3.FORWARD : [],
-			Vector3.BACK : [],
-			Vector3.LEFT : [],
-			Vector3.RIGHT : [],
-			Vector3.UP : [],
-			Vector3.DOWN : []
-		}
-
-	if not socket_registry[socket_id][direction].has(id):
-		socket_registry[socket_id][direction].append(id)
+#	if not socket_registry.has(socket_id):
+#		socket_registry[socket_id] = {
+#			Vector3.FORWARD : [],
+#			Vector3.BACK : [],
+#			Vector3.LEFT : [],
+#			Vector3.RIGHT : [],
+#			Vector3.UP : [],
+#			Vector3.DOWN : []
+#		}
+#
+#	if not socket_registry[socket_id][direction].has(id):
+#		socket_registry[socket_id][direction].append(id)
 
 
 func add_prototype_sibling(cell_index: int, cell_orientation: int, direction : Vector3, sibling_cell_index: int, sibling_cell_orientation: int):
