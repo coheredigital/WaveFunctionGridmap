@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://textures/water_mask.png" type="Texture" id=1]
-[ext_resource path="res://scenes/GridMap.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/Map.tscn" type="PackedScene" id=2]
 [ext_resource path="res://shaders/water_shader.shader" type="Shader" id=3]
 [ext_resource path="res://demo.gd" type="Script" id=4]
 
@@ -76,11 +76,6 @@ shader_param/noise = SubResource( 127 )
 script = ExtResource( 4 )
 size = Vector3( 16, 3, 16 )
 
-[node name="GridMap" parent="." instance=ExtResource( 2 )]
-data = {
-"cells": PoolIntArray( 2, 6, 1048578, 3, 6, 1048577, 4, 6, 2, 2, 7, 655361, 3, 7, 1048576, 4, 7, 3, 5, 7, 2, 2, 8, 655362, 3, 8, 1441793, 4, 8, 1441793, 5, 8, 1441794 )
-}
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 5 )
 
@@ -112,5 +107,7 @@ margin_top = 15.0
 margin_right = 124.0
 margin_bottom = 48.0
 text = "Generate"
+
+[node name="Map" parent="." instance=ExtResource( 2 )]
 
 [connection signal="pressed" from="ButtonGenerate" to="." method="_on_ButtonGenerate_pressed"]

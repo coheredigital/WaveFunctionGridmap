@@ -3,6 +3,41 @@ extends Resource
 class_name WaveFunctionTemplateResource
 
 export var prototypes := {}
+export var prototypes_new := {}
+
+# new prototype structure
+#{
+#	cell_id
+#	0 : {
+#		orientation
+#		0: {
+#			directions
+#			'left': {
+#				siblings
+#				-1: [0],
+#				0: [0,16,10,22],
+#				10: [0,10],
+#			}
+#		}
+#		16:{
+#			-1: [0],
+#			0: [0,16,10,22],
+#			10: [0,10],
+#		}
+#	}
+#	7 : {
+#		0: {
+#			-1: [0],
+#			0: [0,16,10,22],
+#			10: [0,10],
+#		}
+#		16:{
+#			-1: [0],
+#			0: [0,16,10,22],
+#			10: [0,10],
+#		}
+#	}
+#}
 
 const VECTOR_INVERSE = Vector3(-1.0,-1.0,-1.0)
 const FILE_NAME = "res://resources/prototypes.json"
@@ -55,9 +90,9 @@ const sibling_directions = {
 
 
 class WaveFunctionProtoype:
-	var cell_name : String = ''
-	var cell_index : int = -1
-	var cell_orientation : int = -1
+	var name : String = '-1_-1'
+	var index : int = -1
+	var orientation : int = -1
 	var weight : int = 1;
 	var constrain_to : String = 'bot'
 	var constrain_from : String = 'bot'
@@ -72,10 +107,11 @@ class WaveFunctionProtoype:
 
 	func get_dictionary() -> Dictionary:
 		return {
-			'weight' : 1,
+			'name' : name,
+			'weight' : weight,
 			'valid_siblings': valid_siblings,
-			'cell_index': cell_index,
-			'cell_orientation': cell_orientation,
+			'index': index,
+			'orientation': orientation,
 			'constrain_to': constrain_to,
 			'constrain_from': constrain_from,
 		}
@@ -96,7 +132,6 @@ func get_prototype(cell_id: String) -> Dictionary:
 		prototypes[cell_id] = DEFAULT_PROTOTYPE.duplicate(true)
 	return prototypes[cell_id]
 
-
 func get_cell_prototype(cell_index: int, cell_orientation: int) -> Dictionary:
 	var cell_id = "%s_%s" %  [cell_index,cell_orientation]
 	return get_prototype(cell_id)
@@ -104,6 +139,7 @@ func get_cell_prototype(cell_index: int, cell_orientation: int) -> Dictionary:
 
 func get_null_prototype() -> Dictionary:
 	var null_prototype = get_prototype(NULL_CELL_ID)
+#	null prototype can alway have null as siblings
 	for direction in sibling_directions:
 		var direction_name = sibling_directions[direction]
 		null_prototype.valid_siblings[direction_name].append(NULL_CELL_ID)
@@ -114,10 +150,10 @@ func get_null_prototype() -> Dictionary:
 
 
 func append_cell_prototype(coords : Vector3, cell_index: int, cell_orientation: int) -> void:
+	add_prototype(coords,cell_index,cell_orientation)
+
 	var cell_id = "%s_%s" %  [cell_index,cell_orientation]
-
 	var prototype = get_prototype(cell_id)
-
 	prototype.weight += 1
 	prototype.cell_index = cell_index
 	prototype.cell_orientation = cell_orientation
@@ -148,25 +184,32 @@ func append_cell_sibling(cell_index: int, cell_orientation: int, direction : Vec
 	track_unique_siblings(sibling_prototype,direction,cell_index, cell_orientation)
 
 
+func add_prototype(coords : Vector3, cell_index: int, cell_orientation: int):
+	var prototype = WaveFunctionProtoype.new()
+	prototype.name = "%s_%s" %  [cell_index,cell_orientation]
+	prototype.index = cell_index
+	prototype.orientation = cell_index
+
+func add_prototype_sibling(cell_index: int, cell_orientation: int, direction : Vector3, sibling_cell_index: int, sibling_cell_orientation: int):
+	var prototype = prototypes_new[]
+
+	pass
+
 func track_unique_siblings(cell_prototype: Dictionary, direction : Vector3, sibling_cell_index: int, sibling_cell_orientation: int):
 	var direction_name = sibling_directions[direction]
 	if not cell_prototype.siblings.has(direction_name):
 		cell_prototype.siblings[direction_name] = {}
 
 	if not cell_prototype.siblings[direction_name].has(sibling_cell_index):
-		cell_prototype.siblings[direction_name][sibling_cell_index] = {}
+		cell_prototype.siblings[direction_name][sibling_cell_index] = []
 	if not cell_prototype.siblings[direction_name][sibling_cell_index].has(sibling_cell_orientation):
-		cell_prototype.siblings[direction_name][sibling_cell_index][sibling_cell_orientation] = 1
-
-	cell_prototype.siblings[direction_name][sibling_cell_index][sibling_cell_orientation] = cell_prototype.siblings[direction_name][sibling_cell_index][sibling_cell_orientation] + 1
-
+		cell_prototype.siblings[direction_name][sibling_cell_index].append(sibling_cell_orientation)
 
 
 func append_protoype_sibling(prototype: Dictionary, direction : Vector3, sibling_cell_id: String) -> void:
 	var direction_name = sibling_directions[direction]
 	if not prototype.valid_siblings[direction_name].has(sibling_cell_id):
 		prototype.valid_siblings[direction_name].append(sibling_cell_id)
-
 
 
 

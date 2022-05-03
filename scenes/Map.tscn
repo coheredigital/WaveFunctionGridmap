@@ -4,25 +4,25 @@
 [ext_resource path="res://blender/Beach_008.material" type="Material" id=2]
 [ext_resource path="res://blender/Rock_008.material" type="Material" id=3]
 [ext_resource path="res://blender/Grass_008.material" type="Material" id=4]
-[ext_resource path="res://blender/Grass_001.material" type="Material" id=5]
-[ext_resource path="res://blender/Beach_007.material" type="Material" id=6]
-[ext_resource path="res://blender/Rock_004.material" type="Material" id=7]
-[ext_resource path="res://blender/Rock_002.material" type="Material" id=8]
-[ext_resource path="res://blender/Beach_001.material" type="Material" id=9]
-[ext_resource path="res://blender/Rock_006.material" type="Material" id=10]
-[ext_resource path="res://blender/Grass_005.material" type="Material" id=11]
-[ext_resource path="res://blender/Beach.material" type="Material" id=12]
-[ext_resource path="res://blender/Rock_001.material" type="Material" id=13]
-[ext_resource path="res://blender/Grass.material" type="Material" id=14]
-[ext_resource path="res://blender/Rock_005.material" type="Material" id=15]
-[ext_resource path="res://blender/Grass_003.material" type="Material" id=16]
-[ext_resource path="res://blender/Rock_003.material" type="Material" id=17]
-[ext_resource path="res://blender/Rock_007.material" type="Material" id=18]
-[ext_resource path="res://blender/Grass_002.material" type="Material" id=19]
-[ext_resource path="res://blender/Roof_001.material" type="Material" id=20]
-[ext_resource path="res://blender/Grass_004.material" type="Material" id=21]
-[ext_resource path="res://blender/Beach_004.material" type="Material" id=22]
-[ext_resource path="res://scripts/WaveFunctionGridMap.gd" type="Script" id=23]
+[ext_resource path="res://blender/Grass_001.material" type="Material" id=6]
+[ext_resource path="res://blender/Beach_007.material" type="Material" id=7]
+[ext_resource path="res://blender/Rock_004.material" type="Material" id=8]
+[ext_resource path="res://blender/Rock_002.material" type="Material" id=9]
+[ext_resource path="res://blender/Beach_001.material" type="Material" id=10]
+[ext_resource path="res://blender/Rock_006.material" type="Material" id=11]
+[ext_resource path="res://blender/Grass_005.material" type="Material" id=12]
+[ext_resource path="res://blender/Beach.material" type="Material" id=13]
+[ext_resource path="res://blender/Rock_001.material" type="Material" id=14]
+[ext_resource path="res://blender/Grass.material" type="Material" id=15]
+[ext_resource path="res://blender/Rock_005.material" type="Material" id=16]
+[ext_resource path="res://blender/Grass_003.material" type="Material" id=17]
+[ext_resource path="res://blender/Rock_003.material" type="Material" id=18]
+[ext_resource path="res://blender/Rock_007.material" type="Material" id=19]
+[ext_resource path="res://blender/Grass_002.material" type="Material" id=20]
+[ext_resource path="res://blender/Roof_001.material" type="Material" id=21]
+[ext_resource path="res://blender/Grass_004.material" type="Material" id=22]
+[ext_resource path="res://blender/Beach_004.material" type="Material" id=23]
+[ext_resource path="res://scripts/WaveFunctionGridMap.gd" type="Script" id=24]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "wfc_simple_Cube805"
@@ -33,7 +33,7 @@ surfaces/0 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 6,
-"material": ExtResource( 14 ),
+"material": ExtResource( 15 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 4
@@ -61,7 +61,7 @@ surfaces/0 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 57,
-"material": ExtResource( 14 ),
+"material": ExtResource( 15 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 21
@@ -73,7 +73,7 @@ surfaces/1 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 21,
-"material": ExtResource( 12 ),
+"material": ExtResource( 13 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 14
@@ -101,7 +101,7 @@ surfaces/0 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 36,
-"material": ExtResource( 16 ),
+"material": ExtResource( 17 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 16
@@ -113,7 +113,7 @@ surfaces/1 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 66,
-"material": ExtResource( 17 ),
+"material": ExtResource( 18 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 36
@@ -125,7 +125,7 @@ surfaces/2 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 240,
-"material": ExtResource( 20 ),
+"material": ExtResource( 21 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 68
@@ -153,7 +153,7 @@ surfaces/0 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 42,
-"material": ExtResource( 21 ),
+"material": ExtResource( 22 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 19
@@ -165,7 +165,7 @@ surfaces/1 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 18,
-"material": ExtResource( 7 ),
+"material": ExtResource( 8 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 8
@@ -177,7 +177,7 @@ surfaces/2 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 18,
-"material": ExtResource( 22 ),
+"material": ExtResource( 23 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 13
@@ -205,7 +205,7 @@ surfaces/0 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 15,
-"material": ExtResource( 11 ),
+"material": ExtResource( 12 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 9
@@ -217,7 +217,7 @@ surfaces/1 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 36,
-"material": ExtResource( 15 ),
+"material": ExtResource( 16 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 12
@@ -257,7 +257,7 @@ surfaces/1 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 18,
-"material": ExtResource( 10 ),
+"material": ExtResource( 11 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 8
@@ -285,7 +285,7 @@ surfaces/0 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 24,
-"material": ExtResource( 18 ),
+"material": ExtResource( 19 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 10
@@ -297,7 +297,7 @@ surfaces/1 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 15,
-"material": ExtResource( 6 ),
+"material": ExtResource( 7 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 7
@@ -377,7 +377,7 @@ surfaces/0 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 54,
-"material": ExtResource( 14 ),
+"material": ExtResource( 15 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 22
@@ -389,7 +389,7 @@ surfaces/1 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 36,
-"material": ExtResource( 12 ),
+"material": ExtResource( 13 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 16
@@ -417,7 +417,7 @@ surfaces/0 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 60,
-"material": ExtResource( 14 ),
+"material": ExtResource( 15 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 20
@@ -429,7 +429,7 @@ surfaces/1 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 21,
-"material": ExtResource( 12 ),
+"material": ExtResource( 13 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 14
@@ -457,7 +457,7 @@ surfaces/0 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 18,
-"material": ExtResource( 5 ),
+"material": ExtResource( 6 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 8
@@ -469,7 +469,7 @@ surfaces/1 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 45,
-"material": ExtResource( 13 ),
+"material": ExtResource( 14 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 15
@@ -497,7 +497,7 @@ surfaces/0 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 33,
-"material": ExtResource( 5 ),
+"material": ExtResource( 6 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 12
@@ -509,7 +509,7 @@ surfaces/1 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 18,
-"material": ExtResource( 13 ),
+"material": ExtResource( 14 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 8
@@ -537,7 +537,7 @@ surfaces/0 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 87,
-"material": ExtResource( 5 ),
+"material": ExtResource( 6 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 30
@@ -549,7 +549,7 @@ surfaces/1 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 18,
-"material": ExtResource( 13 ),
+"material": ExtResource( 14 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 8
@@ -561,7 +561,7 @@ surfaces/2 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 21,
-"material": ExtResource( 9 ),
+"material": ExtResource( 10 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 14
@@ -589,7 +589,7 @@ surfaces/0 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 15,
-"material": ExtResource( 19 ),
+"material": ExtResource( 20 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 7
@@ -601,7 +601,7 @@ surfaces/1 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 48,
-"material": ExtResource( 8 ),
+"material": ExtResource( 9 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 15
@@ -629,7 +629,7 @@ surfaces/0 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 48,
-"material": ExtResource( 8 ),
+"material": ExtResource( 9 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 15
@@ -657,7 +657,7 @@ surfaces/0 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 42,
-"material": ExtResource( 19 ),
+"material": ExtResource( 20 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 13
@@ -669,7 +669,7 @@ surfaces/1 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 24,
-"material": ExtResource( 8 ),
+"material": ExtResource( 9 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 10
@@ -789,16 +789,224 @@ __meta__ = {
 "_editor_source_scene": "res://blender/wfc_simple.tscn"
 }
 
-[node name="GridMap" type="GridMap"]
+[node name="Map" type="Spatial"]
+
+[node name="GridMap" type="GridMap" parent="."]
 mesh_library = SubResource( 49 )
 use_in_baked_light = true
 cell_size = Vector3( 1, 1, 1 )
 cell_center_y = false
 data = {
-"cells": PoolIntArray( 0, 0, 1, 65534, 0, 655361, 65535, 0, 10, 0, 1, 1, 65534, 1, 655361, 65535, 1, 1441802, 0, 2, 1441794, 65534, 2, 655362, 65535, 2, 1441793, 0, 65534, 2, 65534, 65534, 1048578, 65535, 65534, 1048577, 0, 65535, 1, 65534, 65535, 655361, 65535, 65535, 1048586 )
+"cells": PoolIntArray( 0, 0, 0, 1, 0, 1, 65534, 0, 655361, 65535, 0, 0, 0, 1, 1441793, 1, 1, 1441794, 65534, 1, 655362, 65535, 1, 1441793, 0, 65534, 1048577, 1, 65534, 2, 65534, 65534, 1048578, 65535, 65534, 1048577, 0, 65535, 0, 1, 65535, 1, 65534, 65535, 655361, 65535, 65535, 0 )
 }
-script = ExtResource( 23 )
+script = ExtResource( 24 )
 __meta__ = {
 "_editor_clip_": 0,
 "_editor_floor_": Vector3( 0, 0, 0 )
+}
+cells = {
+0: {
+0: {
+"siblings": {
+"back": {
+0: [ 0 ]
+},
+"down": {
+-1: [ -1 ]
+},
+"forward": {
+1: [ 16 ]
+},
+"left": {
+1: [ 10 ]
+},
+"right": {
+0: [ 0 ]
+},
+"up": {
+-1: [ -1 ]
+}
+}
+}
+},
+1: {
+0: {
+"siblings": {
+"back": {
+1: [ 0 ]
+},
+"down": {
+-1: [ -1 ]
+},
+"forward": {
+2: [ 0 ]
+},
+"left": {
+0: [ 0 ]
+},
+"right": {
+-1: [ -1 ]
+},
+"up": {
+-1: [ -1 ]
+}
+}
+},
+10: {
+"siblings": {
+"back": {
+1: [ 10 ]
+},
+"down": {
+-1: [ -1 ]
+},
+"forward": {
+2: [ 16 ]
+},
+"left": {
+-1: [ -1 ]
+},
+"right": {
+0: [ 0 ]
+},
+"up": {
+-1: [ -1 ]
+}
+}
+},
+16: {
+"siblings": {
+"back": {
+0: [ 0 ]
+},
+"down": {
+-1: [ -1 ]
+},
+"forward": {
+-1: [ -1 ]
+},
+"left": {
+2: [ 16 ]
+},
+"right": {
+1: [ 16 ]
+},
+"up": {
+-1: [ -1 ]
+}
+}
+},
+22: {
+"siblings": {
+"back": {
+-1: [ -1 ]
+},
+"down": {
+-1: [ -1 ]
+},
+"forward": {
+0: [ 0 ]
+},
+"left": {
+2: [ 10 ]
+},
+"right": {
+1: [ 22 ]
+},
+"up": {
+-1: [ -1 ]
+}
+}
+}
+},
+2: {
+0: {
+"siblings": {
+"back": {
+1: [ 0 ]
+},
+"down": {
+-1: [ -1 ]
+},
+"forward": {
+-1: [ -1 ]
+},
+"left": {
+1: [ 16 ]
+},
+"right": {
+-1: [ -1 ]
+},
+"up": {
+-1: [ -1 ]
+}
+}
+},
+10: {
+"siblings": {
+"back": {
+-1: [ -1 ]
+},
+"down": {
+-1: [ -1 ]
+},
+"forward": {
+1: [ 10 ]
+},
+"left": {
+-1: [ -1 ]
+},
+"right": {
+1: [ 22 ]
+},
+"up": {
+-1: [ -1 ]
+}
+}
+},
+16: {
+"siblings": {
+"back": {
+1: [ 10 ]
+},
+"down": {
+-1: [ -1 ]
+},
+"forward": {
+-1: [ -1 ]
+},
+"left": {
+-1: [ -1 ]
+},
+"right": {
+1: [ 16 ]
+},
+"up": {
+-1: [ -1 ]
+}
+}
+},
+22: {
+"siblings": {
+"back": {
+-1: [ -1 ]
+},
+"down": {
+-1: [ -1 ]
+},
+"forward": {
+1: [ 0 ]
+},
+"left": {
+1: [ 22 ]
+},
+"right": {
+-1: [ -1 ]
+},
+"up": {
+-1: [ -1 ]
+}
+}
+}
+}
 }

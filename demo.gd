@@ -1,13 +1,12 @@
 extends Node
 
 export var size = Vector3(3, 4, 8)
-onready var gridmap := $GridMap
+onready var gridmap := $Map/GridMap
 onready var camera_focus := $CamFocus
 export var cell_data : Resource
 
 
 func _ready():
-
 	camera_focus.translation = Vector3(0.5,0.5,0.5) * size
 	cell_data = WaveFunctionCellsResource.new()
 #	get fresh prototypes
@@ -24,14 +23,11 @@ func generate():
 	gridmap.clear()
 	while not cell_data.is_collapsed():
 		yield(get_tree(), "idle_frame")
-		var result = cell_data.step_collapse()
-#		render_gridmap(cell_data)
-		var coords : Vector3 = result.coords
-		var cell_index : int = result.prototype.cell_index
-		var cell_orientation : int = result.prototype.cell_orientation
-		render_cell(coords,cell_index,cell_orientation)
+		cell_data.step_collapse()
+		render_gridmap(cell_data)
 
-	render_gridmap(cell_data)
+
+#	render_gridmap(cell_data)
 
 	if cell_data.is_collapsed():
 		print('Cells collapsed')

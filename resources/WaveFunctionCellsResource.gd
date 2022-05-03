@@ -90,8 +90,8 @@ func get_possible_siblings(coords : Vector3, direction : Vector3) -> Array:
 	var valid_siblings = []
 	var direction_name = siblings_offsets[direction]
 	var prototypes = get_possibilities(coords)
-	for prototype in prototypes:
-		var item_valid_siblings = prototypes[prototype][SIBLINGS]
+	for id in prototypes:
+		var item_valid_siblings = prototypes[id][SIBLINGS]
 		var siblings = item_valid_siblings[direction_name]
 		for item in siblings:
 			if not item in valid_siblings:
@@ -142,15 +142,12 @@ func get_min_entropy_coords() -> Vector3:
 	return coords
 
 
-func step_collapse() -> Dictionary:
+func step_collapse() -> void:
 	var coords := get_min_entropy_coords()
 	var prototype := collapse_at(coords)
 	propagate(coords)
 #	emit_signal("cell_collapsed", coords, prototype.cell_index, prototype.cell_orientation)
-	return {
-		'coords' : coords,
-		'prototype' : prototype,
-	}
+
 
 
 func propagate(co_ords : Vector3) -> void:
