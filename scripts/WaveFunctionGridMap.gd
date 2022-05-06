@@ -26,40 +26,80 @@ const sibling_directions = {
 var structure := {}
 
 
-func get_oriented_directions(cell_orientation: int) -> Dictionary:
-	var directions : Dictionary
-
+func get_normalizes_directions(cell_orientation: int) -> Dictionary:
 	match cell_orientation:
-		0: # Forward (default)
-			return {
-				Vector3.FORWARD: Vector3.FORWARD,
-				Vector3.RIGHT: Vector3.RIGHT,
-				Vector3.BACK: Vector3.BACK,
-				Vector3.LEFT: Vector3.LEFT
-			}
 		22: # Right (90)
 			return  {
 				Vector3.FORWARD: Vector3.RIGHT,
 				Vector3.RIGHT: Vector3.BACK,
 				Vector3.BACK: Vector3.LEFT,
-				Vector3.LEFT: Vector3.FORWARD
+				Vector3.LEFT: Vector3.FORWARD,
+				Vector3.UP : Vector3.UP,
+				Vector3.DOWN : Vector3.DOWN
 			}
 		10: # Back (180)
 			return  {
 				Vector3.FORWARD: Vector3.BACK,
 				Vector3.RIGHT: Vector3.LEFT,
 				Vector3.BACK: Vector3.FORWARD,
-				Vector3.LEFT: Vector3.RIGHT
+				Vector3.LEFT: Vector3.RIGHT,
+				Vector3.UP : Vector3.UP,
+				Vector3.DOWN : Vector3.DOWN
 			}
 		16: # Left (270)
 			return  {
-				Vector3.FORWARD: Vector3.RIGHT,
-				Vector3.RIGHT: Vector3.BACK,
-				Vector3.BACK: Vector3.LEFT,
-				Vector3.LEFT: Vector3.FORWARD
+				Vector3.FORWARD: Vector3.LEFT,
+				Vector3.RIGHT: Vector3.FORWARD,
+				Vector3.BACK: Vector3.RIGHT,
+				Vector3.LEFT: Vector3.BACK,
+				Vector3.UP : Vector3.UP,
+				Vector3.DOWN : Vector3.DOWN
 			}
-		_:
-			return {}
+		_: # Forward ( 0:default)
+			return {
+				Vector3.FORWARD: Vector3.FORWARD,
+				Vector3.RIGHT: Vector3.RIGHT,
+				Vector3.BACK: Vector3.BACK,
+				Vector3.LEFT: Vector3.LEFT,
+				Vector3.UP : Vector3.UP,
+				Vector3.DOWN : Vector3.DOWN
+			}
+
+
+func get_normalized_orientation(parent_orientation: int, cell_orientation: int) -> int:
+	match parent_orientation:
+		22:
+			match cell_orientation:
+				0:
+					return 16
+				22:
+					return 0
+				10:
+					return 22
+				16:
+					return 10
+		10:
+			match cell_orientation:
+				0:
+					return 10
+				22:
+					return 16
+				10:
+					return 0
+				16:
+					return 22
+		16:
+			match cell_orientation:
+				0:
+					return 22
+				22:
+					return 10
+				10:
+					return 16
+				16:
+					return 0
+
+	return 0
 
 
 func update_prototypes() -> void:
@@ -69,46 +109,35 @@ func update_prototypes() -> void:
 	for coords in used_cells:
 		var cell_index := get_cell_item(coords.x,coords.y,coords.z)
 		var cell_orientation := get_cell_item_orientation(coords.x,coords.y,coords.z)
-		print("cell: %s_%s" % [cell_index,cell_orientation] )
+		var normalized_cell_orientation = 0
+		var normalized_directions = get_normalizes_directions(cell_orientation)
 
 		if not structure.has(cell_index):
 			structure[cell_index] = {}
 
-		if not structure[cell_index].has(cell_orientation):
-			structure[cell_index][cell_orientation] = {}
+		var cell = structure[cell_index];
 
+		if not cell.has(normalized_cell_orientation):
+			cell[normalized_cell_orientation] = {}
 
-		var oriented_directions : Dictionary = get_oriented_directions(cell_orientation)
-		print(oriented_directions)
-#		if not structure[cell_index].has()
+		var orientation = cell[normalized_cell_orientation]
 
-		for direction in sibling_directions:
-			var sibling_coords = coords + direction
+		for direction in normalized_directions:
+			var oriented_direction = normalized_directions[direction]
+			var sibling_coords = coords + oriented_direction
 			var sibling_cell_index := get_cell_item(sibling_coords.x,sibling_coords.y,sibling_coords.z)
 			var sibling_cell_orientation := get_cell_item_orientation(sibling_coords.x,sibling_coords.y,sibling_coords.z)
-			var direction_name = sibling_directions[direction]
-			var oriented_direction = Vector3.ZERO
-			var oriented_direction_name = ''
+			var normalized_sibling_cell_orientation = get_normalized_orientation(cell_orientation, sibling_cell_orientation)
+			var oriented_direction_name = sibling_directions[direction]
 
-			if oriented_directions.has(direction):
-				oriented_direction = oriented_directions[direction]
-				oriented_direction_name = sibling_directions[oriented_direction]
+			if not orientation.has(oriented_direction_name):
+				orientation[oriented_direction_name] = {}
 
-			if not oriented_direction_name:
-				continue
+			if not orientation[oriented_direction_name].has(sibling_cell_index):
+				orientation[oriented_direction_name][sibling_cell_index] = []
 
-
-			if not structure[cell_index][cell_orientation].has(direction_name):
-				structure[cell_index][cell_orientation][direction_name] = {}
-
-			if not structure[cell_index][cell_orientation][direction_name].has(sibling_cell_index):
-				structure[cell_index][cell_orientation][direction_name][sibling_cell_index] = []
-
-			if not structure[cell_index][cell_orientation][direction_name][sibling_cell_index].has(sibling_cell_orientation):
-				structure[cell_index][cell_orientation][direction_name][sibling_cell_index].append(sibling_cell_orientation)
-
-			print('	siblings( %s ): %s' % [direction_name, oriented_direction_name])
-
+			if not orientation[oriented_direction_name][sibling_cell_index].has(normalized_sibling_cell_orientation):
+				orientation[oriented_direction_name][sibling_cell_index].append(normalized_sibling_cell_orientation)
 
 
 	var file = File.new()
@@ -117,6 +146,34 @@ func update_prototypes() -> void:
 	file.close()
 
 #	print_debug("Generated prototype: %s cells in use." % used_cells.size())
+
+func register_cell(cell_index: int, cell_orientation: int,direction: Vector3):
+
+	print("cell: %s_%s" % [cell_index,cell_orientation] )
+
+
+
+	if not structure.has(cell_index):
+		structure[cell_index] = {}
+
+	if not structure[cell_index].has(cell_orientation):
+		structure[cell_index][cell_orientation] = {}
+
+	var direction_name = sibling_directions[direction]
+
+
+#	if not structure[cell_index][cell_orientation].has(direction_name):
+#		structure[cell_index][cell_orientation][direction_name] = {}
+#
+#	if not structure[cell_index][cell_orientation][direction_name].has(sibling_cell_index):
+#		structure[cell_index][cell_orientation][direction_name][sibling_cell_index] = []
+#
+#	if not structure[cell_index][cell_orientation][direction_name][sibling_cell_index].has(sibling_cell_orientation):
+#		structure[cell_index][cell_orientation][direction_name][sibling_cell_index].append(sibling_cell_orientation)
+#
+#	print('	siblings( %s ): %s' % [direction_name, direction_name])
+
+#func register_cell(coords: Vector3, cell_index: int, cell_orientation: int):
 
 
 func add_cell_prototype(coords: Vector3, cell_index: int, cell_orientation: int):
