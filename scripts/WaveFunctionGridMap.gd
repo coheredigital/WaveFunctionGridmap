@@ -99,7 +99,7 @@ func get_normalized_orientation(parent_orientation: int, cell_orientation: int) 
 				16:
 					return 0
 
-	return 0
+	return cell_orientation
 
 
 func update_prototypes() -> void:
