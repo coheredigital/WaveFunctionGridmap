@@ -13,6 +13,7 @@ export var export_definitions : bool = false setget set_export_definitions
 
 var template : WaveFunctionTemplateResource
 
+var alternate_orientations = [22,10,16]
 
 const sibling_directions = {
 	Vector3.RIGHT : 'right',
@@ -102,6 +103,42 @@ func get_normalized_orientation(parent_orientation: int, cell_orientation: int) 
 	return cell_orientation
 
 
+func get_offset_orientation(original_orientation: int, offset_orientation: int) -> int:
+	match offset_orientation:
+		22:
+			match original_orientation:
+				0:
+					return 22
+				22:
+					return 10
+				10:
+					return 16
+				16:
+					return 0
+		10:
+			match original_orientation:
+				0:
+					return 10
+				22:
+					return 16
+				10:
+					return 0
+				16:
+					return 22
+		16:
+			match original_orientation:
+				0:
+					return 16
+				22:
+					return 0
+				10:
+					return 22
+				16:
+					return 10
+
+	return original_orientation
+
+
 func update_prototypes() -> void:
 	template = WaveFunctionTemplateResource.new()
 	var used_cells := get_used_cells()
@@ -139,19 +176,27 @@ func update_prototypes() -> void:
 			if not orientation[oriented_direction_name][sibling_cell_index].has(normalized_sibling_cell_orientation):
 				orientation[oriented_direction_name][sibling_cell_index].append(normalized_sibling_cell_orientation)
 
+#	create orientation variations
+	for cell_id in structure:
+		var default_cell_orientation = structure[cell_id][0]
+		for orientation in alternate_orientations:
+			var oriented_directions = get_normalizes_directions(orientation)
+			for oriented_direction in oriented_directions:
+				for direction in default_cell_orientation:
+					pass
+			
 
 	var file = File.new()
 	file.open(FILE_TEST, File.WRITE)
 	file.store_line(to_json(structure))
 	file.close()
 
-#	print_debug("Generated prototype: %s cells in use." % used_cells.size())
+#	print("Generated prototype: %s cells in use." % used_cells.size())
 
-func register_cell(cell_index: int, cell_orientation: int,direction: Vector3):
+
+func register_cell(cell_index: int, cell_orientation: int, direction: Vector3):
 
 	print("cell: %s_%s" % [cell_index,cell_orientation] )
-
-
 
 	if not structure.has(cell_index):
 		structure[cell_index] = {}
@@ -160,7 +205,6 @@ func register_cell(cell_index: int, cell_orientation: int,direction: Vector3):
 		structure[cell_index][cell_orientation] = {}
 
 	var direction_name = sibling_directions[direction]
-
 
 #	if not structure[cell_index][cell_orientation].has(direction_name):
 #		structure[cell_index][cell_orientation][direction_name] = {}
@@ -187,7 +231,6 @@ func add_cell_prototype(coords: Vector3, cell_index: int, cell_orientation: int)
 		template.add_prototype_sibling(cell_index, cell_orientation, direction, sibling_cell, sibling_cell_orientation)
 
 
-
 func set_clear_canvas(value : bool) -> void:
 	if not value:
 		return
@@ -197,7 +240,7 @@ func set_clear_canvas(value : bool) -> void:
 func set_export_definitions(value : bool) -> void:
 	if not value:
 		return
-	print('Update Protypes')
+	print('Update Protypes!')
 	update_prototypes()
 	save_json()
 
