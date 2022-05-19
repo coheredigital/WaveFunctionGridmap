@@ -159,7 +159,8 @@ class WaveFunctionSocket:
 	func append_sibling(sibling_cell_index: int, sibling_cell_orientation: int):
 		if not siblings.has(sibling_cell_index):
 			siblings[sibling_cell_index] = []
-		siblings[sibling_cell_index].append(sibling_cell_orientation)
+		if not siblings[sibling_cell_index].has(sibling_cell_orientation):
+			siblings[sibling_cell_index].append(sibling_cell_orientation)
 
 	func get_dictionary() -> Dictionary:
 		return siblings
