@@ -1,17 +1,15 @@
 extends Node
 
 
-export var size = Vector3(8, 3, 8)
-onready var gridmap := $Map/GridMap
+onready var template : WaveFunctionGridMapTemplate = $GridMapTemplate
+onready var gridmap : WaveFunctionGridMap = $GridMap
 onready var camera_focus := $CamFocus
 var cell_data : WaveFunctionCellsResource
 
 
-func _ready():
-	camera_focus.translation = Vector3(0.5,0.5,0.5) * size
-	cell_data = WaveFunctionCellsResource.new()
-	gridmap.update_prototypes()
-	cell_data.initialize(size, gridmap.prototypes)
+func initialize() -> void:
+	template.update_prototypes()
+	gridmap.initialize()
 
 
 func _input(event):
@@ -46,3 +44,5 @@ func _on_cell_collapsed(coords : Vector3, cell_index: int, cell_orientation : in
 
 func clear_meshes():
 	gridmap.clear()
+
+
