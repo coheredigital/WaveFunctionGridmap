@@ -95,6 +95,75 @@ func get_normalized_direction(cell_orientation: int, direction: Vector3) -> Vect
 	return normalized_directions[direction]
 
 
+class WaveFunctionCells:
+	var list = {}
+
+	func get_cell(cell_index:int) -> WaveFunctionCell:
+		if not list.has(cell_index):
+			list[cell_index] = WaveFunctionCell.new(cell_index)
+		return list[cell_index]
+
+	func get_dictionary() -> Dictionary:
+		var data = {}
+		for cell_index in list:
+			var current_cell : WaveFunctionCell = get_cell(cell_index)
+			data[cell_index] = current_cell.get_dictionary()
+		return data
+
+
+class WaveFunctionCell:
+	var index : int
+	var sockets = WaveFunctionSockets
+
+	func _init(cell_index:int):
+		index = cell_index
+		sockets = WaveFunctionSockets.new()
+
+	func register_socket(direction: Vector3, sibling_cell_index: int, sibling_cell_orientation : int ):
+		var socket : WaveFunctionSocket  = sockets.get_socket(direction)
+		socket.append_sibling(sibling_cell_index,sibling_cell_orientation)
+
+
+	func get_dictionary() -> Dictionary:
+		var data = {
+			'index' : index,
+			'sockets': sockets.get_dictionary()
+		}
+		return data
+
+class WaveFunctionSockets:
+
+	var directions = {
+		Vector3.FORWARD : WaveFunctionSocket.new(),
+		Vector3.BACK : WaveFunctionSocket.new(),
+		Vector3.LEFT : WaveFunctionSocket.new(),
+		Vector3.RIGHT : WaveFunctionSocket.new(),
+		Vector3.UP : WaveFunctionSocket.new(),
+		Vector3.DOWN : WaveFunctionSocket.new()
+	}
+
+	func get_socket(direction: Vector3) -> WaveFunctionSocket:
+		return directions[direction]
+
+	func get_dictionary() -> Dictionary:
+		var data = {}
+		for direction in directions:
+			var direction_name = direction_names[direction]
+			var socket = directions[direction]
+			data[direction_name] = socket.get_dictionary()
+		return data
+
+class WaveFunctionSocket:
+	var siblings = {}
+	func append_sibling(sibling_cell_index: int, sibling_cell_orientation: int):
+		if not siblings.has(sibling_cell_index):
+			siblings[sibling_cell_index] = []
+		siblings[sibling_cell_index].append(sibling_cell_orientation)
+
+	func get_dictionary() -> Dictionary:
+		return siblings
+
+
 const direction_names = {
 	Vector3.RIGHT : 'right',
 	Vector3.FORWARD : 'forward',
@@ -213,67 +282,67 @@ func update_prototypes() -> void:
 			if not cell[normalized_direction_name][sibling_cell_index].has(normalized_sibling_cell_orientation):
 				cell[normalized_direction_name][sibling_cell_index].append(normalized_sibling_cell_orientation)
 
+	template.prototypes = structure
 
 	var file = File.new()
-	file.open(FILE_TEST, File.WRITE)
+	file.open(FILE_PROTOTYPES, File.WRITE)
 	file.store_line(to_json(structure))
 	file.close()
 
-#	print("Generated prototype: %s cells in use." % used_cells.size())
-
 
 func update_sockets() -> void:
-	var sockets := {}
+	var sockets = {}
+
+	var file = File.new()
+	file.open(FILE_SOCKETS, File.WRITE)
+	file.store_line(to_json(sockets))
+	file.close()
+
+
+func update_cells() -> void:
+	var cells = WaveFunctionCells.new()
 
 	var used_cells := get_used_cells()
 
 	for coords in used_cells:
-		var cell_index := get_cell_item(coords.x,coords.y,coords.z)
-		var cell_orientation := get_cell_item_orientation(coords.x,coords.y,coords.z)
+		var cell_index : int = get_cell_item(coords.x,coords.y,coords.z)
+		var cell_orientation : int = get_cell_item_orientation(coords.x,coords.y,coords.z)
+		var cell : WaveFunctionCell = cells.get_cell(cell_index)
 
-		for direction in direction_names:
-			var sibling_coords = coords + direction
+		var normalized_directions : Dictionary = orientation_directions[cell_orientation]
+
+		if not structure.has(cell_index):
+			structure[cell_index] = {}
+
+
+		for direction in normalized_directions:
+#
+			var oriented_direction = normalized_directions[direction]
+			var sibling_coords = coords + oriented_direction
 			var sibling_cell_index := get_cell_item(sibling_coords.x,sibling_coords.y,sibling_coords.z)
 			var sibling_cell_orientation := get_cell_item_orientation(sibling_coords.x,sibling_coords.y,sibling_coords.z)
+			var normalized_sibling_cell_orientation = get_normalized_orientation(cell_orientation, sibling_cell_orientation)
 
-			register_cell_sibling(cell_index, cell_orientation, direction, sibling_cell_index, sibling_cell_orientation)
+			cell.register_socket(direction,sibling_cell_index,normalized_sibling_cell_orientation)
 
-#		var normalized_cell_orientation = 0
-#		var normalized_directions : Dictionary = orientations[cell_orientation]
+#			if not cell.has(normalized_direction_name):
+#				cell[normalized_direction_name] = {}
+#
+#			if not cell[normalized_direction_name].has(sibling_cell_index):
+#				cell[normalized_direction_name][sibling_cell_index] = []
+#
+#			if not cell[normalized_direction_name][sibling_cell_index].has(normalized_sibling_cell_orientation):
+#				cell[normalized_direction_name][sibling_cell_index].append(normalized_sibling_cell_orientation)
 
-#		if not structure.has(cell_index):
-#			structure[cell_index] = {}
-#
-#		var cell = structure[cell_index];
-#
-#		if not cell.has(normalized_cell_orientation):
-#			cell[normalized_cell_orientation] = {}
-#
-#		var orientation = cell[normalized_cell_orientation]
-#
-#		for direction in normalized_directions:
-#
-#			var oriented_direction = normalized_directions[direction]
-#			var sibling_coords = coords + oriented_direction
-#			var sibling_cell_index := get_cell_item(sibling_coords.x,sibling_coords.y,sibling_coords.z)
-#			var sibling_cell_orientation := get_cell_item_orientation(sibling_coords.x,sibling_coords.y,sibling_coords.z)
-#			var normalized_sibling_cell_orientation = get_normalized_orientation(cell_orientation, sibling_cell_orientation)
-#			var oriented_direction_name = sibling_directions[direction]
-#
-#			if not orientation.has(oriented_direction_name):
-#				orientation[oriented_direction_name] = {}
-#
-#			if not orientation[oriented_direction_name].has(sibling_cell_index):
-#				orientation[oriented_direction_name][sibling_cell_index] = []
-#
-#			if not orientation[oriented_direction_name][sibling_cell_index].has(normalized_sibling_cell_orientation):
-#				orientation[oriented_direction_name][sibling_cell_index].append(normalized_sibling_cell_orientation)
+	var cell_json : Dictionary = cells.get_dictionary()
 
 
-#	var file = File.new()
-#	file.open(FILE_TEST, File.WRITE)
-#	file.store_line(to_json(structure))
-#	file.close()
+
+	var file = File.new()
+	file.open(FILE_CELLS, File.WRITE)
+	file.store_line(to_json(cell_json))
+	file.close()
+
 
 
 func register_cell_sibling(cell_index: int, cell_orientation: int, direction: Vector3, sibling_cell_index: int, sibling_cell_orientation: int) -> void:
@@ -288,8 +357,8 @@ func register_cell_sibling(cell_index: int, cell_orientation: int, direction: Ve
 	for o in orientation_directions:
 #		var oriented_directions = orientation_directions[o]
 		var orient = get_normalized_orientation(o, normalized_sibling_cell_orientation)
-		var oriented_directions := get_normalized_directions(orient)
-		var normalized_direction := get_normalized_direction(orient,direction)
+		var oriented_directions : Dictionary = get_normalized_directions(orient)
+		var normalized_direction : Vector3 = get_normalized_direction(orient,direction)
 		var direction_name = direction_names[direction]
 		var normalized_direction_name = direction_names[normalized_direction]
 
@@ -317,34 +386,4 @@ func set_export_definitions(value : bool) -> void:
 	print('Update Protypes!')
 	update_prototypes()
 	update_sockets()
-#	save_json()
-
-
-func save_json() -> void:
-	var file_prototypes = File.new()
-	var prototype_data = {}
-	for id in template.prototypes:
-		prototype_data[id] = template.prototypes[id].get_dictionary()
-	file_prototypes.open(FILE_PROTOTYPES, File.WRITE)
-	file_prototypes.store_line(to_json(prototype_data))
-	file_prototypes.close()
-
-	var file_sockets = File.new()
-	var sockets = {
-		'prototypes' : template.prototype_sockets,
-		'cells' : template.sockets,
-		'registry' : template.socket_registry
-	}
-	file_sockets.open(FILE_SOCKETS, File.WRITE)
-	file_sockets.store_line(to_json(sockets))
-	file_sockets.close()
-
-	var file_registry = File.new()
-	file_registry.open(FILE_REGISTRY, File.WRITE)
-	file_registry.store_line(to_json(template.socket_registry))
-	file_registry.close()
-
-#	var file_cells = File.new()
-#	file_cells.open(FILE_PROTOTYPES, File.WRITE)
-#	file_cells.store_line(to_json(template.cells))
-#	file_cells.close()
+	update_cells()
