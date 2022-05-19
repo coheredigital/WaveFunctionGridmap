@@ -181,6 +181,50 @@ func get_offset_orientation(original_orientation: int, offset_orientation: int) 
 
 func update_prototypes() -> void:
 	template = WaveFunctionTemplateResource.new()
+	structure = {}
+	var used_cells := get_used_cells()
+
+	for coords in used_cells:
+		var cell_index := get_cell_item(coords.x,coords.y,coords.z)
+		var cell_orientation := get_cell_item_orientation(coords.x,coords.y,coords.z)
+		var normalized_cell_orientation = 0
+		var normalized_directions : Dictionary = orientation_directions[cell_orientation]
+
+		if not structure.has(cell_index):
+			structure[cell_index] = {}
+
+		var cell = structure[cell_index];
+
+		for direction in normalized_directions:
+#
+			var oriented_direction = normalized_directions[direction]
+			var sibling_coords = coords + oriented_direction
+			var sibling_cell_index := get_cell_item(sibling_coords.x,sibling_coords.y,sibling_coords.z)
+			var sibling_cell_orientation := get_cell_item_orientation(sibling_coords.x,sibling_coords.y,sibling_coords.z)
+			var normalized_sibling_cell_orientation = get_normalized_orientation(cell_orientation, sibling_cell_orientation)
+			var normalized_direction_name = direction_names[direction]
+
+			if not cell.has(normalized_direction_name):
+				cell[normalized_direction_name] = {}
+
+			if not cell[normalized_direction_name].has(sibling_cell_index):
+				cell[normalized_direction_name][sibling_cell_index] = []
+
+			if not cell[normalized_direction_name][sibling_cell_index].has(normalized_sibling_cell_orientation):
+				cell[normalized_direction_name][sibling_cell_index].append(normalized_sibling_cell_orientation)
+
+
+	var file = File.new()
+	file.open(FILE_TEST, File.WRITE)
+	file.store_line(to_json(structure))
+	file.close()
+
+#	print("Generated prototype: %s cells in use." % used_cells.size())
+
+
+func update_sockets() -> void:
+	var sockets := {}
+
 	var used_cells := get_used_cells()
 
 	for coords in used_cells:
@@ -226,12 +270,10 @@ func update_prototypes() -> void:
 #				orientation[oriented_direction_name][sibling_cell_index].append(normalized_sibling_cell_orientation)
 
 
-	var file = File.new()
-	file.open(FILE_TEST, File.WRITE)
-	file.store_line(to_json(structure))
-	file.close()
-
-#	print("Generated prototype: %s cells in use." % used_cells.size())
+#	var file = File.new()
+#	file.open(FILE_TEST, File.WRITE)
+#	file.store_line(to_json(structure))
+#	file.close()
 
 
 func register_cell_sibling(cell_index: int, cell_orientation: int, direction: Vector3, sibling_cell_index: int, sibling_cell_orientation: int) -> void:
@@ -245,8 +287,10 @@ func register_cell_sibling(cell_index: int, cell_orientation: int, direction: Ve
 
 	for o in orientation_directions:
 #		var oriented_directions = orientation_directions[o]
-		var oriented_directions := get_normalized_directions(o)
-		var normalized_direction := get_normalized_direction(o,direction)
+		var orient = get_normalized_orientation(o, normalized_sibling_cell_orientation)
+		var oriented_directions := get_normalized_directions(orient)
+		var normalized_direction := get_normalized_direction(orient,direction)
+		var direction_name = direction_names[direction]
 		var normalized_direction_name = direction_names[normalized_direction]
 
 		if not cell.has(o):
@@ -256,6 +300,9 @@ func register_cell_sibling(cell_index: int, cell_orientation: int, direction: Ve
 #
 		if not orientation.has(normalized_direction_name):
 			orientation[normalized_direction_name] = {}
+
+		if not orientation[normalized_direction_name].has(sibling_cell_index):
+			orientation[normalized_direction_name][sibling_cell_index] = []
 
 
 func set_clear_canvas(value : bool) -> void:
@@ -269,7 +316,8 @@ func set_export_definitions(value : bool) -> void:
 		return
 	print('Update Protypes!')
 	update_prototypes()
-	save_json()
+	update_sockets()
+#	save_json()
 
 
 func save_json() -> void:
