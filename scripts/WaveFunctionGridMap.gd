@@ -123,7 +123,6 @@ class WaveFunctionCell:
 		var socket : WaveFunctionSocket  = sockets.get_socket(direction)
 		socket.append_sibling(sibling_cell_index,sibling_cell_orientation)
 
-
 	func get_dictionary() -> Dictionary:
 		var data = {
 			'index' : index,
@@ -153,6 +152,7 @@ class WaveFunctionSockets:
 			var socket = directions[direction]
 			data[direction_name] = socket.get_dictionary()
 		return data
+
 
 class WaveFunctionSocket:
 	var siblings = {}
