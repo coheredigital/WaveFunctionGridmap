@@ -10,9 +10,8 @@ var cell_data : WaveFunctionCellsResource
 func _ready():
 	camera_focus.translation = Vector3(0.5,0.5,0.5) * size
 	cell_data = WaveFunctionCellsResource.new()
-#	get fresh prototypes
-	gridmap.export_definitions = true
-	cell_data.initialize(size, gridmap.template.prototypes)
+	gridmap.update_prototypes()
+	cell_data.initialize(size, gridmap.prototypes)
 
 
 func _input(event):
