@@ -197,7 +197,6 @@ class WaveFunctionPrototype:
 			for direction in valid_siblings:
 				var sibling_prototype = valid_siblings[direction]
 				var oriented_direction = oriented_directions[direction]
-				var oriented_direction_name = direction_names[oriented_direction]
 				var oriented_sibling_prototype = {}
 				for sibling_cell_index in sibling_prototype:
 					var sibling_cell_orientations = sibling_prototype[sibling_cell_index]
@@ -207,7 +206,7 @@ class WaveFunctionPrototype:
 						normalized_sibling_orientations.append(normalized_orientation)
 					oriented_sibling_prototype[sibling_cell_index] = normalized_sibling_orientations
 
-				oriented_valid_siblings[oriented_direction_name] = oriented_sibling_prototype
+				oriented_valid_siblings[oriented_direction] = oriented_sibling_prototype
 
 			orientation_variations[orientation] = oriented_valid_siblings
 

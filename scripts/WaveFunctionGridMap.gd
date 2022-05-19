@@ -6,7 +6,7 @@ signal cell_collapsed(coors, cell_index, cell_orientation)
 signal collapsed
 
 const BLANK_CELL_INDEX = "-1"
-const ORIENTATION = "valid_orientations"
+const ORIENTATIONS = "valid_orientations"
 const SIBLINGS = "valid_siblings"
 const WEIGHT = "weight"
 
@@ -92,8 +92,8 @@ func collapse() -> void:
 func step_collapse() -> void:
 	var coords := get_min_entropy_coords()
 	print('min entropy coords: %s' % coords)
-	var prototype := collapse_at(coords)
-#	propagate(coords)
+	var prototype := collapse_coord(coords)
+	propagate(coords)
 
 
 func get_random(dict):
@@ -102,17 +102,18 @@ func get_random(dict):
    return a
 
 
-func collapse_at(coords : Vector3) -> Dictionary:
+func collapse_coord(coords : Vector3) -> Dictionary:
 	var possible_prototypes = states[coords]
 	var selection = weighted_choice(possible_prototypes)
 	var prototype = possible_prototypes[selection]
-	var valid_orientations : Dictionary = prototype[ORIENTATION]
-
-	var selected_orientation = get_random(valid_orientations)
-	prototype['valid_orientations'] = [selected_orientation]
-
-	possible_prototypes = {selection : prototype}
-	states[coords] = possible_prototypes
+	var possible_orientations : Dictionary = prototype[ORIENTATIONS]
+	var selected_orientation = get_random(possible_orientations)
+#	replace with selected orientation
+	prototype['valid_orientations'] = {
+		selected_orientation: prototype['valid_orientations'][selected_orientation]
+	}
+#	replace with selected prototype
+	states[coords] = {selection : prototype}
 	return prototype
 
 
@@ -124,24 +125,19 @@ func is_collapsed() -> bool:
 	return true
 
 
-func get_possibilities(coords : Vector3) -> Array:
-	return states[coords]
-
 
 func get_possible_siblings(coords : Vector3, direction : Vector3) -> Array:
 	var valid_siblings = []
-	var direction_name = siblings_offsets[direction]
-	var prototypes = get_possibilities(coords)
+	var prototypes = states[coords]
 	for cell_index in prototypes:
-		var item_valid_siblings = prototypes[cell_index][SIBLINGS]
-		var siblings = item_valid_siblings[direction_name]
-		for item in siblings:
-			if not item in valid_siblings:
-				valid_siblings.append(item)
+		var prototype_cell_orientations = prototypes[cell_index][ORIENTATIONS]
+		for orientation in prototype_cell_orientations:
+			var cell_valid_siblings = prototypes[cell_index][ORIENTATIONS][orientation]
+			var siblings = cell_valid_siblings[direction]
+			for item in siblings:
+				if not item in valid_siblings:
+					valid_siblings.append(item)
 	return valid_siblings
-
-
-
 
 
 func weighted_choice(prototypes : Dictionary) -> String:
@@ -155,12 +151,15 @@ func weighted_choice(prototypes : Dictionary) -> String:
 	return proto_weights[weight_list[-1]]
 
 #
-#func constrain(coords : Vector3, cell_name : String) -> void:
-#	states[coords].erase(cell_name)
+func constrain_cell_index(coords : Vector3, cell_index : String) -> void:
+	states[coords].erase(cell_index)
 
 
 func get_entropy(coords : Vector3) -> int:
-	var entropy : int = len(states[coords])
+	var prototypes = states[coords]
+	var entropy : int = 0
+	for cell_index in prototypes:
+		entropy = entropy + len(prototypes[cell_index][ORIENTATIONS])
 	print(entropy)
 	return entropy
 
@@ -180,27 +179,29 @@ func get_min_entropy_coords() -> Vector3:
 	return coords
 
 
-func propagate(co_ords : Vector3) -> void:
-	if co_ords != Vector3.INF:
-		stack.append(co_ords)
+func propagate(coords : Vector3) -> void:
+	if coords != Vector3.INF:
+		stack.append(coords)
 	while len(stack) > 0:
-		var cur_coords = stack.pop_back()
-		var valid_directions := get_valid_directions(cur_coords)
+		var current_coords = stack.pop_back()
+		var valid_directions := get_valid_directions(current_coords)
 
 		# Iterate over each adjacent cell to this one
 		for direction in valid_directions:
-			var sibling_coords = (cur_coords + direction)
-			var possible_siblings = get_possible_siblings(cur_coords, direction)
-			var sibling_possible_prototypes = get_possibilities(sibling_coords).duplicate()
+			var possible_siblings = get_possible_siblings(current_coords, direction)
+			var sibling_coords = (current_coords + direction)
+			var sibling_possible_prototypes = states[sibling_coords].duplicate()
 
 			if len(sibling_possible_prototypes) == 0:
 				continue
+#
+			for sibling_possible_cell_index in sibling_possible_prototypes:
+				if not sibling_possible_cell_index in possible_siblings:
+					constrain_cell_index(sibling_coords, sibling_possible_cell_index)
 
-			for sibling_possible_prototype in sibling_possible_prototypes:
-				if not sibling_possible_prototype in possible_siblings:
-#					constrain(sibling_coords, sibling_possible_prototype)
-					if not sibling_coords in stack:
-						stack.append(sibling_coords)
+
+#					if not sibling_coords in stack:
+#						stack.append(sibling_coords)
 
 
 func get_valid_directions(coords) -> Array:
