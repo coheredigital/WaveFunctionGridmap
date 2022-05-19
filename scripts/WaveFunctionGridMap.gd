@@ -91,8 +91,29 @@ func collapse() -> void:
 
 func step_collapse() -> void:
 	var coords := get_min_entropy_coords()
+	print('min entropy coords: %s' % coords)
 	var prototype := collapse_at(coords)
-	propagate(coords)
+#	propagate(coords)
+
+
+func get_random(dict):
+   var a = dict.keys()
+   a = a[randi() % a.size()]
+   return a
+
+
+func collapse_at(coords : Vector3) -> Dictionary:
+	var possible_prototypes = states[coords]
+	var selection = weighted_choice(possible_prototypes)
+	var prototype = possible_prototypes[selection]
+	var valid_orientations : Dictionary = prototype[ORIENTATION]
+
+	var selected_orientation = get_random(valid_orientations)
+	prototype['valid_orientations'] = [selected_orientation]
+
+	possible_prototypes = {selection : prototype}
+	states[coords] = possible_prototypes
+	return prototype
 
 
 func is_collapsed() -> bool:
@@ -120,17 +141,7 @@ func get_possible_siblings(coords : Vector3, direction : Vector3) -> Array:
 	return valid_siblings
 
 
-func collapse_at(coords : Vector3) -> Dictionary:
-	var possible_prototypes = states[coords]
-	var selection = weighted_choice(possible_prototypes)
-	var prototype = possible_prototypes[selection]
-	var orientations : Array = prototype['valid_orientations'].shuffle()
-	var selected_orientation = orientations.pop_front()
-	prototype['valid_orientations'] = [selected_orientation]
 
-	possible_prototypes = {selection : prototype}
-	states[coords] = possible_prototypes
-	return prototype
 
 
 func weighted_choice(prototypes : Dictionary) -> String:
@@ -149,7 +160,9 @@ func weighted_choice(prototypes : Dictionary) -> String:
 
 
 func get_entropy(coords : Vector3) -> int:
-	return len(states[coords])
+	var entropy : int = len(states[coords])
+	print(entropy)
+	return entropy
 
 
 func get_min_entropy_coords() -> Vector3:
@@ -216,16 +229,16 @@ func apply_constraints():
 
 	var sibling_directions = siblings_offsets.duplicate()
 
-	for coords in states:
-
-		var prototypes = get_possibilities(coords)
-		if coords.y == size.y - 1:  # constrain top layer to not contain any uncapped prototypes
-			for proto in prototypes.duplicate():
-				var siblings = prototypes[proto][SIBLINGS]['up']
-				if not BLANK_CELL_INDEX in siblings:
-					prototypes.erase(proto)
-					if not coords in stack:
-						stack.append(coords)
+#	for coords in states:
+#
+#		var prototypes = get_possibilities(coords)
+#		if coords.y == size.y - 1:  # constrain top layer to not contain any uncapped prototypes
+#			for proto in prototypes.duplicate():
+#				var siblings = prototypes[proto][SIBLINGS]['up']
+#				if not BLANK_CELL_INDEX in siblings:
+#					prototypes.erase(proto)
+#					if not coords in stack:
+#						stack.append(coords)
 
 #		if coords.y > 0:  # everything other than the bottom
 #			for proto in prototypes.duplicate():

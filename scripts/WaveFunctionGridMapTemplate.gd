@@ -2,6 +2,7 @@ tool
 extends GridMap
 class_name WaveFunctionGridMapTemplate
 
+
 const FILE_PROTOTYPES = "res://resources/prototypes.json"
 const FILE_CELLS = "res://resources/cells.json"
 const FILE_SOCKETS = "res://resources/sockets.json"
@@ -46,6 +47,7 @@ const orientation_directions = {
 export var clear_canvas : bool setget set_clear_canvas
 export var export_definitions : bool = false setget set_export_definitions
 var prototypes : Dictionary
+
 
 func get_normalized_directions(cell_orientation: int) -> Dictionary:
 	match cell_orientation:
@@ -128,47 +130,11 @@ func get_normalized_orientation(parent_orientation: int, cell_orientation: int) 
 	return cell_orientation
 
 
-
 class WaveFunctionPrototype:
 	var valid_orientations = [0,22,10,16]
 	var index : int
 	var sockets = WaveFunctionSockets
 	var used_coordinates = []
-
-	func get_normalized_orientation(parent_orientation: int, cell_orientation: int) -> int:
-		match parent_orientation:
-			22:
-				match cell_orientation:
-					0:
-						return 16
-					22:
-						return 0
-					10:
-						return 22
-					16:
-						return 10
-			10:
-				match cell_orientation:
-					0:
-						return 10
-					22:
-						return 16
-					10:
-						return 0
-					16:
-						return 22
-			16:
-				match cell_orientation:
-					0:
-						return 22
-					22:
-						return 10
-					10:
-						return 16
-					16:
-						return 0
-
-		return cell_orientation
 
 	func get_normalized_sibling_orientation(parent_orientation: int, cell_orientation: int) -> int:
 		match parent_orientation:
@@ -241,17 +207,14 @@ class WaveFunctionPrototype:
 						normalized_sibling_orientations.append(normalized_orientation)
 					oriented_sibling_prototype[sibling_cell_index] = normalized_sibling_orientations
 
-
 				oriented_valid_siblings[oriented_direction_name] = oriented_sibling_prototype
 
 			orientation_variations[orientation] = oriented_valid_siblings
 
 		var data = {
-			'orientations': orientation_variations,
-			'valid_orientations': valid_orientations,
+			'valid_orientations': orientation_variations,
 			'used_coordinates': used_coordinates,
-			'weight': len(used_coordinates),
-			'valid_siblings': sockets.get_dictionary()
+			'weight': len(used_coordinates)
 		}
 		return data
 
