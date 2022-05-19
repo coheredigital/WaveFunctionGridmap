@@ -131,6 +131,7 @@ class WaveFunctionCell:
 		}
 		return data
 
+
 class WaveFunctionSockets:
 
 	var directions = {
@@ -308,36 +309,18 @@ func update_cells() -> void:
 		var cell_index : int = get_cell_item(coords.x,coords.y,coords.z)
 		var cell_orientation : int = get_cell_item_orientation(coords.x,coords.y,coords.z)
 		var cell : WaveFunctionCell = cells.get_cell(cell_index)
-
 		var normalized_directions : Dictionary = orientation_directions[cell_orientation]
 
-		if not structure.has(cell_index):
-			structure[cell_index] = {}
-
-
 		for direction in normalized_directions:
-#
 			var oriented_direction = normalized_directions[direction]
 			var sibling_coords = coords + oriented_direction
 			var sibling_cell_index := get_cell_item(sibling_coords.x,sibling_coords.y,sibling_coords.z)
 			var sibling_cell_orientation := get_cell_item_orientation(sibling_coords.x,sibling_coords.y,sibling_coords.z)
 			var normalized_sibling_cell_orientation = get_normalized_orientation(cell_orientation, sibling_cell_orientation)
-
 			cell.register_socket(direction,sibling_cell_index,normalized_sibling_cell_orientation)
 
-#			if not cell.has(normalized_direction_name):
-#				cell[normalized_direction_name] = {}
-#
-#			if not cell[normalized_direction_name].has(sibling_cell_index):
-#				cell[normalized_direction_name][sibling_cell_index] = []
-#
-#			if not cell[normalized_direction_name][sibling_cell_index].has(normalized_sibling_cell_orientation):
-#				cell[normalized_direction_name][sibling_cell_index].append(normalized_sibling_cell_orientation)
-
+#	export to JSON to view structure
 	var cell_json : Dictionary = cells.get_dictionary()
-
-
-
 	var file = File.new()
 	file.open(FILE_CELLS, File.WRITE)
 	file.store_line(to_json(cell_json))
