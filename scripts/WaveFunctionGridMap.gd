@@ -94,8 +94,7 @@ func step_collapse() -> void:
 	print('min entropy coords: %s' % coords)
 	var prototype := collapse_coord(coords)
 	propagate(coords)
-
-#	set_cell_item(coords.x,coords.y,coords.z,prototype[INDEX],prototype[ORIENTATION])
+	set_cell_item(coords.x,coords.y,coords.z,prototype[INDEX],prototype[ORIENTATION])
 
 func get_random(dict):
    var a = dict.keys()
@@ -288,6 +287,7 @@ func set_initialize(value: bool):
 	initialize()
 
 func set_generate(value: bool):
+	initialize()
 	if not value:
 		return
 	collapse()
@@ -296,7 +296,7 @@ func set_generate(value: bool):
 		var prototypes = cells[coords]
 		if prototypes.size() == 1:
 			var cell_id = prototypes.keys().front()
-			print_debug('set cell: %s' % cell_id)
+
 			var prototype = prototypes[cell_id]
 			set_cell_item(coords.x,coords.y,coords.z,prototype[INDEX],prototype[ORIENTATION])
 

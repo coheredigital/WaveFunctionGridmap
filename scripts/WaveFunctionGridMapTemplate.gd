@@ -5,7 +5,7 @@ class_name WaveFunctionGridMapTemplate
 
 const FILE_PATH = "res://resources/prototypes.json"
 const valid_orientations = [0,22,10,16]
-const NULL_CELL_ID = "-1:-1"
+const BLANK_ID = "-1:-1"
 const DEFAULT_PROTOTYPE = {
 	'cell_index': -1,
 	'cell_orientation': -1,
@@ -34,57 +34,51 @@ const DEFAULT_PROTOTYPE = {
 		}
 	}
 }
-
+const orientation_directions = {
+	0: {
+		Vector3.FORWARD: Vector3.FORWARD,
+		Vector3.RIGHT: Vector3.RIGHT,
+		Vector3.BACK: Vector3.BACK,
+		Vector3.LEFT: Vector3.LEFT,
+		Vector3.UP : Vector3.UP,
+		Vector3.DOWN : Vector3.DOWN
+	},
+	22: {
+		Vector3.FORWARD: Vector3.RIGHT,
+		Vector3.RIGHT: Vector3.BACK,
+		Vector3.BACK: Vector3.LEFT,
+		Vector3.LEFT: Vector3.FORWARD,
+		Vector3.UP : Vector3.UP,
+		Vector3.DOWN : Vector3.DOWN
+	},
+	10: {
+		Vector3.FORWARD: Vector3.BACK,
+		Vector3.RIGHT: Vector3.LEFT,
+		Vector3.BACK: Vector3.FORWARD,
+		Vector3.LEFT: Vector3.RIGHT,
+		Vector3.UP : Vector3.UP,
+		Vector3.DOWN : Vector3.DOWN
+	},
+	16: {
+		Vector3.FORWARD: Vector3.LEFT,
+		Vector3.RIGHT: Vector3.FORWARD,
+		Vector3.BACK: Vector3.RIGHT,
+		Vector3.LEFT: Vector3.BACK,
+		Vector3.UP : Vector3.UP,
+		Vector3.DOWN : Vector3.DOWN
+	},
+}
 
 export var clear_canvas : bool setget set_clear_canvas
 export var export_definitions : bool = false setget set_export_definitions
 
 
-var prototypes : Dictionary
+export var prototypes : Dictionary
 
-
-func get_normalized_directions(cell_orientation: int) -> Dictionary:
-	match cell_orientation:
-		22: # Right (90)
-			return  {
-				Vector3.FORWARD: Vector3.RIGHT,
-				Vector3.RIGHT: Vector3.BACK,
-				Vector3.BACK: Vector3.LEFT,
-				Vector3.LEFT: Vector3.FORWARD,
-				Vector3.UP : Vector3.UP,
-				Vector3.DOWN : Vector3.DOWN
-			}
-		10: # Back (180)
-			return  {
-				Vector3.FORWARD: Vector3.BACK,
-				Vector3.RIGHT: Vector3.LEFT,
-				Vector3.BACK: Vector3.FORWARD,
-				Vector3.LEFT: Vector3.RIGHT,
-				Vector3.UP : Vector3.UP,
-				Vector3.DOWN : Vector3.DOWN
-			}
-		16: # Left (270)
-			return  {
-				Vector3.FORWARD: Vector3.LEFT,
-				Vector3.RIGHT: Vector3.FORWARD,
-				Vector3.BACK: Vector3.RIGHT,
-				Vector3.LEFT: Vector3.BACK,
-				Vector3.UP : Vector3.UP,
-				Vector3.DOWN : Vector3.DOWN
-			}
-		_: # Forward ( 0:default)
-			return {
-				Vector3.FORWARD: Vector3.FORWARD,
-				Vector3.RIGHT: Vector3.RIGHT,
-				Vector3.BACK: Vector3.BACK,
-				Vector3.LEFT: Vector3.LEFT,
-				Vector3.UP : Vector3.UP,
-				Vector3.DOWN : Vector3.DOWN
-			}
 
 
 func get_normalized_direction(cell_orientation: int, direction: Vector3) -> Vector3:
-	var normalized_directions = get_normalized_directions(cell_orientation)
+	var normalized_directions = orientation_directions[cell_orientation]
 	return normalized_directions[direction]
 
 
@@ -164,7 +158,16 @@ func get_offset_orientation(original_orientation: int, offset_orientation: int) 
 
 
 func update_prototypes() -> void:
-	prototypes = {}
+	prototypes = {
+		BLANK_ID : DEFAULT_PROTOTYPE.duplicate(true)
+	}
+	var blank_prototype = prototypes[BLANK_ID]
+	var directions = orientation_directions[0]
+#	default blank can always have blank as sibling
+#	for direction in directions:
+#		blank_prototype['valid_siblings'][direction].append(BLANK_ID)
+
+
 	cells = {}
 	var used_cells := get_used_cells()
 	for coords in used_cells:
@@ -191,7 +194,7 @@ func append_cell(coords:Vector3):
 		if not orientation_prototype['used_coordinates'].has(coords):
 			orientation_prototype['used_coordinates'].append(coords)
 
-	var normalized_directions : Dictionary = get_normalized_directions(cell_orientation)
+	var normalized_directions : Dictionary = orientation_directions[cell_orientation]
 
 	for direction in normalized_directions:
 		var oriented_direction = normalized_directions[direction]
