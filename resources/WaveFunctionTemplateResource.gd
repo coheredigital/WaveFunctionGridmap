@@ -9,7 +9,7 @@ var prototype_sockets := {}
 
 const VECTOR_INVERSE = Vector3(-1.0,-1.0,-1.0)
 const FILE_NAME = "res://resources/prototypes.json"
-const NULL_CELL_ID = "-1_-1"
+const NULL_CELL_ID = "-1:-1"
 const DEFAULT_PROTOTYPE = {
 	'weight' : 0,
 	'siblings': {},

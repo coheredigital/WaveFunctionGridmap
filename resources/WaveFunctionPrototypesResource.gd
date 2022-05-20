@@ -1,4 +1,0 @@
-# WaveFunctionPrototypes
-extends Resource
-class_name WaveFunctionPrototypesResource
-
