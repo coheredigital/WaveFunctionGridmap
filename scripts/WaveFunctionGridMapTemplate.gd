@@ -7,33 +7,26 @@ const FILE_PATH = "res://resources/prototypes.json"
 const valid_orientations = [0,22,10,16]
 const NULL_CELL_ID = "-1:-1"
 const DEFAULT_PROTOTYPE = {
-	'weight' : 0,
-	'siblings': {},
-	'valid_siblings': {
-		'right' : [],
-		'forward' : [],
-		'left': [],
-		'back': [],
-		'up': [],
-		'down': []
-	},
 	'cell_index': -1,
 	'cell_orientation': -1,
-	'mirror': {
-		'x': 0,
-		'y': 0,
-		'z': 0,
+	'weight' : 0,
+	'valid_siblings': {
+		Vector3.FORWARD: [],
+		Vector3.RIGHT: [],
+		Vector3.BACK: [],
+		Vector3.LEFT: [],
+		Vector3.UP : [],
+		Vector3.DOWN : []
 	},
-	'constrain_to': 'bot',
-	'constrain_from': 'bot',
+	'used_coordinates': [],
 	'constraints': {
 		'x': {
 			'to': -1,
 			'from': -1,
 		},
 		'y': {
-			'to': 0,
-			'from': 0,
+			'to': -1,
+			'from': -1,
 		},
 		'z': {
 			'to': -1,
@@ -173,12 +166,10 @@ func get_offset_orientation(original_orientation: int, offset_orientation: int) 
 func update_prototypes() -> void:
 	prototypes = {}
 	cells = {}
-
 	var used_cells := get_used_cells()
-
 	for coords in used_cells:
 		append_cell(coords)
-
+	build_constraints()
 
 func append_cell(coords:Vector3):
 
@@ -186,26 +177,19 @@ func append_cell(coords:Vector3):
 	var cell_orientation : int = get_cell_item_orientation(coords.x,coords.y,coords.z)
 	var cell_id = "%s:%s" % [cell_index,cell_orientation]
 
-	if not cells.has(cell_index):
-		cells[cell_index] = {}
-
 #	create default orientations
 	for orientation in valid_orientations:
 		var orientation_cell_id = "%s:%s" % [cell_index,orientation]
 		if not prototypes.has(orientation_cell_id):
-			prototypes[orientation_cell_id] = {
-				'weight': 0,
-				'valid_siblings': {
-					Vector3.FORWARD: [],
-					Vector3.RIGHT: [],
-					Vector3.BACK: [],
-					Vector3.LEFT: [],
-					Vector3.UP : [],
-					Vector3.DOWN : []
-				},
-				'used_coordinates': [],
-			}
+			prototypes[orientation_cell_id] = DEFAULT_PROTOTYPE.duplicate(true)
+		var orientation_prototype = prototypes[orientation_cell_id]
+		orientation_prototype['cell_index'] = cell_index
+		orientation_prototype['cell_orientation'] = orientation
+		orientation_prototype['weight'] += 1
 
+	#	track used coords on cell_index basis, for each possible orientation
+		if not orientation_prototype['used_coordinates'].has(coords):
+			orientation_prototype['used_coordinates'].append(coords)
 
 	var normalized_directions : Dictionary = get_normalized_directions(cell_orientation)
 
@@ -216,12 +200,6 @@ func append_cell(coords:Vector3):
 		var sibling_cell_orientation := get_cell_item_orientation(sibling_coords.x,sibling_coords.y,sibling_coords.z)
 		sibling_cell_orientation = normalize_orientation(cell_orientation, sibling_cell_orientation)
 		append_cell_sibling(cell_index, direction, sibling_cell_index, sibling_cell_orientation)
-
-	var cell_prototype = prototypes[cell_id]
-
-#	track used coords
-	if not cell_prototype['used_coordinates'].has(coords):
-		cell_prototype['used_coordinates'].append(coords)
 
 
 func append_cell_sibling(cell_index: int, direction: Vector3, sibling_cell_index: int, sibling_cell_orientation: int):
@@ -236,6 +214,19 @@ func append_cell_sibling(cell_index: int, direction: Vector3, sibling_cell_index
 		if not prototype['valid_siblings'][normalized_direction].has(sibling_cell_id):
 			prototype['valid_siblings'][normalized_direction].append(sibling_cell_id)
 
+
+func build_constraints() -> void:
+	for cell_id in prototypes:
+		var prototype = prototypes[cell_id]
+		var y_coords : Array = [];
+		for coord in prototype['used_coordinates']:
+			y_coords.append(coord.y)
+#		cell only ever found on bottom
+		if y_coords.max() == 0  and y_coords.min() == 0:
+			prototype['constraints']['y']['to'] = 0
+#		cell NEVER found on bottom
+		if not 0 in y_coords:
+			prototype['constraints']['y']['from'] = 0
 
 
 func set_clear_canvas(value : bool) -> void:

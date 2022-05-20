@@ -6,8 +6,11 @@ signal cell_collapsed(coors, cell_index, cell_orientation)
 signal collapsed
 
 const BLANK_CELL_INDEX = "-1"
+const BLANK_ID = "-1:-1"
 const ORIENTATIONS = "valid_orientations"
 const SIBLINGS = "valid_siblings"
+const INDEX = "cell_index"
+const ORIENTATION = "cell_orientation"
 const WEIGHT = "weight"
 
 
@@ -44,12 +47,12 @@ class EntropySorter:
 
 
 export var initialize := false setget set_initialize
+export var generate := false setget set_generate
 export var step_collapse := false setget set_step_collapse
 export var size = Vector3(8, 3, 8)
 export var template_path : PackedScene
-export var states_template : Dictionary = {}
-export var states : Dictionary = {}
 
+export var cells : Dictionary = {}
 var cell_queue : Dictionary = {}
 var stack : Array
 var is_ready := true
@@ -58,12 +61,11 @@ onready var template : WaveFunctionGridMapTemplate
 
 
 func initialize():
+	clear()
 	template = template_path.instance() as WaveFunctionGridMapTemplate
 	template.update_prototypes()
-	initialize_cells(template.get_dictionary())
-	apply_constraints()
-	states_template = states.duplicate(true)
-	reset()
+	initialize_cells(template.prototypes)
+#	apply_constraints()
 	print_debug('Wave function initialized')
 
 
@@ -72,12 +74,7 @@ func initialize_cells(prototypes : Dictionary) -> void:
 		for y in range(size.y):
 			for z in range(size.z):
 				var coords = Vector3(x,y,z)
-				states[coords] = prototypes.duplicate()
-
-
-func reset():
-	is_ready = true
-	states = states_template.duplicate(true)
+				cells[coords] = prototypes.duplicate(true)
 
 
 func collapse() -> void:
@@ -91,6 +88,9 @@ func collapse() -> void:
 
 func step_collapse() -> void:
 	var coords := get_min_entropy_coords()
+	if not coords:
+		print_debug('min enrtopy coords not found')
+		return
 	print('min entropy coords: %s' % coords)
 	var prototype := collapse_coord(coords)
 	propagate(coords)
@@ -103,64 +103,52 @@ func get_random(dict):
 
 
 func collapse_coord(coords : Vector3) -> Dictionary:
-	var possible_prototypes = states[coords]
+	var possible_prototypes = cells[coords]
 	var selection = weighted_choice(possible_prototypes)
 	var prototype = possible_prototypes[selection]
-	var possible_orientations : Dictionary = prototype[ORIENTATIONS]
-	var selected_orientation = get_random(possible_orientations)
-#	replace with selected orientation
-	prototype['valid_orientations'] = {
-		selected_orientation: prototype['valid_orientations'][selected_orientation]
-	}
 #	replace with selected prototype
-	states[coords] = {selection : prototype}
+	cells[coords] = {selection : prototype}
+	set_cell_item(coords.x,coords.y,coords.z,prototype[INDEX],prototype[ORIENTATION])
 	return prototype
 
 
 func is_collapsed() -> bool:
-
-	for item in states:
-		if len(states[item]) > 1:
+	for item in cells:
+		if len(cells[item]) > 1:
 			return false
 	return true
 
 
+func get_possibilities(coords : Vector3) -> Array:
+	return cells[coords]
+
 
 func get_possible_siblings(coords : Vector3, direction : Vector3) -> Array:
 	var valid_siblings = []
-	var prototypes = states[coords]
-	for cell_index in prototypes:
-		var prototype_cell_orientations = prototypes[cell_index][ORIENTATIONS]
-		for orientation in prototype_cell_orientations:
-			var cell_valid_siblings = prototypes[cell_index][ORIENTATIONS][orientation]
-			var siblings = cell_valid_siblings[direction]
-			for item in siblings:
-				if not item in valid_siblings:
-					valid_siblings.append(item)
+	var prototypes = get_possibilities(coords)
+	for cell_id in prototypes:
+		var item_valid_siblings = prototypes[cell_id][SIBLINGS]
+		var siblings = item_valid_siblings[direction]
+		for sibling_cell_id in siblings:
+			if not sibling_cell_id in valid_siblings:
+				valid_siblings.append(sibling_cell_id)
 	return valid_siblings
 
 
 func weighted_choice(prototypes : Dictionary) -> String:
 	var proto_weights = {}
-	for p in prototypes:
-		var w = prototypes[p][WEIGHT]
-		w += rand_range(-1.0, 1.0)
-		proto_weights[w] = p
+	for cell_id in prototypes:
+		var weight = prototypes[cell_id][WEIGHT]
+		weight += rand_range(-1.0, 1.0)
+		proto_weights[weight] = cell_id
 	var weight_list = proto_weights.keys()
 	weight_list.sort()
 	return proto_weights[weight_list[-1]]
 
-#
-func constrain_cell_index(coords : Vector3, cell_index : String) -> void:
-	states[coords].erase(cell_index)
-
 
 func get_entropy(coords : Vector3) -> int:
-	var prototypes = states[coords]
-	var entropy : int = 0
-	for cell_index in prototypes:
-		entropy = entropy + len(prototypes[cell_index][ORIENTATIONS])
-	print(entropy)
+	var prototypes = cells[coords]
+	var entropy : int = len(prototypes)
 	return entropy
 
 
@@ -168,7 +156,7 @@ func get_min_entropy_coords() -> Vector3:
 	var min_entropy = 1000.0
 	var coords
 
-	for cell_coords in states:
+	for cell_coords in cells:
 		var entropy = get_entropy(cell_coords)
 		if entropy > 1:
 			entropy += rand_range(-0.1, 0.1)
@@ -180,6 +168,7 @@ func get_min_entropy_coords() -> Vector3:
 
 
 func propagate(coords : Vector3) -> void:
+	print_debug('propagate: %s' % coords)
 	if coords != Vector3.INF:
 		stack.append(coords)
 	while len(stack) > 0:
@@ -188,20 +177,21 @@ func propagate(coords : Vector3) -> void:
 
 		# Iterate over each adjacent cell to this one
 		for direction in valid_directions:
-			var possible_siblings = get_possible_siblings(current_coords, direction)
-			var sibling_coords = (current_coords + direction)
-			var sibling_possible_prototypes = states[sibling_coords].duplicate()
+			var sibling_coords = current_coords + direction
+			var valid_siblings = get_possible_siblings(current_coords, direction)
+			var sibling_possible_prototypes = get_possibilities(sibling_coords).duplicate()
 
-			if len(sibling_possible_prototypes) == 0:
+			if sibling_possible_prototypes.size() == 0:
 				continue
-#
-			for sibling_possible_cell_index in sibling_possible_prototypes:
-				if not sibling_possible_cell_index in possible_siblings:
-					constrain_cell_index(sibling_coords, sibling_possible_cell_index)
 
-
+			for sibling_cell_id in sibling_possible_prototypes:
+				if not sibling_cell_id in valid_siblings:
+					cells[sibling_coords].erase(sibling_cell_id)
 #					if not sibling_coords in stack:
 #						stack.append(sibling_coords)
+
+
+
 
 
 func get_valid_directions(coords) -> Array:
@@ -230,22 +220,20 @@ func apply_constraints():
 
 	var sibling_directions = siblings_offsets.duplicate()
 
-#	for coords in states:
-#
-#		var prototypes = get_possibilities(coords)
-#		if coords.y == size.y - 1:  # constrain top layer to not contain any uncapped prototypes
-#			for proto in prototypes.duplicate():
-#				var siblings = prototypes[proto][SIBLINGS]['up']
-#				if not BLANK_CELL_INDEX in siblings:
-#					prototypes.erase(proto)
+	for coords in cells:
+		var prototypes = get_possibilities(coords)
+		if coords.y == size.y - 1:  # constrain top layer to not contain any uncapped prototypes
+			for cell_id in prototypes.duplicate():
+				var siblings = prototypes[cell_id][SIBLINGS][Vector3.UP]
+				if not BLANK_CELL_INDEX in siblings:
+					prototypes.erase(cell_id)
 #					if not coords in stack:
 #						stack.append(coords)
-
-#		if coords.y > 0:  # everything other than the bottom
-#			for proto in prototypes.duplicate():
-#				var custom_constraint = prototypes[proto][CONSTRAIN_TO]
-#				if custom_constraint == CONSTRAINT_BOTTOM:
-#					prototypes.erase(proto)
+		if coords.y > 0:  # everything other than the bottom
+			for id in prototypes.duplicate():
+				var custom_constraint = prototypes[id]['constraints']['y']['to']
+				if custom_constraint == 0:
+					prototypes.erase(id)
 #					if not coords in stack:
 #						stack.append(coords)
 #		if coords.y < size.y - 1:  # everything other than the top
@@ -255,38 +243,38 @@ func apply_constraints():
 #					prototypes.erase(proto)
 #					if not coords in stack:
 #						stack.append(coords)
-#		if coords.y == 0:  # constrain bottom layer so we don't start with any top-cliff parts at the bottom
-#			for proto in prototypes.duplicate():
-#				var neighs  = prototypes[proto][SIBLINGS]['down']
-#				var custom_constraint = prototypes[proto][CONSTRAIN_FROM]
-#				if (not BLANK_CELL_ID in neighs) or (custom_constraint == CONSTRAINT_BOTTOM):
-#					prototypes.erase(proto)
+		if coords.y == 0:  # constrain bottom layer so we don't start with any top-cliff parts at the bottom
+			for id in prototypes.duplicate():
+				var neighs  = prototypes[id][SIBLINGS][Vector3.DOWN]
+				var custom_constraint = prototypes[id]['constraints']['y']['from']
+				if (not BLANK_ID in neighs) or (custom_constraint == 0):
+					prototypes.erase(id)
 #					if not coords in stack:
 #						stack.append(coords)
 #		if coords.x == size.x - 1: # constrain +x-
 #			for proto in prototypes.duplicate():
-#				var neighs  = prototypes[proto][SIBLINGS]['right']
+#				var neighs  = prototypes[proto][SIBLINGS][Vector3.RIGHT]
 #				if not BLANK_CELL_ID in neighs:
 #					prototypes.erase(proto)
 #					if not coords in stack:
 #						stack.append(coords)
 #		if coords.x == 0: # constrain -x
 #			for proto in prototypes.duplicate():
-#				var neighs  = prototypes[proto][SIBLINGS]['left']
+#				var neighs  = prototypes[proto][SIBLINGS][Vector3.LEFT]
 #				if not BLANK_CELL_ID in neighs:
 #					prototypes.erase(proto)
 #					if not coords in stack:
 #						stack.append(coords)
 #		if coords.z == size.z - 1: # constrain +z
 #			for proto in prototypes.duplicate():
-#				var neighs  = prototypes[proto][SIBLINGS]['back']
+#				var neighs  = prototypes[proto][SIBLINGS][Vector3.BACK]
 #				if not BLANK_CELL_ID in neighs:
 #					prototypes.erase(proto)
 #					if not coords in stack:
 #						stack.append(coords)
 #		if coords.z == 0: # constrain -z
 #			for proto in prototypes.duplicate():
-#				var neighs  = prototypes[proto][SIBLINGS]['forward']
+#				var neighs  = prototypes[proto][SIBLINGS][Vector3.FORWARD]
 #				if not BLANK_CELL_ID in neighs:
 #					prototypes.erase(proto)
 #					if not coords in stack:
@@ -299,8 +287,16 @@ func set_initialize(value: bool):
 		return
 	initialize()
 
+func set_generate(value: bool):
+	if not value:
+		return
+#	collapse()
 
 func set_step_collapse(value: bool):
 	if not value:
+		return
+
+	if is_collapsed():
+		print_debug('All cells collapsed')
 		return
 	step_collapse()

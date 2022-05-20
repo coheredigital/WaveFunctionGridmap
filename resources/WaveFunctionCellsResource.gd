@@ -50,7 +50,7 @@ class EntropySorter:
 
 
 export var cell_template : Dictionary = {}
-export var states : Dictionary = {}
+export var cells : Dictionary = {}
 var cell_queue : Dictionary = {}
 var size : Vector3
 var stack : Array
@@ -61,7 +61,7 @@ func initialize(new_size : Vector3, prototypes : Dictionary):
 	size = new_size
 	initialize_cells(prototypes)
 	apply_constraints()
-	cell_template = states.duplicate(true)
+	cell_template = cells.duplicate(true)
 	reset()
 	print_debug('Wave function initialized')
 
@@ -71,12 +71,12 @@ func initialize_cells(prototypes : Dictionary) -> void:
 		for y in range(size.y):
 			for z in range(size.z):
 				var coords = Vector3(x,y,z)
-				states[coords] = prototypes.duplicate()
+				cells[coords] = prototypes.duplicate()
 
 
 func reset():
 	is_ready = true
-	states = cell_template.duplicate(true)
+	cells = cell_template.duplicate(true)
 
 
 func collapse() -> void:
@@ -90,14 +90,14 @@ func collapse() -> void:
 
 func is_collapsed() -> bool:
 
-	for item in states:
-		if len(states[item]) > 1:
+	for item in cells:
+		if len(cells[item]) > 1:
 			return false
 	return true
 
 
 func get_possibilities(coords : Vector3) -> Array:
-	return states[coords]
+	return cells[coords]
 
 
 func get_possible_siblings(coords : Vector3, direction : Vector3) -> Array:
@@ -114,11 +114,11 @@ func get_possible_siblings(coords : Vector3, direction : Vector3) -> Array:
 
 
 func collapse_at(coords : Vector3) -> Dictionary:
-	var possible_prototypes = states[coords]
+	var possible_prototypes = cells[coords]
 	var selection = weighted_choice(possible_prototypes)
 	var prototype = possible_prototypes[selection]
 	possible_prototypes = {selection : prototype}
-	states[coords] = possible_prototypes
+	cells[coords] = possible_prototypes
 	return prototype
 
 
@@ -134,18 +134,18 @@ func weighted_choice(prototypes : Dictionary) -> String:
 
 
 func constrain(coords : Vector3, cell_name : String) -> void:
-	states[coords].erase(cell_name)
+	cells[coords].erase(cell_name)
 
 
 func get_entropy(coords : Vector3) -> int:
-	return len(states[coords])
+	return len(cells[coords])
 
 
 func get_min_entropy_coords() -> Vector3:
 	var min_entropy = 1000.0
 	var coords
 
-	for cell_coords in states:
+	for cell_coords in cells:
 		var entropy = get_entropy(cell_coords)
 		if entropy > 1:
 			entropy += rand_range(-0.1, 0.1)
@@ -162,17 +162,17 @@ func step_collapse() -> void:
 	propagate(coords)
 
 
-func propagate(co_ords : Vector3) -> void:
-	if co_ords != Vector3.INF:
-		stack.append(co_ords)
+func propagate(coords : Vector3) -> void:
+	if coords != Vector3.INF:
+		stack.append(coords)
 	while len(stack) > 0:
-		var cur_coords = stack.pop_back()
-		var valid_directions := get_valid_directions(cur_coords)
+		var current_coords = stack.pop_back()
+		var valid_directions := get_valid_directions(current_coords)
 
 		# Iterate over each adjacent cell to this one
 		for direction in valid_directions:
-			var sibling_coords = (cur_coords + direction)
-			var possible_siblings = get_possible_siblings(cur_coords, direction)
+			var sibling_coords = (current_coords + direction)
+			var possible_siblings = get_possible_siblings(current_coords, direction)
 			var sibling_possible_prototypes = get_possibilities(sibling_coords).duplicate()
 
 			if len(sibling_possible_prototypes) == 0:
@@ -186,23 +186,20 @@ func propagate(co_ords : Vector3) -> void:
 
 
 func get_valid_directions(coords) -> Array:
-	var x = coords.x
-	var y = coords.y
-	var z = coords.z
-
-	var width = size.x
-	var height = size.y
-	var length = size.z
-	var dirs = []
-
-	if x > 0: dirs.append(Vector3.LEFT)
-	if x < width-1: dirs.append(Vector3.RIGHT)
-	if y > 0: dirs.append(Vector3.DOWN)
-	if y < height-1: dirs.append(Vector3.UP)
-	if z > 0: dirs.append(Vector3.FORWARD)
-	if z < length-1: dirs.append(Vector3.BACK)
-
-	return dirs
+	var directions = []
+	if coords.x > 0:
+		directions.append(Vector3.LEFT)
+	if coords.x < size.x-1:
+		directions.append(Vector3.RIGHT)
+	if coords.y > 0:
+		directions.append(Vector3.DOWN)
+	if coords.y < size.y-1:
+		directions.append(Vector3.UP)
+	if coords.z > 0:
+		directions.append(Vector3.FORWARD)
+	if coords.z < size.z-1:
+		directions.append(Vector3.BACK)
+	return directions
 
 
 func apply_constraints():
@@ -211,7 +208,7 @@ func apply_constraints():
 
 	var sibling_directions = siblings_offsets.duplicate()
 
-	for coords in states:
+	for coords in cells:
 
 		var prototypes = get_possibilities(coords)
 		if coords.y == size.y - 1:  # constrain top layer to not contain any uncapped prototypes

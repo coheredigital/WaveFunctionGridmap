@@ -29,8 +29,8 @@ func render_cell(coords : Vector3, cell_index: int,cell_orientation : int):
 
 
 func render_gridmap(wfc : WaveFunctionCellsResource):
-	for coords in wfc.states:
-		var prototypes = wfc.states[coords]
+	for coords in wfc.cells:
+		var prototypes = wfc.cells[coords]
 		if len(prototypes) > 1:
 			continue
 		for id in prototypes:
