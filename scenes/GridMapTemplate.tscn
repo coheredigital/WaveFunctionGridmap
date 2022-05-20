@@ -795,10 +795,46 @@ use_in_baked_light = true
 cell_size = Vector3( 1, 1, 1 )
 cell_center_y = false
 data = {
-"cells": PoolIntArray( 0, 0, 0, 1, 0, 1, 65535, 0, 655361, 0, 1, 1441793, 1, 1, 1441794, 65535, 1, 655362, 0, 65535, 1048577, 1, 65535, 2, 65535, 65535, 1048578 )
+"cells": PoolIntArray( 0, 0, 1441794, 65535, 0, 655362, 0, 65535, 2, 65535, 65535, 1048578 )
 }
 script = ExtResource( 9 )
 __meta__ = {
 "_editor_clip_": 0,
 "_editor_floor_": Vector3( 0, 0, 0 )
+}
+cells = {
+2: {
+0: {
+Vector3( -1, 0, 0 ): [ 16 ],
+Vector3( 0, -1, 0 ): [ -1 ],
+Vector3( 0, 0, -1 ): [ -1 ],
+Vector3( 0, 0, 1 ): [ 22 ],
+Vector3( 0, 1, 0 ): [ -1 ],
+Vector3( 1, 0, 0 ): [ -1 ]
+},
+10: {
+Vector3( -1, 0, 0 ): [ -1 ],
+Vector3( 0, -1, 0 ): [ -1 ],
+Vector3( 0, 0, -1 ): [ 16 ],
+Vector3( 0, 0, 1 ): [ -1 ],
+Vector3( 0, 1, 0 ): [ -1 ],
+Vector3( 1, 0, 0 ): [ 22 ]
+},
+16: {
+Vector3( -1, 0, 0 ): [ -1 ],
+Vector3( 0, -1, 0 ): [ -1 ],
+Vector3( 0, 0, -1 ): [ -1 ],
+Vector3( 0, 0, 1 ): [ 0 ],
+Vector3( 0, 1, 0 ): [ -1 ],
+Vector3( 1, 0, 0 ): [ 10 ]
+},
+22: {
+Vector3( -1, 0, 0 ): [ 0 ],
+Vector3( 0, -1, 0 ): [ -1 ],
+Vector3( 0, 0, -1 ): [ 10 ],
+Vector3( 0, 0, 1 ): [ -1 ],
+Vector3( 0, 1, 0 ): [ -1 ],
+Vector3( 1, 0, 0 ): [ -1 ]
+}
+}
 }
