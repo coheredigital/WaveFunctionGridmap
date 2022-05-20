@@ -95,6 +95,7 @@ func step_collapse() -> void:
 	var prototype := collapse_coord(coords)
 	propagate(coords)
 
+#	set_cell_item(coords.x,coords.y,coords.z,prototype[INDEX],prototype[ORIENTATION])
 
 func get_random(dict):
    var a = dict.keys()
@@ -108,7 +109,6 @@ func collapse_coord(coords : Vector3) -> Dictionary:
 	var prototype = possible_prototypes[selection]
 #	replace with selected prototype
 	cells[coords] = {selection : prototype}
-	set_cell_item(coords.x,coords.y,coords.z,prototype[INDEX],prototype[ORIENTATION])
 	return prototype
 
 
@@ -258,25 +258,25 @@ func apply_constraints():
 					prototypes.erase(id)
 #					if not coords in stack:
 #						stack.append(coords)
-#		if coords.x == 0: # constrain -x
-#			for proto in prototypes.duplicate():
-#				var neighs  = prototypes[proto][SIBLINGS][Vector3.LEFT]
-#				if not BLANK_CELL_ID in neighs:
-#					prototypes.erase(proto)
+		if coords.x == 0: # constrain -x
+			for id in prototypes.duplicate():
+				var valid_siblings = prototypes[id][SIBLINGS][Vector3.LEFT]
+				if not BLANK_ID in valid_siblings:
+					prototypes.erase(id)
 #					if not coords in stack:
 #						stack.append(coords)
-#		if coords.z == size.z - 1: # constrain +z
-#			for proto in prototypes.duplicate():
-#				var neighs  = prototypes[proto][SIBLINGS][Vector3.BACK]
-#				if not BLANK_CELL_ID in neighs:
-#					prototypes.erase(proto)
+		if coords.z == size.z - 1: # constrain +z
+			for id in prototypes.duplicate():
+				var valid_siblings  = prototypes[id][SIBLINGS][Vector3.BACK]
+				if not BLANK_ID in valid_siblings:
+					prototypes.erase(id)
 #					if not coords in stack:
 #						stack.append(coords)
-#		if coords.z == 0: # constrain -z
-#			for proto in prototypes.duplicate():
-#				var neighs  = prototypes[proto][SIBLINGS][Vector3.FORWARD]
-#				if not BLANK_CELL_ID in neighs:
-#					prototypes.erase(proto)
+		if coords.z == 0: # constrain -z
+			for id in prototypes.duplicate():
+				var valid_siblings  = prototypes[id][SIBLINGS][Vector3.FORWARD]
+				if not BLANK_ID in valid_siblings:
+					prototypes.erase(id)
 #					if not coords in stack:
 #						stack.append(coords)
 	propagate(Vector3.INF)
@@ -290,7 +290,15 @@ func set_initialize(value: bool):
 func set_generate(value: bool):
 	if not value:
 		return
-#	collapse()
+	collapse()
+#	TODO, improve
+	for coords in cells:
+		var prototypes = cells[coords]
+		if prototypes.size() == 1:
+			var cell_id = prototypes.keys().front()
+			print_debug('set cell: %s' % cell_id)
+			var prototype = prototypes[cell_id]
+			set_cell_item(coords.x,coords.y,coords.z,prototype[INDEX],prototype[ORIENTATION])
 
 func set_step_collapse(value: bool):
 	if not value:
