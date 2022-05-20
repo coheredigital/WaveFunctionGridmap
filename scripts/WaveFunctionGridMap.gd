@@ -65,7 +65,7 @@ func initialize():
 	template = template_path.instance() as WaveFunctionGridMapTemplate
 	template.update_prototypes()
 	initialize_cells(template.prototypes)
-#	apply_constraints()
+	apply_constraints()
 	print_debug('Wave function initialized')
 
 
@@ -251,11 +251,11 @@ func apply_constraints():
 					prototypes.erase(id)
 #					if not coords in stack:
 #						stack.append(coords)
-#		if coords.x == size.x - 1: # constrain +x-
-#			for proto in prototypes.duplicate():
-#				var neighs  = prototypes[proto][SIBLINGS][Vector3.RIGHT]
-#				if not BLANK_CELL_ID in neighs:
-#					prototypes.erase(proto)
+		if coords.x == size.x - 1: # constrain +x-
+			for id in prototypes.duplicate():
+				var neighs  = prototypes[id][SIBLINGS][Vector3.RIGHT]
+				if not BLANK_ID in neighs:
+					prototypes.erase(id)
 #					if not coords in stack:
 #						stack.append(coords)
 #		if coords.x == 0: # constrain -x
