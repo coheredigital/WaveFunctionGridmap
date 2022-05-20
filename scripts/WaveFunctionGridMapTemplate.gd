@@ -136,8 +136,6 @@ func normalize_orientation(parent_orientation: int, cell_orientation: int) -> in
 export var cells : Dictionary = {}
 
 
-
-
 func get_offset_orientation(original_orientation: int, offset_orientation: int) -> int:
 	match offset_orientation:
 		22:
@@ -183,11 +181,6 @@ func update_prototypes() -> void:
 	for coords in used_cells:
 		append_cell(coords)
 
-	var file = File.new()
-	file.open(FILE_PROTOTYPES, File.WRITE)
-	file.store_line(to_json(cells))
-	file.close()
-
 
 func append_cell(coords:Vector3):
 
@@ -197,7 +190,25 @@ func append_cell(coords:Vector3):
 	if not cells.has(cell_index):
 		cells[cell_index] = {}
 
-	var sibling_directions : Dictionary = normalized_directions[cell_orientation]
+
+	for orientation in valid_orientations:
+		var cell_id = "%s:%s" % [cell_index,orientation]
+		if not prototypes.has(cell_id):
+			prototypes[cell_id] = {
+				'weight': 0,
+				'valid_siblings': {
+					Vector3.FORWARD: [],
+					Vector3.RIGHT: [],
+					Vector3.BACK: [],
+					Vector3.LEFT: [],
+					Vector3.UP : [],
+					Vector3.DOWN : []
+				},
+				'used_coordinates': [],
+			}
+
+
+	var sibling_directions : Dictionary = get_normalized_directions(cell_orientation)
 
 	for direction in sibling_directions:
 		var oriented_direction = sibling_directions[direction]
@@ -207,35 +218,43 @@ func append_cell(coords:Vector3):
 		sibling_cell_orientation = normalize_orientation(cell_orientation, sibling_cell_orientation)
 		append_cell_sibling(cell_index, direction, sibling_cell_index, sibling_cell_orientation)
 
+
 #	track used coords
 	if not cells[cell_index][cell_orientation]['used_coordinates'].has(coords):
 		cells[cell_index][cell_orientation]['used_coordinates'].append(coords)
-#	track cell weight
-	cells[cell_index][cell_orientation]['weight'] += 1
+##	track cell weight
+#	cells[cell_index][cell_orientation]['weight'] += 1
 
 func append_cell_sibling(cell_index: int, direction: Vector3, sibling_cell_index: int, sibling_cell_orientation: int):
 	if not cells.has(cell_index):
 		cells[cell_index] = {}
 
+
 	for orientation in valid_orientations:
-		var oriented_siblings = {}
-		var oriented_valid_siblings = {}
+		var cell_id = "%s:%s" % [cell_index,orientation]
+		var prototype = prototypes[cell_id]
 		var normalized_direction = get_normalized_direction(orientation,direction)
 		var normalized_sibling_orientation = normalize_orientation(orientation,sibling_cell_orientation)
+		var sibling_cell_id = "%s:%s" % [sibling_cell_index,normalized_sibling_orientation]
+		if not prototype['valid_siblings'][normalized_direction].has(sibling_cell_id):
+			prototype['valid_siblings'][normalized_direction].append(sibling_cell_id)
 
-		if not cells[cell_index].has(orientation):
-			cells[cell_index][orientation] = {
-				'weight': 1,
-				'valid_siblings' : {},
-				'used_coordinates' : []
-			}
-
-		if not cells[cell_index][orientation]['valid_siblings'].has(normalized_direction):
-			cells[cell_index][orientation]['valid_siblings'][normalized_direction] = []
-
-		if not cells[cell_index][orientation]['valid_siblings'][normalized_direction].has(normalized_sibling_orientation):
-			cells[cell_index][orientation]['valid_siblings'][normalized_direction].append(normalized_sibling_orientation)
-
+#		var oriented_siblings = {}
+#		var oriented_valid_siblings = {}
+#
+#		if not cells[cell_index].has(orientation):
+#			cells[cell_index][orientation] = {
+##				'weight': 1,
+#				'valid_siblings' : {},
+#				'used_coordinates' : []
+#			}
+#
+#		if not cells[cell_index][orientation]['valid_siblings'].has(normalized_direction):
+#			cells[cell_index][orientation]['valid_siblings'][normalized_direction] = []
+#
+#		if not cells[cell_index][orientation]['valid_siblings'][normalized_direction].has(normalized_sibling_orientation):
+#			cells[cell_index][orientation]['valid_siblings'][normalized_direction].append(normalized_sibling_orientation)
+#
 
 
 
@@ -250,3 +269,14 @@ func set_export_definitions(value : bool) -> void:
 		return
 	print('Update Protypes!')
 	update_prototypes()
+#	save to JSON for viewing only
+	var file = File.new()
+	file.open(FILE_PROTOTYPES, File.WRITE)
+	file.store_line(to_json(prototypes))
+	file.close()
+
+#	save to JSON for viewing only
+	var file_cells = File.new()
+	file_cells.open(FILE_CELLS, File.WRITE)
+	file_cells.store_line(to_json(cells))
+	file_cells.close()

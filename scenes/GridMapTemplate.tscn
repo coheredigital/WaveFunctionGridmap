@@ -803,54 +803,8 @@ __meta__ = {
 "_editor_floor_": Vector3( 0, 0, 0 )
 }
 cells = {
+1: {
+},
 2: {
-0: {
-"used_coordinates": [ Vector3( 0, 0, -1 ) ],
-"valid_siblings": {
-Vector3( -1, 0, 0 ): [ 16 ],
-Vector3( 0, -1, 0 ): [ -1 ],
-Vector3( 0, 0, -1 ): [ -1 ],
-Vector3( 0, 0, 1 ): [ 22 ],
-Vector3( 0, 1, 0 ): [ -1 ],
-Vector3( 1, 0, 0 ): [ -1 ]
-},
-"weight": 2
-},
-10: {
-"used_coordinates": [ Vector3( -1, 0, 0 ) ],
-"valid_siblings": {
-Vector3( -1, 0, 0 ): [ -1 ],
-Vector3( 0, -1, 0 ): [ -1 ],
-Vector3( 0, 0, -1 ): [ 16 ],
-Vector3( 0, 0, 1 ): [ -1 ],
-Vector3( 0, 1, 0 ): [ -1 ],
-Vector3( 1, 0, 0 ): [ 22 ]
-},
-"weight": 2
-},
-16: {
-"used_coordinates": [ Vector3( -1, 0, -1 ) ],
-"valid_siblings": {
-Vector3( -1, 0, 0 ): [ -1 ],
-Vector3( 0, -1, 0 ): [ -1 ],
-Vector3( 0, 0, -1 ): [ -1 ],
-Vector3( 0, 0, 1 ): [ 0 ],
-Vector3( 0, 1, 0 ): [ -1 ],
-Vector3( 1, 0, 0 ): [ 10 ]
-},
-"weight": 2
-},
-22: {
-"used_coordinates": [ Vector3( 0, 0, 0 ) ],
-"valid_siblings": {
-Vector3( -1, 0, 0 ): [ 0 ],
-Vector3( 0, -1, 0 ): [ -1 ],
-Vector3( 0, 0, -1 ): [ 10 ],
-Vector3( 0, 0, 1 ): [ -1 ],
-Vector3( 0, 1, 0 ): [ -1 ],
-Vector3( 1, 0, 0 ): [ -1 ]
-},
-"weight": 2
-}
 }
 }
