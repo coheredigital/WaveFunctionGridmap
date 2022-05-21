@@ -40,7 +40,7 @@ onready var template : WaveFunctionGridMapTemplate
 func initialize():
 	clear()
 	template = template_path.instance() as WaveFunctionGridMapTemplate
-	template.update_prototypes()
+	template.initialize()
 	initialize_cells(template.prototypes)
 	apply_constraints()
 	print_debug('Wave function initialized')
