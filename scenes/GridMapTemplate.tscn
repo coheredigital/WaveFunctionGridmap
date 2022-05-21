@@ -802,33 +802,3 @@ __meta__ = {
 "_editor_clip_": 0,
 "_editor_floor_": Vector3( 0, 0, 0 )
 }
-prototypes = {
-"-1:-1": {
-"cell_index": -1,
-"cell_orientation": -1,
-"constraints": {
-"x": {
-"from": -1,
-"to": -1
-},
-"y": {
-"from": 0,
-"to": -1
-},
-"z": {
-"from": -1,
-"to": -1
-}
-},
-"used_coordinates": [  ],
-"valid_siblings": {
-Vector3( -1, 0, 0 ): [  ],
-Vector3( 0, -1, 0 ): [  ],
-Vector3( 0, 0, -1 ): [  ],
-Vector3( 0, 0, 1 ): [  ],
-Vector3( 0, 1, 0 ): [  ],
-Vector3( 1, 0, 0 ): [  ]
-},
-"weight": 0
-}
-}

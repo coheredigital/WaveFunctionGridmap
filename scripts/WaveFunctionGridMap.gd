@@ -111,18 +111,6 @@ func get_possible_siblings(coords : Vector3, direction : Vector3) -> Array:
 	return valid_siblings
 
 
-#func get_possible_siblings(coords : Vector3, direction : Vector3) -> Array:
-#	var valid_siblings = []
-#	var direction_name = siblings_offsets[direction]
-#	var prototypes = get_possibilities(coords)
-#	for id in prototypes:
-#		var siblings = prototypes[id][SIBLINGS][direction_name]
-#		for item in siblings:
-#			if not item in valid_siblings:
-#				valid_siblings.append(item)
-#	return valid_siblings
-
-
 func weighted_choice(prototypes : Dictionary) -> String:
 	var proto_weights = {}
 	for cell_id in prototypes:
@@ -176,8 +164,8 @@ func propagate(coords : Vector3) -> void:
 			for sibling_cell_id in sibling_possible_prototypes:
 				if not sibling_cell_id in valid_siblings:
 					cells[sibling_coords].erase(sibling_cell_id)
-#					if not sibling_coords in stack:
-#						stack.append(sibling_coords)
+					if not sibling_coords in stack:
+						stack.append(sibling_coords)
 
 
 

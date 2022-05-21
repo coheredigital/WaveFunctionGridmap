@@ -891,7 +891,7 @@ use_in_baked_light = true
 cell_size = Vector3( 1, 1, 1 )
 cell_center_y = false
 data = {
-"cells": PoolIntArray( 3, 2, 1441794 )
+"cells": PoolIntArray(  )
 }
 script = ExtResource( 2 )
 __meta__ = {
@@ -902,179 +902,515 @@ size = Vector3( 4, 1, 4 )
 template_path = ExtResource( 13 )
 cells = {
 Vector3( 0, 0, 0 ): {
+"-1:-1": {
+"cell_index": -1,
+"cell_orientation": -1,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "-1:-1", "1:0", "2:22", "2:0" ],
+Vector3( 0, -1, 0 ): [ "-1:-1", "1:0", "1:10", "2:22", "2:10", "2:0", "2:16" ],
+Vector3( 0, 0, -1 ): [ "-1:-1", "2:22", "2:10" ],
+Vector3( 0, 0, 1 ): [ "-1:-1", "2:0", "2:16" ],
+Vector3( 0, 1, 0 ): [ "-1:-1", "1:0", "1:10", "2:22", "2:10", "2:0", "2:16" ],
+Vector3( 1, 0, 0 ): [ "-1:-1", "1:10", "2:10", "2:16" ]
+},
+"weight": 0
+},
+"1:0": {
+"cell_index": 1,
+"cell_orientation": 0,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "1:10" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "2:0", "1:0" ],
+Vector3( 0, 0, 1 ): [ "1:0", "2:22" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "-1:-1" ]
+},
+"weight": 4
+},
+"1:10": {
+"cell_index": 1,
+"cell_orientation": 10,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "-1:-1" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "1:10", "2:16" ],
+Vector3( 0, 0, 1 ): [ "2:10", "1:10" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "1:0" ]
+},
+"weight": 4
+},
+"1:16": {
+"cell_index": 1,
+"cell_orientation": 16,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "2:16", "1:16" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "-1:-1" ],
+Vector3( 0, 0, 1 ): [ "1:22" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "1:16", "2:0" ]
+},
+"weight": 4
+},
+"1:22": {
+"cell_index": 1,
+"cell_orientation": 22,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "1:22", "2:10" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "1:16" ],
+Vector3( 0, 0, 1 ): [ "-1:-1" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "2:22", "1:22" ]
+},
+"weight": 4
+},
+"2:0": {
+"cell_index": 2,
+"cell_orientation": 0,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "1:16", "2:16" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "-1:-1" ],
+Vector3( 0, 0, 1 ): [ "2:22", "1:0" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "-1:-1" ]
+},
+"weight": 4
+},
+"2:10": {
+"cell_index": 2,
+"cell_orientation": 10,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "-1:-1" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "2:16", "1:10" ],
+Vector3( 0, 0, 1 ): [ "-1:-1" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "1:22", "2:22" ]
+},
+"weight": 4
+},
 "2:16": {
 "cell_index": 2,
 "cell_orientation": 16,
-"constraints": {
-"x": {
-"from": -1,
-"to": -1
-},
-"y": {
-"from": -1,
-"to": 0
-},
-"z": {
-"from": -1,
-"to": -1
-}
-},
-"used_coordinates": [ Vector3( 0, 0, 1 ), Vector3( 1, 0, 1 ), Vector3( 0, 0, 2 ), Vector3( 1, 0, 2 ) ],
+"used_coordinates": [  ],
 "valid_siblings": {
 Vector3( -1, 0, 0 ): [ "-1:-1" ],
 Vector3( 0, -1, 0 ): [ "-1:-1" ],
 Vector3( 0, 0, -1 ): [ "-1:-1" ],
-Vector3( 0, 0, 1 ): [ "2:10", "2:0" ],
+Vector3( 0, 0, 1 ): [ "1:10", "2:10" ],
 Vector3( 0, 1, 0 ): [ "-1:-1" ],
-Vector3( 1, 0, 0 ): [ "2:10", "2:0" ]
+Vector3( 1, 0, 0 ): [ "2:0", "1:16" ]
 },
-"weight": 1
+"weight": 4
+},
+"2:22": {
+"cell_index": 2,
+"cell_orientation": 22,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "2:10", "1:22" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "1:0", "2:0" ],
+Vector3( 0, 0, 1 ): [ "-1:-1" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "-1:-1" ]
+},
+"weight": 4
 }
 },
 Vector3( 0, 0, 1 ): {
+"-1:-1": {
+"cell_index": -1,
+"cell_orientation": -1,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "-1:-1", "1:0", "2:22", "2:0" ],
+Vector3( 0, -1, 0 ): [ "-1:-1", "1:0", "1:10", "2:22", "2:10", "2:0", "2:16" ],
+Vector3( 0, 0, -1 ): [ "-1:-1", "2:22", "2:10" ],
+Vector3( 0, 0, 1 ): [ "-1:-1", "2:0", "2:16" ],
+Vector3( 0, 1, 0 ): [ "-1:-1", "1:0", "1:10", "2:22", "2:10", "2:0", "2:16" ],
+Vector3( 1, 0, 0 ): [ "-1:-1", "1:10", "2:10", "2:16" ]
+},
+"weight": 0
+},
+"1:0": {
+"cell_index": 1,
+"cell_orientation": 0,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "1:10" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "2:0", "1:0" ],
+Vector3( 0, 0, 1 ): [ "1:0", "2:22" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "-1:-1" ]
+},
+"weight": 4
+},
+"1:10": {
+"cell_index": 1,
+"cell_orientation": 10,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "-1:-1" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "1:10", "2:16" ],
+Vector3( 0, 0, 1 ): [ "2:10", "1:10" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "1:0" ]
+},
+"weight": 4
+},
+"1:16": {
+"cell_index": 1,
+"cell_orientation": 16,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "2:16", "1:16" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "-1:-1" ],
+Vector3( 0, 0, 1 ): [ "1:22" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "1:16", "2:0" ]
+},
+"weight": 4
+},
+"1:22": {
+"cell_index": 1,
+"cell_orientation": 22,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "1:22", "2:10" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "1:16" ],
+Vector3( 0, 0, 1 ): [ "-1:-1" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "2:22", "1:22" ]
+},
+"weight": 4
+},
+"2:0": {
+"cell_index": 2,
+"cell_orientation": 0,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "1:16", "2:16" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "-1:-1" ],
+Vector3( 0, 0, 1 ): [ "2:22", "1:0" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "-1:-1" ]
+},
+"weight": 4
+},
 "2:10": {
 "cell_index": 2,
 "cell_orientation": 10,
-"constraints": {
-"x": {
-"from": -1,
-"to": -1
-},
-"y": {
-"from": -1,
-"to": 0
-},
-"z": {
-"from": -1,
-"to": -1
-}
-},
-"used_coordinates": [ Vector3( 0, 0, 1 ), Vector3( 1, 0, 1 ), Vector3( 0, 0, 2 ), Vector3( 1, 0, 2 ) ],
+"used_coordinates": [  ],
 "valid_siblings": {
-Vector3( -1, 0, 0 ): [ "-1:-1", "2:16" ],
+Vector3( -1, 0, 0 ): [ "-1:-1" ],
 Vector3( 0, -1, 0 ): [ "-1:-1" ],
-Vector3( 0, 0, -1 ): [ "2:16" ],
-Vector3( 0, 0, 1 ): [ "-1:-1", "2:22" ],
+Vector3( 0, 0, -1 ): [ "2:16", "1:10" ],
+Vector3( 0, 0, 1 ): [ "-1:-1" ],
 Vector3( 0, 1, 0 ): [ "-1:-1" ],
-Vector3( 1, 0, 0 ): [ "2:22" ]
+Vector3( 1, 0, 0 ): [ "1:22", "2:22" ]
 },
-"weight": 1
+"weight": 4
 },
 "2:16": {
 "cell_index": 2,
 "cell_orientation": 16,
-"constraints": {
-"x": {
-"from": -1,
-"to": -1
-},
-"y": {
-"from": -1,
-"to": 0
-},
-"z": {
-"from": -1,
-"to": -1
-}
-},
-"used_coordinates": [ Vector3( 0, 0, 1 ), Vector3( 1, 0, 1 ), Vector3( 0, 0, 2 ), Vector3( 1, 0, 2 ) ],
+"used_coordinates": [  ],
 "valid_siblings": {
 Vector3( -1, 0, 0 ): [ "-1:-1" ],
 Vector3( 0, -1, 0 ): [ "-1:-1" ],
 Vector3( 0, 0, -1 ): [ "-1:-1" ],
-Vector3( 0, 0, 1 ): [ "2:10", "2:0" ],
+Vector3( 0, 0, 1 ): [ "1:10", "2:10" ],
 Vector3( 0, 1, 0 ): [ "-1:-1" ],
-Vector3( 1, 0, 0 ): [ "2:10", "2:0" ]
+Vector3( 1, 0, 0 ): [ "2:0", "1:16" ]
 },
-"weight": 1
+"weight": 4
+},
+"2:22": {
+"cell_index": 2,
+"cell_orientation": 22,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "2:10", "1:22" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "1:0", "2:0" ],
+Vector3( 0, 0, 1 ): [ "-1:-1" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "-1:-1" ]
+},
+"weight": 4
 }
 },
 Vector3( 0, 0, 2 ): {
+"-1:-1": {
+"cell_index": -1,
+"cell_orientation": -1,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "-1:-1", "1:0", "2:22", "2:0" ],
+Vector3( 0, -1, 0 ): [ "-1:-1", "1:0", "1:10", "2:22", "2:10", "2:0", "2:16" ],
+Vector3( 0, 0, -1 ): [ "-1:-1", "2:22", "2:10" ],
+Vector3( 0, 0, 1 ): [ "-1:-1", "2:0", "2:16" ],
+Vector3( 0, 1, 0 ): [ "-1:-1", "1:0", "1:10", "2:22", "2:10", "2:0", "2:16" ],
+Vector3( 1, 0, 0 ): [ "-1:-1", "1:10", "2:10", "2:16" ]
+},
+"weight": 0
+},
+"1:0": {
+"cell_index": 1,
+"cell_orientation": 0,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "1:10" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "2:0", "1:0" ],
+Vector3( 0, 0, 1 ): [ "1:0", "2:22" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "-1:-1" ]
+},
+"weight": 4
+},
+"1:10": {
+"cell_index": 1,
+"cell_orientation": 10,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "-1:-1" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "1:10", "2:16" ],
+Vector3( 0, 0, 1 ): [ "2:10", "1:10" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "1:0" ]
+},
+"weight": 4
+},
+"1:16": {
+"cell_index": 1,
+"cell_orientation": 16,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "2:16", "1:16" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "-1:-1" ],
+Vector3( 0, 0, 1 ): [ "1:22" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "1:16", "2:0" ]
+},
+"weight": 4
+},
+"1:22": {
+"cell_index": 1,
+"cell_orientation": 22,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "1:22", "2:10" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "1:16" ],
+Vector3( 0, 0, 1 ): [ "-1:-1" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "2:22", "1:22" ]
+},
+"weight": 4
+},
+"2:0": {
+"cell_index": 2,
+"cell_orientation": 0,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "1:16", "2:16" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "-1:-1" ],
+Vector3( 0, 0, 1 ): [ "2:22", "1:0" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "-1:-1" ]
+},
+"weight": 4
+},
 "2:10": {
 "cell_index": 2,
 "cell_orientation": 10,
-"constraints": {
-"x": {
-"from": -1,
-"to": -1
-},
-"y": {
-"from": -1,
-"to": 0
-},
-"z": {
-"from": -1,
-"to": -1
-}
-},
-"used_coordinates": [ Vector3( 0, 0, 1 ), Vector3( 1, 0, 1 ), Vector3( 0, 0, 2 ), Vector3( 1, 0, 2 ) ],
+"used_coordinates": [  ],
 "valid_siblings": {
-Vector3( -1, 0, 0 ): [ "-1:-1", "2:16" ],
+Vector3( -1, 0, 0 ): [ "-1:-1" ],
 Vector3( 0, -1, 0 ): [ "-1:-1" ],
-Vector3( 0, 0, -1 ): [ "2:16" ],
-Vector3( 0, 0, 1 ): [ "-1:-1", "2:22" ],
+Vector3( 0, 0, -1 ): [ "2:16", "1:10" ],
+Vector3( 0, 0, 1 ): [ "-1:-1" ],
 Vector3( 0, 1, 0 ): [ "-1:-1" ],
-Vector3( 1, 0, 0 ): [ "2:22" ]
+Vector3( 1, 0, 0 ): [ "1:22", "2:22" ]
 },
-"weight": 1
+"weight": 4
 },
 "2:16": {
 "cell_index": 2,
 "cell_orientation": 16,
-"constraints": {
-"x": {
-"from": -1,
-"to": -1
-},
-"y": {
-"from": -1,
-"to": 0
-},
-"z": {
-"from": -1,
-"to": -1
-}
-},
-"used_coordinates": [ Vector3( 0, 0, 1 ), Vector3( 1, 0, 1 ), Vector3( 0, 0, 2 ), Vector3( 1, 0, 2 ) ],
+"used_coordinates": [  ],
 "valid_siblings": {
 Vector3( -1, 0, 0 ): [ "-1:-1" ],
 Vector3( 0, -1, 0 ): [ "-1:-1" ],
 Vector3( 0, 0, -1 ): [ "-1:-1" ],
-Vector3( 0, 0, 1 ): [ "2:10", "2:0" ],
+Vector3( 0, 0, 1 ): [ "1:10", "2:10" ],
 Vector3( 0, 1, 0 ): [ "-1:-1" ],
-Vector3( 1, 0, 0 ): [ "2:10", "2:0" ]
+Vector3( 1, 0, 0 ): [ "2:0", "1:16" ]
 },
-"weight": 1
+"weight": 4
+},
+"2:22": {
+"cell_index": 2,
+"cell_orientation": 22,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "2:10", "1:22" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "1:0", "2:0" ],
+Vector3( 0, 0, 1 ): [ "-1:-1" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "-1:-1" ]
+},
+"weight": 4
 }
 },
 Vector3( 0, 0, 3 ): {
+"-1:-1": {
+"cell_index": -1,
+"cell_orientation": -1,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "-1:-1", "1:0", "2:22", "2:0" ],
+Vector3( 0, -1, 0 ): [ "-1:-1", "1:0", "1:10", "2:22", "2:10", "2:0", "2:16" ],
+Vector3( 0, 0, -1 ): [ "-1:-1", "2:22", "2:10" ],
+Vector3( 0, 0, 1 ): [ "-1:-1", "2:0", "2:16" ],
+Vector3( 0, 1, 0 ): [ "-1:-1", "1:0", "1:10", "2:22", "2:10", "2:0", "2:16" ],
+Vector3( 1, 0, 0 ): [ "-1:-1", "1:10", "2:10", "2:16" ]
+},
+"weight": 0
+},
+"1:0": {
+"cell_index": 1,
+"cell_orientation": 0,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "1:10" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "2:0", "1:0" ],
+Vector3( 0, 0, 1 ): [ "1:0", "2:22" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "-1:-1" ]
+},
+"weight": 4
+},
+"1:10": {
+"cell_index": 1,
+"cell_orientation": 10,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "-1:-1" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "1:10", "2:16" ],
+Vector3( 0, 0, 1 ): [ "2:10", "1:10" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "1:0" ]
+},
+"weight": 4
+},
+"1:16": {
+"cell_index": 1,
+"cell_orientation": 16,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "2:16", "1:16" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "-1:-1" ],
+Vector3( 0, 0, 1 ): [ "1:22" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "1:16", "2:0" ]
+},
+"weight": 4
+},
+"1:22": {
+"cell_index": 1,
+"cell_orientation": 22,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "1:22", "2:10" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "1:16" ],
+Vector3( 0, 0, 1 ): [ "-1:-1" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "2:22", "1:22" ]
+},
+"weight": 4
+},
+"2:0": {
+"cell_index": 2,
+"cell_orientation": 0,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "1:16", "2:16" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "-1:-1" ],
+Vector3( 0, 0, 1 ): [ "2:22", "1:0" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "-1:-1" ]
+},
+"weight": 4
+},
 "2:10": {
 "cell_index": 2,
 "cell_orientation": 10,
-"constraints": {
-"x": {
-"from": -1,
-"to": -1
-},
-"y": {
-"from": -1,
-"to": 0
-},
-"z": {
-"from": -1,
-"to": -1
-}
-},
-"used_coordinates": [ Vector3( 0, 0, 1 ), Vector3( 1, 0, 1 ), Vector3( 0, 0, 2 ), Vector3( 1, 0, 2 ) ],
+"used_coordinates": [  ],
 "valid_siblings": {
-Vector3( -1, 0, 0 ): [ "-1:-1", "2:16" ],
+Vector3( -1, 0, 0 ): [ "-1:-1" ],
 Vector3( 0, -1, 0 ): [ "-1:-1" ],
-Vector3( 0, 0, -1 ): [ "2:16" ],
-Vector3( 0, 0, 1 ): [ "-1:-1", "2:22" ],
+Vector3( 0, 0, -1 ): [ "2:16", "1:10" ],
+Vector3( 0, 0, 1 ): [ "-1:-1" ],
 Vector3( 0, 1, 0 ): [ "-1:-1" ],
-Vector3( 1, 0, 0 ): [ "2:22" ]
+Vector3( 1, 0, 0 ): [ "1:22", "2:22" ]
 },
-"weight": 1
+"weight": 4
+},
+"2:16": {
+"cell_index": 2,
+"cell_orientation": 16,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "-1:-1" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "-1:-1" ],
+Vector3( 0, 0, 1 ): [ "1:10", "2:10" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "2:0", "1:16" ]
+},
+"weight": 4
+},
+"2:22": {
+"cell_index": 2,
+"cell_orientation": 22,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "2:10", "1:22" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "1:0", "2:0" ],
+Vector3( 0, 0, 1 ): [ "-1:-1" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "-1:-1" ]
+},
+"weight": 4
 }
 },
 Vector3( 0, 0, 4 ): {
@@ -1150,347 +1486,515 @@ Vector3( 0, 1, 4 ): {
 Vector3( 0, 1, 5 ): {
 },
 Vector3( 1, 0, 0 ): {
+"-1:-1": {
+"cell_index": -1,
+"cell_orientation": -1,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "-1:-1", "1:0", "2:22", "2:0" ],
+Vector3( 0, -1, 0 ): [ "-1:-1", "1:0", "1:10", "2:22", "2:10", "2:0", "2:16" ],
+Vector3( 0, 0, -1 ): [ "-1:-1", "2:22", "2:10" ],
+Vector3( 0, 0, 1 ): [ "-1:-1", "2:0", "2:16" ],
+Vector3( 0, 1, 0 ): [ "-1:-1", "1:0", "1:10", "2:22", "2:10", "2:0", "2:16" ],
+Vector3( 1, 0, 0 ): [ "-1:-1", "1:10", "2:10", "2:16" ]
+},
+"weight": 0
+},
+"1:0": {
+"cell_index": 1,
+"cell_orientation": 0,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "1:10" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "2:0", "1:0" ],
+Vector3( 0, 0, 1 ): [ "1:0", "2:22" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "-1:-1" ]
+},
+"weight": 4
+},
+"1:10": {
+"cell_index": 1,
+"cell_orientation": 10,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "-1:-1" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "1:10", "2:16" ],
+Vector3( 0, 0, 1 ): [ "2:10", "1:10" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "1:0" ]
+},
+"weight": 4
+},
+"1:16": {
+"cell_index": 1,
+"cell_orientation": 16,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "2:16", "1:16" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "-1:-1" ],
+Vector3( 0, 0, 1 ): [ "1:22" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "1:16", "2:0" ]
+},
+"weight": 4
+},
+"1:22": {
+"cell_index": 1,
+"cell_orientation": 22,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "1:22", "2:10" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "1:16" ],
+Vector3( 0, 0, 1 ): [ "-1:-1" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "2:22", "1:22" ]
+},
+"weight": 4
+},
 "2:0": {
 "cell_index": 2,
 "cell_orientation": 0,
-"constraints": {
-"x": {
-"from": -1,
-"to": -1
-},
-"y": {
-"from": -1,
-"to": 0
-},
-"z": {
-"from": -1,
-"to": -1
-}
-},
-"used_coordinates": [ Vector3( 0, 0, 1 ), Vector3( 1, 0, 1 ), Vector3( 0, 0, 2 ), Vector3( 1, 0, 2 ) ],
+"used_coordinates": [  ],
 "valid_siblings": {
-Vector3( -1, 0, 0 ): [ "2:16" ],
+Vector3( -1, 0, 0 ): [ "1:16", "2:16" ],
 Vector3( 0, -1, 0 ): [ "-1:-1" ],
-Vector3( 0, 0, -1 ): [ "-1:-1", "2:16" ],
-Vector3( 0, 0, 1 ): [ "2:22" ],
+Vector3( 0, 0, -1 ): [ "-1:-1" ],
+Vector3( 0, 0, 1 ): [ "2:22", "1:0" ],
 Vector3( 0, 1, 0 ): [ "-1:-1" ],
-Vector3( 1, 0, 0 ): [ "-1:-1", "2:22" ]
+Vector3( 1, 0, 0 ): [ "-1:-1" ]
 },
-"weight": 1
+"weight": 4
+},
+"2:10": {
+"cell_index": 2,
+"cell_orientation": 10,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "-1:-1" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "2:16", "1:10" ],
+Vector3( 0, 0, 1 ): [ "-1:-1" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "1:22", "2:22" ]
+},
+"weight": 4
 },
 "2:16": {
 "cell_index": 2,
 "cell_orientation": 16,
-"constraints": {
-"x": {
-"from": -1,
-"to": -1
-},
-"y": {
-"from": -1,
-"to": 0
-},
-"z": {
-"from": -1,
-"to": -1
-}
-},
-"used_coordinates": [ Vector3( 0, 0, 1 ), Vector3( 1, 0, 1 ), Vector3( 0, 0, 2 ), Vector3( 1, 0, 2 ) ],
+"used_coordinates": [  ],
 "valid_siblings": {
 Vector3( -1, 0, 0 ): [ "-1:-1" ],
 Vector3( 0, -1, 0 ): [ "-1:-1" ],
 Vector3( 0, 0, -1 ): [ "-1:-1" ],
-Vector3( 0, 0, 1 ): [ "2:10", "2:0" ],
+Vector3( 0, 0, 1 ): [ "1:10", "2:10" ],
 Vector3( 0, 1, 0 ): [ "-1:-1" ],
-Vector3( 1, 0, 0 ): [ "2:10", "2:0" ]
+Vector3( 1, 0, 0 ): [ "2:0", "1:16" ]
 },
-"weight": 1
+"weight": 4
+},
+"2:22": {
+"cell_index": 2,
+"cell_orientation": 22,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "2:10", "1:22" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "1:0", "2:0" ],
+Vector3( 0, 0, 1 ): [ "-1:-1" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "-1:-1" ]
+},
+"weight": 4
 }
 },
 Vector3( 1, 0, 1 ): {
+"-1:-1": {
+"cell_index": -1,
+"cell_orientation": -1,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "-1:-1", "1:0", "2:22", "2:0" ],
+Vector3( 0, -1, 0 ): [ "-1:-1", "1:0", "1:10", "2:22", "2:10", "2:0", "2:16" ],
+Vector3( 0, 0, -1 ): [ "-1:-1", "2:22", "2:10" ],
+Vector3( 0, 0, 1 ): [ "-1:-1", "2:0", "2:16" ],
+Vector3( 0, 1, 0 ): [ "-1:-1", "1:0", "1:10", "2:22", "2:10", "2:0", "2:16" ],
+Vector3( 1, 0, 0 ): [ "-1:-1", "1:10", "2:10", "2:16" ]
+},
+"weight": 0
+},
+"1:0": {
+"cell_index": 1,
+"cell_orientation": 0,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "1:10" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "2:0", "1:0" ],
+Vector3( 0, 0, 1 ): [ "1:0", "2:22" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "-1:-1" ]
+},
+"weight": 4
+},
+"1:10": {
+"cell_index": 1,
+"cell_orientation": 10,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "-1:-1" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "1:10", "2:16" ],
+Vector3( 0, 0, 1 ): [ "2:10", "1:10" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "1:0" ]
+},
+"weight": 4
+},
+"1:16": {
+"cell_index": 1,
+"cell_orientation": 16,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "2:16", "1:16" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "-1:-1" ],
+Vector3( 0, 0, 1 ): [ "1:22" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "1:16", "2:0" ]
+},
+"weight": 4
+},
+"1:22": {
+"cell_index": 1,
+"cell_orientation": 22,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "1:22", "2:10" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "1:16" ],
+Vector3( 0, 0, 1 ): [ "-1:-1" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "2:22", "1:22" ]
+},
+"weight": 4
+},
 "2:0": {
 "cell_index": 2,
 "cell_orientation": 0,
-"constraints": {
-"x": {
-"from": -1,
-"to": -1
-},
-"y": {
-"from": -1,
-"to": 0
-},
-"z": {
-"from": -1,
-"to": -1
-}
-},
-"used_coordinates": [ Vector3( 0, 0, 1 ), Vector3( 1, 0, 1 ), Vector3( 0, 0, 2 ), Vector3( 1, 0, 2 ) ],
+"used_coordinates": [  ],
 "valid_siblings": {
-Vector3( -1, 0, 0 ): [ "2:16" ],
+Vector3( -1, 0, 0 ): [ "1:16", "2:16" ],
 Vector3( 0, -1, 0 ): [ "-1:-1" ],
-Vector3( 0, 0, -1 ): [ "-1:-1", "2:16" ],
-Vector3( 0, 0, 1 ): [ "2:22" ],
+Vector3( 0, 0, -1 ): [ "-1:-1" ],
+Vector3( 0, 0, 1 ): [ "2:22", "1:0" ],
 Vector3( 0, 1, 0 ): [ "-1:-1" ],
-Vector3( 1, 0, 0 ): [ "-1:-1", "2:22" ]
+Vector3( 1, 0, 0 ): [ "-1:-1" ]
 },
-"weight": 1
+"weight": 4
 },
 "2:10": {
 "cell_index": 2,
 "cell_orientation": 10,
-"constraints": {
-"x": {
-"from": -1,
-"to": -1
-},
-"y": {
-"from": -1,
-"to": 0
-},
-"z": {
-"from": -1,
-"to": -1
-}
-},
-"used_coordinates": [ Vector3( 0, 0, 1 ), Vector3( 1, 0, 1 ), Vector3( 0, 0, 2 ), Vector3( 1, 0, 2 ) ],
+"used_coordinates": [  ],
 "valid_siblings": {
-Vector3( -1, 0, 0 ): [ "-1:-1", "2:16" ],
+Vector3( -1, 0, 0 ): [ "-1:-1" ],
 Vector3( 0, -1, 0 ): [ "-1:-1" ],
-Vector3( 0, 0, -1 ): [ "2:16" ],
-Vector3( 0, 0, 1 ): [ "-1:-1", "2:22" ],
+Vector3( 0, 0, -1 ): [ "2:16", "1:10" ],
+Vector3( 0, 0, 1 ): [ "-1:-1" ],
 Vector3( 0, 1, 0 ): [ "-1:-1" ],
-Vector3( 1, 0, 0 ): [ "2:22" ]
+Vector3( 1, 0, 0 ): [ "1:22", "2:22" ]
 },
-"weight": 1
+"weight": 4
 },
 "2:16": {
 "cell_index": 2,
 "cell_orientation": 16,
-"constraints": {
-"x": {
-"from": -1,
-"to": -1
-},
-"y": {
-"from": -1,
-"to": 0
-},
-"z": {
-"from": -1,
-"to": -1
-}
-},
-"used_coordinates": [ Vector3( 0, 0, 1 ), Vector3( 1, 0, 1 ), Vector3( 0, 0, 2 ), Vector3( 1, 0, 2 ) ],
+"used_coordinates": [  ],
 "valid_siblings": {
 Vector3( -1, 0, 0 ): [ "-1:-1" ],
 Vector3( 0, -1, 0 ): [ "-1:-1" ],
 Vector3( 0, 0, -1 ): [ "-1:-1" ],
-Vector3( 0, 0, 1 ): [ "2:10", "2:0" ],
+Vector3( 0, 0, 1 ): [ "1:10", "2:10" ],
 Vector3( 0, 1, 0 ): [ "-1:-1" ],
-Vector3( 1, 0, 0 ): [ "2:10", "2:0" ]
+Vector3( 1, 0, 0 ): [ "2:0", "1:16" ]
 },
-"weight": 1
+"weight": 4
 },
 "2:22": {
 "cell_index": 2,
 "cell_orientation": 22,
-"constraints": {
-"x": {
-"from": -1,
-"to": -1
-},
-"y": {
-"from": -1,
-"to": 0
-},
-"z": {
-"from": -1,
-"to": -1
-}
-},
-"used_coordinates": [ Vector3( 0, 0, 1 ), Vector3( 1, 0, 1 ), Vector3( 0, 0, 2 ), Vector3( 1, 0, 2 ) ],
+"used_coordinates": [  ],
 "valid_siblings": {
-Vector3( -1, 0, 0 ): [ "2:0", "2:10" ],
+Vector3( -1, 0, 0 ): [ "2:10", "1:22" ],
 Vector3( 0, -1, 0 ): [ "-1:-1" ],
-Vector3( 0, 0, -1 ): [ "2:0", "2:10" ],
+Vector3( 0, 0, -1 ): [ "1:0", "2:0" ],
 Vector3( 0, 0, 1 ): [ "-1:-1" ],
 Vector3( 0, 1, 0 ): [ "-1:-1" ],
 Vector3( 1, 0, 0 ): [ "-1:-1" ]
 },
-"weight": 1
+"weight": 4
 }
 },
 Vector3( 1, 0, 2 ): {
+"-1:-1": {
+"cell_index": -1,
+"cell_orientation": -1,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "-1:-1", "1:0", "2:22", "2:0" ],
+Vector3( 0, -1, 0 ): [ "-1:-1", "1:0", "1:10", "2:22", "2:10", "2:0", "2:16" ],
+Vector3( 0, 0, -1 ): [ "-1:-1", "2:22", "2:10" ],
+Vector3( 0, 0, 1 ): [ "-1:-1", "2:0", "2:16" ],
+Vector3( 0, 1, 0 ): [ "-1:-1", "1:0", "1:10", "2:22", "2:10", "2:0", "2:16" ],
+Vector3( 1, 0, 0 ): [ "-1:-1", "1:10", "2:10", "2:16" ]
+},
+"weight": 0
+},
+"1:0": {
+"cell_index": 1,
+"cell_orientation": 0,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "1:10" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "2:0", "1:0" ],
+Vector3( 0, 0, 1 ): [ "1:0", "2:22" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "-1:-1" ]
+},
+"weight": 4
+},
+"1:10": {
+"cell_index": 1,
+"cell_orientation": 10,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "-1:-1" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "1:10", "2:16" ],
+Vector3( 0, 0, 1 ): [ "2:10", "1:10" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "1:0" ]
+},
+"weight": 4
+},
+"1:16": {
+"cell_index": 1,
+"cell_orientation": 16,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "2:16", "1:16" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "-1:-1" ],
+Vector3( 0, 0, 1 ): [ "1:22" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "1:16", "2:0" ]
+},
+"weight": 4
+},
+"1:22": {
+"cell_index": 1,
+"cell_orientation": 22,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "1:22", "2:10" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "1:16" ],
+Vector3( 0, 0, 1 ): [ "-1:-1" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "2:22", "1:22" ]
+},
+"weight": 4
+},
 "2:0": {
 "cell_index": 2,
 "cell_orientation": 0,
-"constraints": {
-"x": {
-"from": -1,
-"to": -1
-},
-"y": {
-"from": -1,
-"to": 0
-},
-"z": {
-"from": -1,
-"to": -1
-}
-},
-"used_coordinates": [ Vector3( 0, 0, 1 ), Vector3( 1, 0, 1 ), Vector3( 0, 0, 2 ), Vector3( 1, 0, 2 ) ],
+"used_coordinates": [  ],
 "valid_siblings": {
-Vector3( -1, 0, 0 ): [ "2:16" ],
+Vector3( -1, 0, 0 ): [ "1:16", "2:16" ],
 Vector3( 0, -1, 0 ): [ "-1:-1" ],
-Vector3( 0, 0, -1 ): [ "-1:-1", "2:16" ],
-Vector3( 0, 0, 1 ): [ "2:22" ],
+Vector3( 0, 0, -1 ): [ "-1:-1" ],
+Vector3( 0, 0, 1 ): [ "2:22", "1:0" ],
 Vector3( 0, 1, 0 ): [ "-1:-1" ],
-Vector3( 1, 0, 0 ): [ "-1:-1", "2:22" ]
+Vector3( 1, 0, 0 ): [ "-1:-1" ]
 },
-"weight": 1
+"weight": 4
 },
 "2:10": {
 "cell_index": 2,
 "cell_orientation": 10,
-"constraints": {
-"x": {
-"from": -1,
-"to": -1
-},
-"y": {
-"from": -1,
-"to": 0
-},
-"z": {
-"from": -1,
-"to": -1
-}
-},
-"used_coordinates": [ Vector3( 0, 0, 1 ), Vector3( 1, 0, 1 ), Vector3( 0, 0, 2 ), Vector3( 1, 0, 2 ) ],
+"used_coordinates": [  ],
 "valid_siblings": {
-Vector3( -1, 0, 0 ): [ "-1:-1", "2:16" ],
+Vector3( -1, 0, 0 ): [ "-1:-1" ],
 Vector3( 0, -1, 0 ): [ "-1:-1" ],
-Vector3( 0, 0, -1 ): [ "2:16" ],
-Vector3( 0, 0, 1 ): [ "-1:-1", "2:22" ],
+Vector3( 0, 0, -1 ): [ "2:16", "1:10" ],
+Vector3( 0, 0, 1 ): [ "-1:-1" ],
 Vector3( 0, 1, 0 ): [ "-1:-1" ],
-Vector3( 1, 0, 0 ): [ "2:22" ]
+Vector3( 1, 0, 0 ): [ "1:22", "2:22" ]
 },
-"weight": 1
+"weight": 4
 },
 "2:16": {
 "cell_index": 2,
 "cell_orientation": 16,
-"constraints": {
-"x": {
-"from": -1,
-"to": -1
-},
-"y": {
-"from": -1,
-"to": 0
-},
-"z": {
-"from": -1,
-"to": -1
-}
-},
-"used_coordinates": [ Vector3( 0, 0, 1 ), Vector3( 1, 0, 1 ), Vector3( 0, 0, 2 ), Vector3( 1, 0, 2 ) ],
+"used_coordinates": [  ],
 "valid_siblings": {
 Vector3( -1, 0, 0 ): [ "-1:-1" ],
 Vector3( 0, -1, 0 ): [ "-1:-1" ],
 Vector3( 0, 0, -1 ): [ "-1:-1" ],
-Vector3( 0, 0, 1 ): [ "2:10", "2:0" ],
+Vector3( 0, 0, 1 ): [ "1:10", "2:10" ],
 Vector3( 0, 1, 0 ): [ "-1:-1" ],
-Vector3( 1, 0, 0 ): [ "2:10", "2:0" ]
+Vector3( 1, 0, 0 ): [ "2:0", "1:16" ]
 },
-"weight": 1
+"weight": 4
 },
 "2:22": {
 "cell_index": 2,
 "cell_orientation": 22,
-"constraints": {
-"x": {
-"from": -1,
-"to": -1
-},
-"y": {
-"from": -1,
-"to": 0
-},
-"z": {
-"from": -1,
-"to": -1
-}
-},
-"used_coordinates": [ Vector3( 0, 0, 1 ), Vector3( 1, 0, 1 ), Vector3( 0, 0, 2 ), Vector3( 1, 0, 2 ) ],
+"used_coordinates": [  ],
 "valid_siblings": {
-Vector3( -1, 0, 0 ): [ "2:0", "2:10" ],
+Vector3( -1, 0, 0 ): [ "2:10", "1:22" ],
 Vector3( 0, -1, 0 ): [ "-1:-1" ],
-Vector3( 0, 0, -1 ): [ "2:0", "2:10" ],
+Vector3( 0, 0, -1 ): [ "1:0", "2:0" ],
 Vector3( 0, 0, 1 ): [ "-1:-1" ],
 Vector3( 0, 1, 0 ): [ "-1:-1" ],
 Vector3( 1, 0, 0 ): [ "-1:-1" ]
 },
-"weight": 1
+"weight": 4
 }
 },
 Vector3( 1, 0, 3 ): {
+"-1:-1": {
+"cell_index": -1,
+"cell_orientation": -1,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "-1:-1", "1:0", "2:22", "2:0" ],
+Vector3( 0, -1, 0 ): [ "-1:-1", "1:0", "1:10", "2:22", "2:10", "2:0", "2:16" ],
+Vector3( 0, 0, -1 ): [ "-1:-1", "2:22", "2:10" ],
+Vector3( 0, 0, 1 ): [ "-1:-1", "2:0", "2:16" ],
+Vector3( 0, 1, 0 ): [ "-1:-1", "1:0", "1:10", "2:22", "2:10", "2:0", "2:16" ],
+Vector3( 1, 0, 0 ): [ "-1:-1", "1:10", "2:10", "2:16" ]
+},
+"weight": 0
+},
+"1:0": {
+"cell_index": 1,
+"cell_orientation": 0,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "1:10" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "2:0", "1:0" ],
+Vector3( 0, 0, 1 ): [ "1:0", "2:22" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "-1:-1" ]
+},
+"weight": 4
+},
+"1:10": {
+"cell_index": 1,
+"cell_orientation": 10,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "-1:-1" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "1:10", "2:16" ],
+Vector3( 0, 0, 1 ): [ "2:10", "1:10" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "1:0" ]
+},
+"weight": 4
+},
+"1:16": {
+"cell_index": 1,
+"cell_orientation": 16,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "2:16", "1:16" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "-1:-1" ],
+Vector3( 0, 0, 1 ): [ "1:22" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "1:16", "2:0" ]
+},
+"weight": 4
+},
+"1:22": {
+"cell_index": 1,
+"cell_orientation": 22,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "1:22", "2:10" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "1:16" ],
+Vector3( 0, 0, 1 ): [ "-1:-1" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "2:22", "1:22" ]
+},
+"weight": 4
+},
+"2:0": {
+"cell_index": 2,
+"cell_orientation": 0,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "1:16", "2:16" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "-1:-1" ],
+Vector3( 0, 0, 1 ): [ "2:22", "1:0" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "-1:-1" ]
+},
+"weight": 4
+},
 "2:10": {
 "cell_index": 2,
 "cell_orientation": 10,
-"constraints": {
-"x": {
-"from": -1,
-"to": -1
-},
-"y": {
-"from": -1,
-"to": 0
-},
-"z": {
-"from": -1,
-"to": -1
-}
-},
-"used_coordinates": [ Vector3( 0, 0, 1 ), Vector3( 1, 0, 1 ), Vector3( 0, 0, 2 ), Vector3( 1, 0, 2 ) ],
+"used_coordinates": [  ],
 "valid_siblings": {
-Vector3( -1, 0, 0 ): [ "-1:-1", "2:16" ],
+Vector3( -1, 0, 0 ): [ "-1:-1" ],
 Vector3( 0, -1, 0 ): [ "-1:-1" ],
-Vector3( 0, 0, -1 ): [ "2:16" ],
-Vector3( 0, 0, 1 ): [ "-1:-1", "2:22" ],
+Vector3( 0, 0, -1 ): [ "2:16", "1:10" ],
+Vector3( 0, 0, 1 ): [ "-1:-1" ],
 Vector3( 0, 1, 0 ): [ "-1:-1" ],
-Vector3( 1, 0, 0 ): [ "2:22" ]
+Vector3( 1, 0, 0 ): [ "1:22", "2:22" ]
 },
-"weight": 1
+"weight": 4
+},
+"2:16": {
+"cell_index": 2,
+"cell_orientation": 16,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "-1:-1" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "-1:-1" ],
+Vector3( 0, 0, 1 ): [ "1:10", "2:10" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "2:0", "1:16" ]
+},
+"weight": 4
 },
 "2:22": {
 "cell_index": 2,
 "cell_orientation": 22,
-"constraints": {
-"x": {
-"from": -1,
-"to": -1
-},
-"y": {
-"from": -1,
-"to": 0
-},
-"z": {
-"from": -1,
-"to": -1
-}
-},
-"used_coordinates": [ Vector3( 0, 0, 1 ), Vector3( 1, 0, 1 ), Vector3( 0, 0, 2 ), Vector3( 1, 0, 2 ) ],
+"used_coordinates": [  ],
 "valid_siblings": {
-Vector3( -1, 0, 0 ): [ "2:0", "2:10" ],
+Vector3( -1, 0, 0 ): [ "2:10", "1:22" ],
 Vector3( 0, -1, 0 ): [ "-1:-1" ],
-Vector3( 0, 0, -1 ): [ "2:0", "2:10" ],
+Vector3( 0, 0, -1 ): [ "1:0", "2:0" ],
 Vector3( 0, 0, 1 ): [ "-1:-1" ],
 Vector3( 0, 1, 0 ): [ "-1:-1" ],
 Vector3( 1, 0, 0 ): [ "-1:-1" ]
 },
-"weight": 1
+"weight": 4
 }
 },
 Vector3( 1, 0, 4 ): {
@@ -1538,291 +2042,515 @@ Vector3( 1, 1, 4 ): {
 Vector3( 1, 1, 5 ): {
 },
 Vector3( 2, 0, 0 ): {
+"-1:-1": {
+"cell_index": -1,
+"cell_orientation": -1,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "-1:-1", "1:0", "2:22", "2:0" ],
+Vector3( 0, -1, 0 ): [ "-1:-1", "1:0", "1:10", "2:22", "2:10", "2:0", "2:16" ],
+Vector3( 0, 0, -1 ): [ "-1:-1", "2:22", "2:10" ],
+Vector3( 0, 0, 1 ): [ "-1:-1", "2:0", "2:16" ],
+Vector3( 0, 1, 0 ): [ "-1:-1", "1:0", "1:10", "2:22", "2:10", "2:0", "2:16" ],
+Vector3( 1, 0, 0 ): [ "-1:-1", "1:10", "2:10", "2:16" ]
+},
+"weight": 0
+},
+"1:0": {
+"cell_index": 1,
+"cell_orientation": 0,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "1:10" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "2:0", "1:0" ],
+Vector3( 0, 0, 1 ): [ "1:0", "2:22" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "-1:-1" ]
+},
+"weight": 4
+},
+"1:10": {
+"cell_index": 1,
+"cell_orientation": 10,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "-1:-1" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "1:10", "2:16" ],
+Vector3( 0, 0, 1 ): [ "2:10", "1:10" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "1:0" ]
+},
+"weight": 4
+},
+"1:16": {
+"cell_index": 1,
+"cell_orientation": 16,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "2:16", "1:16" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "-1:-1" ],
+Vector3( 0, 0, 1 ): [ "1:22" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "1:16", "2:0" ]
+},
+"weight": 4
+},
+"1:22": {
+"cell_index": 1,
+"cell_orientation": 22,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "1:22", "2:10" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "1:16" ],
+Vector3( 0, 0, 1 ): [ "-1:-1" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "2:22", "1:22" ]
+},
+"weight": 4
+},
 "2:0": {
 "cell_index": 2,
 "cell_orientation": 0,
-"constraints": {
-"x": {
-"from": -1,
-"to": -1
-},
-"y": {
-"from": -1,
-"to": 0
-},
-"z": {
-"from": -1,
-"to": -1
-}
-},
-"used_coordinates": [ Vector3( 0, 0, 1 ), Vector3( 1, 0, 1 ), Vector3( 0, 0, 2 ), Vector3( 1, 0, 2 ) ],
+"used_coordinates": [  ],
 "valid_siblings": {
-Vector3( -1, 0, 0 ): [ "2:16" ],
+Vector3( -1, 0, 0 ): [ "1:16", "2:16" ],
 Vector3( 0, -1, 0 ): [ "-1:-1" ],
-Vector3( 0, 0, -1 ): [ "-1:-1", "2:16" ],
-Vector3( 0, 0, 1 ): [ "2:22" ],
+Vector3( 0, 0, -1 ): [ "-1:-1" ],
+Vector3( 0, 0, 1 ): [ "2:22", "1:0" ],
 Vector3( 0, 1, 0 ): [ "-1:-1" ],
-Vector3( 1, 0, 0 ): [ "-1:-1", "2:22" ]
+Vector3( 1, 0, 0 ): [ "-1:-1" ]
 },
-"weight": 1
+"weight": 4
+},
+"2:10": {
+"cell_index": 2,
+"cell_orientation": 10,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "-1:-1" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "2:16", "1:10" ],
+Vector3( 0, 0, 1 ): [ "-1:-1" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "1:22", "2:22" ]
+},
+"weight": 4
 },
 "2:16": {
 "cell_index": 2,
 "cell_orientation": 16,
-"constraints": {
-"x": {
-"from": -1,
-"to": -1
-},
-"y": {
-"from": -1,
-"to": 0
-},
-"z": {
-"from": -1,
-"to": -1
-}
-},
-"used_coordinates": [ Vector3( 0, 0, 1 ), Vector3( 1, 0, 1 ), Vector3( 0, 0, 2 ), Vector3( 1, 0, 2 ) ],
+"used_coordinates": [  ],
 "valid_siblings": {
 Vector3( -1, 0, 0 ): [ "-1:-1" ],
 Vector3( 0, -1, 0 ): [ "-1:-1" ],
 Vector3( 0, 0, -1 ): [ "-1:-1" ],
-Vector3( 0, 0, 1 ): [ "2:10", "2:0" ],
+Vector3( 0, 0, 1 ): [ "1:10", "2:10" ],
 Vector3( 0, 1, 0 ): [ "-1:-1" ],
-Vector3( 1, 0, 0 ): [ "2:10", "2:0" ]
+Vector3( 1, 0, 0 ): [ "2:0", "1:16" ]
 },
-"weight": 1
+"weight": 4
+},
+"2:22": {
+"cell_index": 2,
+"cell_orientation": 22,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "2:10", "1:22" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "1:0", "2:0" ],
+Vector3( 0, 0, 1 ): [ "-1:-1" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "-1:-1" ]
+},
+"weight": 4
 }
 },
 Vector3( 2, 0, 1 ): {
+"-1:-1": {
+"cell_index": -1,
+"cell_orientation": -1,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "-1:-1", "1:0", "2:22", "2:0" ],
+Vector3( 0, -1, 0 ): [ "-1:-1", "1:0", "1:10", "2:22", "2:10", "2:0", "2:16" ],
+Vector3( 0, 0, -1 ): [ "-1:-1", "2:22", "2:10" ],
+Vector3( 0, 0, 1 ): [ "-1:-1", "2:0", "2:16" ],
+Vector3( 0, 1, 0 ): [ "-1:-1", "1:0", "1:10", "2:22", "2:10", "2:0", "2:16" ],
+Vector3( 1, 0, 0 ): [ "-1:-1", "1:10", "2:10", "2:16" ]
+},
+"weight": 0
+},
+"1:0": {
+"cell_index": 1,
+"cell_orientation": 0,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "1:10" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "2:0", "1:0" ],
+Vector3( 0, 0, 1 ): [ "1:0", "2:22" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "-1:-1" ]
+},
+"weight": 4
+},
+"1:10": {
+"cell_index": 1,
+"cell_orientation": 10,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "-1:-1" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "1:10", "2:16" ],
+Vector3( 0, 0, 1 ): [ "2:10", "1:10" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "1:0" ]
+},
+"weight": 4
+},
+"1:16": {
+"cell_index": 1,
+"cell_orientation": 16,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "2:16", "1:16" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "-1:-1" ],
+Vector3( 0, 0, 1 ): [ "1:22" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "1:16", "2:0" ]
+},
+"weight": 4
+},
+"1:22": {
+"cell_index": 1,
+"cell_orientation": 22,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "1:22", "2:10" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "1:16" ],
+Vector3( 0, 0, 1 ): [ "-1:-1" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "2:22", "1:22" ]
+},
+"weight": 4
+},
 "2:0": {
 "cell_index": 2,
 "cell_orientation": 0,
-"constraints": {
-"x": {
-"from": -1,
-"to": -1
-},
-"y": {
-"from": -1,
-"to": 0
-},
-"z": {
-"from": -1,
-"to": -1
-}
-},
-"used_coordinates": [ Vector3( 0, 0, 1 ), Vector3( 1, 0, 1 ), Vector3( 0, 0, 2 ), Vector3( 1, 0, 2 ) ],
+"used_coordinates": [  ],
 "valid_siblings": {
-Vector3( -1, 0, 0 ): [ "2:16" ],
+Vector3( -1, 0, 0 ): [ "1:16", "2:16" ],
 Vector3( 0, -1, 0 ): [ "-1:-1" ],
-Vector3( 0, 0, -1 ): [ "-1:-1", "2:16" ],
-Vector3( 0, 0, 1 ): [ "2:22" ],
+Vector3( 0, 0, -1 ): [ "-1:-1" ],
+Vector3( 0, 0, 1 ): [ "2:22", "1:0" ],
 Vector3( 0, 1, 0 ): [ "-1:-1" ],
-Vector3( 1, 0, 0 ): [ "-1:-1", "2:22" ]
+Vector3( 1, 0, 0 ): [ "-1:-1" ]
 },
-"weight": 1
+"weight": 4
 },
 "2:10": {
 "cell_index": 2,
 "cell_orientation": 10,
-"constraints": {
-"x": {
-"from": -1,
-"to": -1
-},
-"y": {
-"from": -1,
-"to": 0
-},
-"z": {
-"from": -1,
-"to": -1
-}
-},
-"used_coordinates": [ Vector3( 0, 0, 1 ), Vector3( 1, 0, 1 ), Vector3( 0, 0, 2 ), Vector3( 1, 0, 2 ) ],
+"used_coordinates": [  ],
 "valid_siblings": {
-Vector3( -1, 0, 0 ): [ "-1:-1", "2:16" ],
+Vector3( -1, 0, 0 ): [ "-1:-1" ],
 Vector3( 0, -1, 0 ): [ "-1:-1" ],
-Vector3( 0, 0, -1 ): [ "2:16" ],
-Vector3( 0, 0, 1 ): [ "-1:-1", "2:22" ],
+Vector3( 0, 0, -1 ): [ "2:16", "1:10" ],
+Vector3( 0, 0, 1 ): [ "-1:-1" ],
 Vector3( 0, 1, 0 ): [ "-1:-1" ],
-Vector3( 1, 0, 0 ): [ "2:22" ]
+Vector3( 1, 0, 0 ): [ "1:22", "2:22" ]
 },
-"weight": 1
+"weight": 4
 },
 "2:16": {
 "cell_index": 2,
 "cell_orientation": 16,
-"constraints": {
-"x": {
-"from": -1,
-"to": -1
-},
-"y": {
-"from": -1,
-"to": 0
-},
-"z": {
-"from": -1,
-"to": -1
-}
-},
-"used_coordinates": [ Vector3( 0, 0, 1 ), Vector3( 1, 0, 1 ), Vector3( 0, 0, 2 ), Vector3( 1, 0, 2 ) ],
+"used_coordinates": [  ],
 "valid_siblings": {
 Vector3( -1, 0, 0 ): [ "-1:-1" ],
 Vector3( 0, -1, 0 ): [ "-1:-1" ],
 Vector3( 0, 0, -1 ): [ "-1:-1" ],
-Vector3( 0, 0, 1 ): [ "2:10", "2:0" ],
+Vector3( 0, 0, 1 ): [ "1:10", "2:10" ],
 Vector3( 0, 1, 0 ): [ "-1:-1" ],
-Vector3( 1, 0, 0 ): [ "2:10", "2:0" ]
+Vector3( 1, 0, 0 ): [ "2:0", "1:16" ]
 },
-"weight": 1
+"weight": 4
 },
 "2:22": {
 "cell_index": 2,
 "cell_orientation": 22,
-"constraints": {
-"x": {
-"from": -1,
-"to": -1
-},
-"y": {
-"from": -1,
-"to": 0
-},
-"z": {
-"from": -1,
-"to": -1
-}
-},
-"used_coordinates": [ Vector3( 0, 0, 1 ), Vector3( 1, 0, 1 ), Vector3( 0, 0, 2 ), Vector3( 1, 0, 2 ) ],
+"used_coordinates": [  ],
 "valid_siblings": {
-Vector3( -1, 0, 0 ): [ "2:0", "2:10" ],
+Vector3( -1, 0, 0 ): [ "2:10", "1:22" ],
 Vector3( 0, -1, 0 ): [ "-1:-1" ],
-Vector3( 0, 0, -1 ): [ "2:0", "2:10" ],
+Vector3( 0, 0, -1 ): [ "1:0", "2:0" ],
 Vector3( 0, 0, 1 ): [ "-1:-1" ],
 Vector3( 0, 1, 0 ): [ "-1:-1" ],
 Vector3( 1, 0, 0 ): [ "-1:-1" ]
 },
-"weight": 1
+"weight": 4
 }
 },
 Vector3( 2, 0, 2 ): {
+"-1:-1": {
+"cell_index": -1,
+"cell_orientation": -1,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "-1:-1", "1:0", "2:22", "2:0" ],
+Vector3( 0, -1, 0 ): [ "-1:-1", "1:0", "1:10", "2:22", "2:10", "2:0", "2:16" ],
+Vector3( 0, 0, -1 ): [ "-1:-1", "2:22", "2:10" ],
+Vector3( 0, 0, 1 ): [ "-1:-1", "2:0", "2:16" ],
+Vector3( 0, 1, 0 ): [ "-1:-1", "1:0", "1:10", "2:22", "2:10", "2:0", "2:16" ],
+Vector3( 1, 0, 0 ): [ "-1:-1", "1:10", "2:10", "2:16" ]
+},
+"weight": 0
+},
+"1:0": {
+"cell_index": 1,
+"cell_orientation": 0,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "1:10" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "2:0", "1:0" ],
+Vector3( 0, 0, 1 ): [ "1:0", "2:22" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "-1:-1" ]
+},
+"weight": 4
+},
+"1:10": {
+"cell_index": 1,
+"cell_orientation": 10,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "-1:-1" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "1:10", "2:16" ],
+Vector3( 0, 0, 1 ): [ "2:10", "1:10" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "1:0" ]
+},
+"weight": 4
+},
+"1:16": {
+"cell_index": 1,
+"cell_orientation": 16,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "2:16", "1:16" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "-1:-1" ],
+Vector3( 0, 0, 1 ): [ "1:22" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "1:16", "2:0" ]
+},
+"weight": 4
+},
+"1:22": {
+"cell_index": 1,
+"cell_orientation": 22,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "1:22", "2:10" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "1:16" ],
+Vector3( 0, 0, 1 ): [ "-1:-1" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "2:22", "1:22" ]
+},
+"weight": 4
+},
 "2:0": {
 "cell_index": 2,
 "cell_orientation": 0,
-"constraints": {
-"x": {
-"from": -1,
-"to": -1
-},
-"y": {
-"from": -1,
-"to": 0
-},
-"z": {
-"from": -1,
-"to": -1
-}
-},
-"used_coordinates": [ Vector3( 0, 0, 1 ), Vector3( 1, 0, 1 ), Vector3( 0, 0, 2 ), Vector3( 1, 0, 2 ) ],
+"used_coordinates": [  ],
 "valid_siblings": {
-Vector3( -1, 0, 0 ): [ "2:16" ],
+Vector3( -1, 0, 0 ): [ "1:16", "2:16" ],
 Vector3( 0, -1, 0 ): [ "-1:-1" ],
-Vector3( 0, 0, -1 ): [ "-1:-1", "2:16" ],
-Vector3( 0, 0, 1 ): [ "2:22" ],
+Vector3( 0, 0, -1 ): [ "-1:-1" ],
+Vector3( 0, 0, 1 ): [ "2:22", "1:0" ],
 Vector3( 0, 1, 0 ): [ "-1:-1" ],
-Vector3( 1, 0, 0 ): [ "-1:-1", "2:22" ]
+Vector3( 1, 0, 0 ): [ "-1:-1" ]
 },
-"weight": 1
+"weight": 4
 },
 "2:10": {
 "cell_index": 2,
 "cell_orientation": 10,
-"constraints": {
-"x": {
-"from": -1,
-"to": -1
-},
-"y": {
-"from": -1,
-"to": 0
-},
-"z": {
-"from": -1,
-"to": -1
-}
-},
-"used_coordinates": [ Vector3( 0, 0, 1 ), Vector3( 1, 0, 1 ), Vector3( 0, 0, 2 ), Vector3( 1, 0, 2 ) ],
+"used_coordinates": [  ],
 "valid_siblings": {
-Vector3( -1, 0, 0 ): [ "-1:-1", "2:16" ],
+Vector3( -1, 0, 0 ): [ "-1:-1" ],
 Vector3( 0, -1, 0 ): [ "-1:-1" ],
-Vector3( 0, 0, -1 ): [ "2:16" ],
-Vector3( 0, 0, 1 ): [ "-1:-1", "2:22" ],
+Vector3( 0, 0, -1 ): [ "2:16", "1:10" ],
+Vector3( 0, 0, 1 ): [ "-1:-1" ],
 Vector3( 0, 1, 0 ): [ "-1:-1" ],
-Vector3( 1, 0, 0 ): [ "2:22" ]
+Vector3( 1, 0, 0 ): [ "1:22", "2:22" ]
 },
-"weight": 1
-}
+"weight": 4
 },
-Vector3( 2, 0, 3 ): {
-"2:10": {
+"2:16": {
 "cell_index": 2,
-"cell_orientation": 10,
-"constraints": {
-"x": {
-"from": -1,
-"to": -1
-},
-"y": {
-"from": -1,
-"to": 0
-},
-"z": {
-"from": -1,
-"to": -1
-}
-},
-"used_coordinates": [ Vector3( 0, 0, 1 ), Vector3( 1, 0, 1 ), Vector3( 0, 0, 2 ), Vector3( 1, 0, 2 ) ],
+"cell_orientation": 16,
+"used_coordinates": [  ],
 "valid_siblings": {
-Vector3( -1, 0, 0 ): [ "-1:-1", "2:16" ],
+Vector3( -1, 0, 0 ): [ "-1:-1" ],
 Vector3( 0, -1, 0 ): [ "-1:-1" ],
-Vector3( 0, 0, -1 ): [ "2:16" ],
-Vector3( 0, 0, 1 ): [ "-1:-1", "2:22" ],
+Vector3( 0, 0, -1 ): [ "-1:-1" ],
+Vector3( 0, 0, 1 ): [ "1:10", "2:10" ],
 Vector3( 0, 1, 0 ): [ "-1:-1" ],
-Vector3( 1, 0, 0 ): [ "2:22" ]
+Vector3( 1, 0, 0 ): [ "2:0", "1:16" ]
 },
-"weight": 1
+"weight": 4
 },
 "2:22": {
 "cell_index": 2,
 "cell_orientation": 22,
-"constraints": {
-"x": {
-"from": -1,
-"to": -1
-},
-"y": {
-"from": -1,
-"to": 0
-},
-"z": {
-"from": -1,
-"to": -1
-}
-},
-"used_coordinates": [ Vector3( 0, 0, 1 ), Vector3( 1, 0, 1 ), Vector3( 0, 0, 2 ), Vector3( 1, 0, 2 ) ],
+"used_coordinates": [  ],
 "valid_siblings": {
-Vector3( -1, 0, 0 ): [ "2:0", "2:10" ],
+Vector3( -1, 0, 0 ): [ "2:10", "1:22" ],
 Vector3( 0, -1, 0 ): [ "-1:-1" ],
-Vector3( 0, 0, -1 ): [ "2:0", "2:10" ],
+Vector3( 0, 0, -1 ): [ "1:0", "2:0" ],
 Vector3( 0, 0, 1 ): [ "-1:-1" ],
 Vector3( 0, 1, 0 ): [ "-1:-1" ],
 Vector3( 1, 0, 0 ): [ "-1:-1" ]
 },
-"weight": 1
+"weight": 4
+}
+},
+Vector3( 2, 0, 3 ): {
+"-1:-1": {
+"cell_index": -1,
+"cell_orientation": -1,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "-1:-1", "1:0", "2:22", "2:0" ],
+Vector3( 0, -1, 0 ): [ "-1:-1", "1:0", "1:10", "2:22", "2:10", "2:0", "2:16" ],
+Vector3( 0, 0, -1 ): [ "-1:-1", "2:22", "2:10" ],
+Vector3( 0, 0, 1 ): [ "-1:-1", "2:0", "2:16" ],
+Vector3( 0, 1, 0 ): [ "-1:-1", "1:0", "1:10", "2:22", "2:10", "2:0", "2:16" ],
+Vector3( 1, 0, 0 ): [ "-1:-1", "1:10", "2:10", "2:16" ]
+},
+"weight": 0
+},
+"1:0": {
+"cell_index": 1,
+"cell_orientation": 0,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "1:10" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "2:0", "1:0" ],
+Vector3( 0, 0, 1 ): [ "1:0", "2:22" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "-1:-1" ]
+},
+"weight": 4
+},
+"1:10": {
+"cell_index": 1,
+"cell_orientation": 10,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "-1:-1" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "1:10", "2:16" ],
+Vector3( 0, 0, 1 ): [ "2:10", "1:10" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "1:0" ]
+},
+"weight": 4
+},
+"1:16": {
+"cell_index": 1,
+"cell_orientation": 16,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "2:16", "1:16" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "-1:-1" ],
+Vector3( 0, 0, 1 ): [ "1:22" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "1:16", "2:0" ]
+},
+"weight": 4
+},
+"1:22": {
+"cell_index": 1,
+"cell_orientation": 22,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "1:22", "2:10" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "1:16" ],
+Vector3( 0, 0, 1 ): [ "-1:-1" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "2:22", "1:22" ]
+},
+"weight": 4
+},
+"2:0": {
+"cell_index": 2,
+"cell_orientation": 0,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "1:16", "2:16" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "-1:-1" ],
+Vector3( 0, 0, 1 ): [ "2:22", "1:0" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "-1:-1" ]
+},
+"weight": 4
+},
+"2:10": {
+"cell_index": 2,
+"cell_orientation": 10,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "-1:-1" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "2:16", "1:10" ],
+Vector3( 0, 0, 1 ): [ "-1:-1" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "1:22", "2:22" ]
+},
+"weight": 4
+},
+"2:16": {
+"cell_index": 2,
+"cell_orientation": 16,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "-1:-1" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "-1:-1" ],
+Vector3( 0, 0, 1 ): [ "1:10", "2:10" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "2:0", "1:16" ]
+},
+"weight": 4
+},
+"2:22": {
+"cell_index": 2,
+"cell_orientation": 22,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "2:10", "1:22" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "1:0", "2:0" ],
+Vector3( 0, 0, 1 ): [ "-1:-1" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "-1:-1" ]
+},
+"weight": 4
 }
 },
 Vector3( 2, 0, 4 ): {
@@ -1870,96 +2598,516 @@ Vector3( 2, 1, 4 ): {
 Vector3( 2, 1, 5 ): {
 },
 Vector3( 3, 0, 0 ): {
+"-1:-1": {
+"cell_index": -1,
+"cell_orientation": -1,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "-1:-1", "1:0", "2:22", "2:0" ],
+Vector3( 0, -1, 0 ): [ "-1:-1", "1:0", "1:10", "2:22", "2:10", "2:0", "2:16" ],
+Vector3( 0, 0, -1 ): [ "-1:-1", "2:22", "2:10" ],
+Vector3( 0, 0, 1 ): [ "-1:-1", "2:0", "2:16" ],
+Vector3( 0, 1, 0 ): [ "-1:-1", "1:0", "1:10", "2:22", "2:10", "2:0", "2:16" ],
+Vector3( 1, 0, 0 ): [ "-1:-1", "1:10", "2:10", "2:16" ]
+},
+"weight": 0
+},
+"1:0": {
+"cell_index": 1,
+"cell_orientation": 0,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "1:10" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "2:0", "1:0" ],
+Vector3( 0, 0, 1 ): [ "1:0", "2:22" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "-1:-1" ]
+},
+"weight": 4
+},
+"1:10": {
+"cell_index": 1,
+"cell_orientation": 10,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "-1:-1" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "1:10", "2:16" ],
+Vector3( 0, 0, 1 ): [ "2:10", "1:10" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "1:0" ]
+},
+"weight": 4
+},
+"1:16": {
+"cell_index": 1,
+"cell_orientation": 16,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "2:16", "1:16" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "-1:-1" ],
+Vector3( 0, 0, 1 ): [ "1:22" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "1:16", "2:0" ]
+},
+"weight": 4
+},
+"1:22": {
+"cell_index": 1,
+"cell_orientation": 22,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "1:22", "2:10" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "1:16" ],
+Vector3( 0, 0, 1 ): [ "-1:-1" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "2:22", "1:22" ]
+},
+"weight": 4
+},
 "2:0": {
 "cell_index": 2,
 "cell_orientation": 0,
-"constraints": {
-"x": {
-"from": -1,
-"to": -1
-},
-"y": {
-"from": -1,
-"to": 0
-},
-"z": {
-"from": -1,
-"to": -1
-}
-},
-"used_coordinates": [ Vector3( 0, 0, 1 ), Vector3( 1, 0, 1 ), Vector3( 0, 0, 2 ), Vector3( 1, 0, 2 ) ],
+"used_coordinates": [  ],
 "valid_siblings": {
-Vector3( -1, 0, 0 ): [ "2:16" ],
+Vector3( -1, 0, 0 ): [ "1:16", "2:16" ],
 Vector3( 0, -1, 0 ): [ "-1:-1" ],
-Vector3( 0, 0, -1 ): [ "-1:-1", "2:16" ],
-Vector3( 0, 0, 1 ): [ "2:22" ],
+Vector3( 0, 0, -1 ): [ "-1:-1" ],
+Vector3( 0, 0, 1 ): [ "2:22", "1:0" ],
 Vector3( 0, 1, 0 ): [ "-1:-1" ],
-Vector3( 1, 0, 0 ): [ "-1:-1", "2:22" ]
+Vector3( 1, 0, 0 ): [ "-1:-1" ]
 },
-"weight": 1
-}
+"weight": 4
 },
-Vector3( 3, 0, 1 ): {
-"2:0": {
+"2:10": {
 "cell_index": 2,
-"cell_orientation": 0,
-"constraints": {
-"x": {
-"from": -1,
-"to": -1
-},
-"y": {
-"from": -1,
-"to": 0
-},
-"z": {
-"from": -1,
-"to": -1
-}
-},
-"used_coordinates": [ Vector3( 0, 0, 1 ), Vector3( 1, 0, 1 ), Vector3( 0, 0, 2 ), Vector3( 1, 0, 2 ) ],
+"cell_orientation": 10,
+"used_coordinates": [  ],
 "valid_siblings": {
-Vector3( -1, 0, 0 ): [ "2:16" ],
+Vector3( -1, 0, 0 ): [ "-1:-1" ],
 Vector3( 0, -1, 0 ): [ "-1:-1" ],
-Vector3( 0, 0, -1 ): [ "-1:-1", "2:16" ],
-Vector3( 0, 0, 1 ): [ "2:22" ],
+Vector3( 0, 0, -1 ): [ "2:16", "1:10" ],
+Vector3( 0, 0, 1 ): [ "-1:-1" ],
 Vector3( 0, 1, 0 ): [ "-1:-1" ],
-Vector3( 1, 0, 0 ): [ "-1:-1", "2:22" ]
+Vector3( 1, 0, 0 ): [ "1:22", "2:22" ]
 },
-"weight": 1
-}
+"weight": 4
 },
-Vector3( 3, 0, 2 ): {
+"2:16": {
+"cell_index": 2,
+"cell_orientation": 16,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "-1:-1" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "-1:-1" ],
+Vector3( 0, 0, 1 ): [ "1:10", "2:10" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "2:0", "1:16" ]
+},
+"weight": 4
+},
 "2:22": {
 "cell_index": 2,
 "cell_orientation": 22,
-"constraints": {
-"x": {
-"from": -1,
-"to": -1
-},
-"y": {
-"from": -1,
-"to": 0
-},
-"z": {
-"from": -1,
-"to": -1
-}
-},
-"used_coordinates": [ Vector3( 0, 0, 1 ), Vector3( 1, 0, 1 ), Vector3( 0, 0, 2 ), Vector3( 1, 0, 2 ) ],
+"used_coordinates": [  ],
 "valid_siblings": {
-Vector3( -1, 0, 0 ): [ "2:0", "2:10" ],
+Vector3( -1, 0, 0 ): [ "2:10", "1:22" ],
 Vector3( 0, -1, 0 ): [ "-1:-1" ],
-Vector3( 0, 0, -1 ): [ "2:0", "2:10" ],
+Vector3( 0, 0, -1 ): [ "1:0", "2:0" ],
 Vector3( 0, 0, 1 ): [ "-1:-1" ],
 Vector3( 0, 1, 0 ): [ "-1:-1" ],
 Vector3( 1, 0, 0 ): [ "-1:-1" ]
 },
-"weight": 1
+"weight": 4
+}
+},
+Vector3( 3, 0, 1 ): {
+"-1:-1": {
+"cell_index": -1,
+"cell_orientation": -1,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "-1:-1", "1:0", "2:22", "2:0" ],
+Vector3( 0, -1, 0 ): [ "-1:-1", "1:0", "1:10", "2:22", "2:10", "2:0", "2:16" ],
+Vector3( 0, 0, -1 ): [ "-1:-1", "2:22", "2:10" ],
+Vector3( 0, 0, 1 ): [ "-1:-1", "2:0", "2:16" ],
+Vector3( 0, 1, 0 ): [ "-1:-1", "1:0", "1:10", "2:22", "2:10", "2:0", "2:16" ],
+Vector3( 1, 0, 0 ): [ "-1:-1", "1:10", "2:10", "2:16" ]
+},
+"weight": 0
+},
+"1:0": {
+"cell_index": 1,
+"cell_orientation": 0,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "1:10" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "2:0", "1:0" ],
+Vector3( 0, 0, 1 ): [ "1:0", "2:22" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "-1:-1" ]
+},
+"weight": 4
+},
+"1:10": {
+"cell_index": 1,
+"cell_orientation": 10,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "-1:-1" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "1:10", "2:16" ],
+Vector3( 0, 0, 1 ): [ "2:10", "1:10" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "1:0" ]
+},
+"weight": 4
+},
+"1:16": {
+"cell_index": 1,
+"cell_orientation": 16,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "2:16", "1:16" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "-1:-1" ],
+Vector3( 0, 0, 1 ): [ "1:22" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "1:16", "2:0" ]
+},
+"weight": 4
+},
+"1:22": {
+"cell_index": 1,
+"cell_orientation": 22,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "1:22", "2:10" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "1:16" ],
+Vector3( 0, 0, 1 ): [ "-1:-1" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "2:22", "1:22" ]
+},
+"weight": 4
+},
+"2:0": {
+"cell_index": 2,
+"cell_orientation": 0,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "1:16", "2:16" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "-1:-1" ],
+Vector3( 0, 0, 1 ): [ "2:22", "1:0" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "-1:-1" ]
+},
+"weight": 4
+},
+"2:10": {
+"cell_index": 2,
+"cell_orientation": 10,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "-1:-1" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "2:16", "1:10" ],
+Vector3( 0, 0, 1 ): [ "-1:-1" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "1:22", "2:22" ]
+},
+"weight": 4
+},
+"2:16": {
+"cell_index": 2,
+"cell_orientation": 16,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "-1:-1" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "-1:-1" ],
+Vector3( 0, 0, 1 ): [ "1:10", "2:10" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "2:0", "1:16" ]
+},
+"weight": 4
+},
+"2:22": {
+"cell_index": 2,
+"cell_orientation": 22,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "2:10", "1:22" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "1:0", "2:0" ],
+Vector3( 0, 0, 1 ): [ "-1:-1" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "-1:-1" ]
+},
+"weight": 4
+}
+},
+Vector3( 3, 0, 2 ): {
+"-1:-1": {
+"cell_index": -1,
+"cell_orientation": -1,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "-1:-1", "1:0", "2:22", "2:0" ],
+Vector3( 0, -1, 0 ): [ "-1:-1", "1:0", "1:10", "2:22", "2:10", "2:0", "2:16" ],
+Vector3( 0, 0, -1 ): [ "-1:-1", "2:22", "2:10" ],
+Vector3( 0, 0, 1 ): [ "-1:-1", "2:0", "2:16" ],
+Vector3( 0, 1, 0 ): [ "-1:-1", "1:0", "1:10", "2:22", "2:10", "2:0", "2:16" ],
+Vector3( 1, 0, 0 ): [ "-1:-1", "1:10", "2:10", "2:16" ]
+},
+"weight": 0
+},
+"1:0": {
+"cell_index": 1,
+"cell_orientation": 0,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "1:10" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "2:0", "1:0" ],
+Vector3( 0, 0, 1 ): [ "1:0", "2:22" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "-1:-1" ]
+},
+"weight": 4
+},
+"1:10": {
+"cell_index": 1,
+"cell_orientation": 10,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "-1:-1" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "1:10", "2:16" ],
+Vector3( 0, 0, 1 ): [ "2:10", "1:10" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "1:0" ]
+},
+"weight": 4
+},
+"1:16": {
+"cell_index": 1,
+"cell_orientation": 16,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "2:16", "1:16" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "-1:-1" ],
+Vector3( 0, 0, 1 ): [ "1:22" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "1:16", "2:0" ]
+},
+"weight": 4
+},
+"1:22": {
+"cell_index": 1,
+"cell_orientation": 22,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "1:22", "2:10" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "1:16" ],
+Vector3( 0, 0, 1 ): [ "-1:-1" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "2:22", "1:22" ]
+},
+"weight": 4
+},
+"2:0": {
+"cell_index": 2,
+"cell_orientation": 0,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "1:16", "2:16" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "-1:-1" ],
+Vector3( 0, 0, 1 ): [ "2:22", "1:0" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "-1:-1" ]
+},
+"weight": 4
+},
+"2:10": {
+"cell_index": 2,
+"cell_orientation": 10,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "-1:-1" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "2:16", "1:10" ],
+Vector3( 0, 0, 1 ): [ "-1:-1" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "1:22", "2:22" ]
+},
+"weight": 4
+},
+"2:16": {
+"cell_index": 2,
+"cell_orientation": 16,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "-1:-1" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "-1:-1" ],
+Vector3( 0, 0, 1 ): [ "1:10", "2:10" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "2:0", "1:16" ]
+},
+"weight": 4
+},
+"2:22": {
+"cell_index": 2,
+"cell_orientation": 22,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "2:10", "1:22" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "1:0", "2:0" ],
+Vector3( 0, 0, 1 ): [ "-1:-1" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "-1:-1" ]
+},
+"weight": 4
 }
 },
 Vector3( 3, 0, 3 ): {
+"-1:-1": {
+"cell_index": -1,
+"cell_orientation": -1,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "-1:-1", "1:0", "2:22", "2:0" ],
+Vector3( 0, -1, 0 ): [ "-1:-1", "1:0", "1:10", "2:22", "2:10", "2:0", "2:16" ],
+Vector3( 0, 0, -1 ): [ "-1:-1", "2:22", "2:10" ],
+Vector3( 0, 0, 1 ): [ "-1:-1", "2:0", "2:16" ],
+Vector3( 0, 1, 0 ): [ "-1:-1", "1:0", "1:10", "2:22", "2:10", "2:0", "2:16" ],
+Vector3( 1, 0, 0 ): [ "-1:-1", "1:10", "2:10", "2:16" ]
+},
+"weight": 0
+},
+"1:0": {
+"cell_index": 1,
+"cell_orientation": 0,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "1:10" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "2:0", "1:0" ],
+Vector3( 0, 0, 1 ): [ "1:0", "2:22" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "-1:-1" ]
+},
+"weight": 4
+},
+"1:10": {
+"cell_index": 1,
+"cell_orientation": 10,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "-1:-1" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "1:10", "2:16" ],
+Vector3( 0, 0, 1 ): [ "2:10", "1:10" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "1:0" ]
+},
+"weight": 4
+},
+"1:16": {
+"cell_index": 1,
+"cell_orientation": 16,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "2:16", "1:16" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "-1:-1" ],
+Vector3( 0, 0, 1 ): [ "1:22" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "1:16", "2:0" ]
+},
+"weight": 4
+},
+"1:22": {
+"cell_index": 1,
+"cell_orientation": 22,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "1:22", "2:10" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "1:16" ],
+Vector3( 0, 0, 1 ): [ "-1:-1" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "2:22", "1:22" ]
+},
+"weight": 4
+},
+"2:0": {
+"cell_index": 2,
+"cell_orientation": 0,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "1:16", "2:16" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "-1:-1" ],
+Vector3( 0, 0, 1 ): [ "2:22", "1:0" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "-1:-1" ]
+},
+"weight": 4
+},
+"2:10": {
+"cell_index": 2,
+"cell_orientation": 10,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "-1:-1" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "2:16", "1:10" ],
+Vector3( 0, 0, 1 ): [ "-1:-1" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "1:22", "2:22" ]
+},
+"weight": 4
+},
+"2:16": {
+"cell_index": 2,
+"cell_orientation": 16,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "-1:-1" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "-1:-1" ],
+Vector3( 0, 0, 1 ): [ "1:10", "2:10" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "2:0", "1:16" ]
+},
+"weight": 4
+},
+"2:22": {
+"cell_index": 2,
+"cell_orientation": 22,
+"used_coordinates": [  ],
+"valid_siblings": {
+Vector3( -1, 0, 0 ): [ "2:10", "1:22" ],
+Vector3( 0, -1, 0 ): [ "-1:-1" ],
+Vector3( 0, 0, -1 ): [ "1:0", "2:0" ],
+Vector3( 0, 0, 1 ): [ "-1:-1" ],
+Vector3( 0, 1, 0 ): [ "-1:-1" ],
+Vector3( 1, 0, 0 ): [ "-1:-1" ]
+},
+"weight": 4
+}
 },
 Vector3( 3, 0, 4 ): {
 "2:22": {

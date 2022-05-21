@@ -22,20 +22,20 @@ const DEFAULT_PROTOTYPE = {
 		Vector3.DOWN : []
 	},
 	'used_coordinates': [],
-	'constraints': {
-		'x': {
-			'to': -1,
-			'from': -1,
-		},
-		'y': {
-			'to': -1,
-			'from': -1,
-		},
-		'z': {
-			'to': -1,
-			'from': -1,
-		}
-	}
+#	'constraints': {
+#		'x': {
+#			'to': -1,
+#			'from': -1,
+#		},
+#		'y': {
+#			'to': -1,
+#			'from': -1,
+#		},
+#		'z': {
+#			'to': -1,
+#			'from': -1,
+#		}
+#	}
 }
 const orientation_directions = {
 	-1: {
@@ -85,7 +85,8 @@ var cells : WaveFunctionCells
 
 export var clear_canvas : bool setget set_clear_canvas
 export var export_definitions : bool = false setget set_export_definitions
-export var prototypes : Dictionary
+
+var prototypes : Dictionary
 
 
 class WaveFunctionCells:
@@ -120,6 +121,7 @@ class WaveFunctionCell:
 	func append_coords(coords: Vector3):
 		if not used_coords.has(coords):
 			used_coords.append(coords)
+
 
 func get_normalized_direction(cell_orientation: int, direction: Vector3) -> Vector3:
 	var normalized_directions = orientation_directions[cell_orientation]
@@ -238,20 +240,13 @@ func initialize():
 	update_cells()
 	update_prototypes()
 
+
 func update_cells() -> void:
-	prototypes = {
-		BLANK_ID : DEFAULT_PROTOTYPE.duplicate(true)
-	}
-	blank_prototype = prototypes[BLANK_ID]
-	var directions = orientation_directions[0]
-
 	cells = WaveFunctionCells.new()
-
 	var used_cells := get_used_cells()
 	for coords in used_cells:
 		var cell_index : int = get_cell_item(coords.x,coords.y,coords.z)
 		var cell_orientation : int = get_cell_item_orientation(coords.x,coords.y,coords.z)
-
 		cells.get_cell(cell_index).append_coords(coords)
 		append_coords(coords)
 	build_constraints()
@@ -273,11 +268,12 @@ func update_prototypes() -> void:
 				prototypes[prototype_id] = DEFAULT_PROTOTYPE.duplicate(true)
 				prototypes[prototype_id]['cell_index'] = index
 				prototypes[prototype_id]['cell_orientation'] = orientation
+				prototypes[prototype_id]['weight'] = len(cell.used_coords)
 
 #			only run on default orientation for BLANK
 			if index == -1 and orientation != 0:
 				continue
-
+#			loop through directions and create normalized orientations of possible siblings
 			for direction in cell.valid_siblings:
 				var normalized_direction = get_normalized_direction(orientation,direction)
 				for sibling_index in cell.valid_siblings[direction]:
