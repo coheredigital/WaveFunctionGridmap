@@ -1,6 +1,9 @@
 {
 	"1": {
-		"used_coordinates": ["(0, 0, 0)"],
+		"used_coordinates": [
+			"(0, 0, 0)",
+			"(-1, 0, 0)"
+		],
 		"0": {
 
 			"valid_siblings": {
@@ -13,7 +16,6 @@
 			}
 		},
 		"10": {
-			"used_coordinates": ["(-1, 0, 0)"],
 			"valid_siblings": {
 				"(-1, 0, 0)": [-1],
 				"(0, -1, 0)": [-1],

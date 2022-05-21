@@ -7,6 +7,14 @@ var socket_registry := {}
 var prototypes := {}
 var prototype_sockets := {}
 
+const BLANK_INDEX = "-1"
+const BLANK_ID = "-1:-1"
+const ORIENTATIONS = "valid_orientations"
+const SIBLINGS = "valid_siblings"
+const INDEX = "cell_index"
+const ORIENTATION = "cell_orientation"
+const WEIGHT = "weight"
+
 const VECTOR_INVERSE = Vector3(-1.0,-1.0,-1.0)
 const FILE_NAME = "res://resources/prototypes.json"
 const NULL_CELL_ID = "-1:-1"
@@ -68,7 +76,7 @@ class WaveFunctionProtoype:
 		Vector3.DOWN : 'down'
 	}
 
-	var id : String = '-1_-1'
+	var id : String = '-1:-1'
 	var index : int = -1
 	var orientation : int = -1
 	var weight : int = 1;
@@ -163,8 +171,6 @@ func add_sockets(coords : Vector3, cell_index: int, cell_orientation: int):
 	for socket_direction in sibling_directions:
 		if not get_socket_id(cell_index, socket_direction):
 			set_socket_id(cell_index,socket_direction,id)
-
-
 
 
 func get_socket_id(cell_index: int, direction: Vector3):

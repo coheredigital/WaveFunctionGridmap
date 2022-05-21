@@ -5,34 +5,12 @@ class_name WaveFunctionGridMap
 signal cell_collapsed(coors, cell_index, cell_orientation)
 signal collapsed
 
-const BLANK_CELL_INDEX = "-1"
 const BLANK_ID = "-1:-1"
 const ORIENTATIONS = "valid_orientations"
 const SIBLINGS = "valid_siblings"
 const INDEX = "cell_index"
 const ORIENTATION = "cell_orientation"
 const WEIGHT = "weight"
-
-
-const siblings_offsets = {
-	Vector3.LEFT : 'left',
-	Vector3.RIGHT : 'right',
-	Vector3.FORWARD : 'forward',
-	Vector3.BACK : 'back',
-	Vector3.UP : 'up',
-	Vector3.DOWN : 'down'
-}
-
-
-const siblings_index = {
-	Vector3.LEFT : 2,
-	Vector3.RIGHT : 0,
-	Vector3.BACK : 3, # should be 1?
-	Vector3.FORWARD : 1, # should be 3?
-	Vector3.UP : 4,
-	Vector3.DOWN : 5
-}
-
 
 
 class EntropySorter:
@@ -58,7 +36,6 @@ var stack : Array
 var is_ready := true
 
 onready var template : WaveFunctionGridMapTemplate
-
 
 func initialize():
 	clear()
@@ -96,6 +73,7 @@ func step_collapse() -> void:
 	propagate(coords)
 	set_cell_item(coords.x,coords.y,coords.z,prototype[INDEX],prototype[ORIENTATION])
 
+
 func get_random(dict):
    var a = dict.keys()
    a = a[randi() % a.size()]
@@ -126,12 +104,23 @@ func get_possible_siblings(coords : Vector3, direction : Vector3) -> Array:
 	var valid_siblings = []
 	var prototypes = get_possibilities(coords)
 	for cell_id in prototypes:
-		var item_valid_siblings = prototypes[cell_id][SIBLINGS]
-		var siblings = item_valid_siblings[direction]
+		var siblings = prototypes[cell_id][SIBLINGS][direction]
 		for sibling_cell_id in siblings:
-			if not sibling_cell_id in valid_siblings:
+			if not valid_siblings.has(sibling_cell_id):
 				valid_siblings.append(sibling_cell_id)
 	return valid_siblings
+
+
+#func get_possible_siblings(coords : Vector3, direction : Vector3) -> Array:
+#	var valid_siblings = []
+#	var direction_name = siblings_offsets[direction]
+#	var prototypes = get_possibilities(coords)
+#	for id in prototypes:
+#		var siblings = prototypes[id][SIBLINGS][direction_name]
+#		for item in siblings:
+#			if not item in valid_siblings:
+#				valid_siblings.append(item)
+#	return valid_siblings
 
 
 func weighted_choice(prototypes : Dictionary) -> String:
@@ -167,13 +156,14 @@ func get_min_entropy_coords() -> Vector3:
 
 
 func propagate(coords : Vector3) -> void:
-	print_debug('propagate: %s' % coords)
+
 	if coords != Vector3.INF:
 		stack.append(coords)
+
 	while len(stack) > 0:
 		var current_coords = stack.pop_back()
 		var valid_directions := get_valid_directions(current_coords)
-
+		print_debug('propagate: %s' % current_coords)
 		# Iterate over each adjacent cell to this one
 		for direction in valid_directions:
 			var sibling_coords = current_coords + direction
@@ -217,14 +207,12 @@ func apply_constraints():
 
 	var add_to_stack = []
 
-	var sibling_directions = siblings_offsets.duplicate()
-
 	for coords in cells:
 		var prototypes = get_possibilities(coords)
 		if coords.y == size.y - 1:  # constrain top layer to not contain any uncapped prototypes
 			for cell_id in prototypes.duplicate():
 				var siblings = prototypes[cell_id][SIBLINGS][Vector3.UP]
-				if not BLANK_CELL_INDEX in siblings:
+				if not BLANK_ID in siblings:
 					prototypes.erase(cell_id)
 #					if not coords in stack:
 #						stack.append(coords)
@@ -286,6 +274,7 @@ func set_initialize(value: bool):
 		return
 	initialize()
 
+
 func set_generate(value: bool):
 	initialize()
 	if not value:
@@ -299,6 +288,7 @@ func set_generate(value: bool):
 
 			var prototype = prototypes[cell_id]
 			set_cell_item(coords.x,coords.y,coords.z,prototype[INDEX],prototype[ORIENTATION])
+
 
 func set_step_collapse(value: bool):
 	if not value:
