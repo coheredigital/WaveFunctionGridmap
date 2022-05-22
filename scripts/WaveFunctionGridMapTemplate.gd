@@ -10,8 +10,8 @@ const valid_orientations = [0,22,10,16]
 const BLANK_ID = "-1:-1"
 const VECTOR_INVERSE = Vector3(-1.0,-1.0,-1.0)
 const DEFAULT_PROTOTYPE = {
-	'cell_index': -1,
-	'cell_orientation': -1,
+	'index': -1,
+	'orientation': -1,
 	'weight' : 0,
 	'valid_siblings': {
 		Vector3.FORWARD: [],
@@ -22,20 +22,20 @@ const DEFAULT_PROTOTYPE = {
 		Vector3.DOWN : []
 	},
 	'used_coordinates': [],
-#	'constraints': {
-#		'x': {
-#			'to': -1,
-#			'from': -1,
-#		},
-#		'y': {
-#			'to': -1,
-#			'from': -1,
-#		},
-#		'z': {
-#			'to': -1,
-#			'from': -1,
-#		}
-#	}
+	'constraints': {
+		'x': {
+			'to': -1,
+			'from': -1,
+		},
+		'y': {
+			'to': -1,
+			'from': -1,
+		},
+		'z': {
+			'to': -1,
+			'from': -1,
+		}
+	}
 }
 const orientation_directions = {
 	-1: {
@@ -239,6 +239,7 @@ func get_offset_orientation(original_orientation: int, offset_orientation: int) 
 func initialize():
 	update_cells()
 	update_prototypes()
+	build_constraints()
 
 
 func update_cells() -> void:
@@ -249,8 +250,6 @@ func update_cells() -> void:
 		var cell_orientation : int = get_cell_item_orientation(coords.x,coords.y,coords.z)
 		cells.get_cell(cell_index).append_coords(coords)
 		append_coords(coords)
-	build_constraints()
-
 
 
 func update_prototypes() -> void:
@@ -266,8 +265,8 @@ func update_prototypes() -> void:
 				prototype_id = BLANK_ID
 			if not prototypes.has(prototype_id):
 				prototypes[prototype_id] = DEFAULT_PROTOTYPE.duplicate(true)
-				prototypes[prototype_id]['cell_index'] = index
-				prototypes[prototype_id]['cell_orientation'] = orientation
+				prototypes[prototype_id]['index'] = index
+				prototypes[prototype_id]['orientation'] = orientation
 				prototypes[prototype_id]['weight'] = len(cell.used_coords)
 
 #			only run on default orientation for BLANK
@@ -314,17 +313,22 @@ func append_coords(coords:Vector3):
 
 
 func build_constraints() -> void:
-	for cell_id in prototypes:
-		var prototype = prototypes[cell_id]
-		var y_coords : Array = [];
-		for coord in prototype['used_coordinates']:
-			y_coords.append(coord.y)
-#		cell only ever found on bottom
-		if y_coords.max() == 0  and y_coords.min() == 0:
-			prototype['constraints']['y']['to'] = 0
-#		cell NEVER found on bottom
-		if not 0 in y_coords:
-			prototype['constraints']['y']['from'] = 0
+	for cell_index in cells.collection:
+		if cell_index == -1:
+			continue
+		var cell = cells.get_cell(cell_index)
+		for orientation in valid_orientations:
+			var cell_id = '%s:%s' % [cell_index,orientation]
+			var prototype = prototypes[cell_id]
+			var y_coords : Array = [];
+			for coord in cell.used_coords:
+				y_coords.append(coord.y)
+	#		cell only ever found on bottom
+			if y_coords.max() == 0  and y_coords.min() == 0:
+				prototype['constraints']['y']['to'] = 0
+	#		cell NEVER found on bottom
+			if not 0 in y_coords:
+				prototype['constraints']['y']['from'] = 0
 
 
 func set_clear_canvas(value : bool) -> void:

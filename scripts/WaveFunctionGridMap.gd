@@ -8,8 +8,8 @@ signal collapsed
 const BLANK_ID = "-1:-1"
 const ORIENTATIONS = "valid_orientations"
 const SIBLINGS = "valid_siblings"
-const INDEX = "cell_index"
-const ORIENTATION = "cell_orientation"
+const INDEX = "index"
+const ORIENTATION = "orientation"
 const WEIGHT = "weight"
 
 
@@ -72,6 +72,7 @@ func step_collapse() -> void:
 	var prototype := collapse_coord(coords)
 	propagate(coords)
 	set_cell_item(coords.x,coords.y,coords.z,prototype[INDEX],prototype[ORIENTATION])
+	render()
 
 
 func get_random(dict):
@@ -268,12 +269,14 @@ func set_generate(value: bool):
 	if not value:
 		return
 	collapse()
+	render()
+
+func render() -> void:
 #	TODO, improve
 	for coords in cells:
 		var prototypes = cells[coords]
 		if prototypes.size() == 1:
 			var cell_id = prototypes.keys().front()
-
 			var prototype = prototypes[cell_id]
 			set_cell_item(coords.x,coords.y,coords.z,prototype[INDEX],prototype[ORIENTATION])
 

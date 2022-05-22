@@ -1,7 +1,12 @@
 {
 	"-1:-1": {
-		"cell_index": -1,
-		"cell_orientation": -1,
+		"constraints": {
+			"x": { "from": -1, "to": -1 },
+			"y": { "from": -1, "to": -1 },
+			"z": { "from": -1, "to": -1 }
+		},
+		"index": -1,
+		"orientation": -1,
 		"used_coordinates": [],
 		"valid_siblings": {
 			"(-1, 0, 0)": ["-1:-1", "1:0", "2:22", "2:0"],
@@ -30,8 +35,13 @@
 		"weight": 0
 	},
 	"1:0": {
-		"cell_index": 1,
-		"cell_orientation": 0,
+		"constraints": {
+			"x": { "from": -1, "to": -1 },
+			"y": { "from": -1, "to": 0 },
+			"z": { "from": -1, "to": -1 }
+		},
+		"index": 1,
+		"orientation": 0,
 		"used_coordinates": [],
 		"valid_siblings": {
 			"(-1, 0, 0)": ["1:10"],
@@ -44,8 +54,13 @@
 		"weight": 4
 	},
 	"1:10": {
-		"cell_index": 1,
-		"cell_orientation": 10,
+		"constraints": {
+			"x": { "from": -1, "to": -1 },
+			"y": { "from": -1, "to": 0 },
+			"z": { "from": -1, "to": -1 }
+		},
+		"index": 1,
+		"orientation": 10,
 		"used_coordinates": [],
 		"valid_siblings": {
 			"(-1, 0, 0)": ["-1:-1"],
@@ -58,8 +73,13 @@
 		"weight": 4
 	},
 	"1:16": {
-		"cell_index": 1,
-		"cell_orientation": 16,
+		"constraints": {
+			"x": { "from": -1, "to": -1 },
+			"y": { "from": -1, "to": 0 },
+			"z": { "from": -1, "to": -1 }
+		},
+		"index": 1,
+		"orientation": 16,
 		"used_coordinates": [],
 		"valid_siblings": {
 			"(-1, 0, 0)": ["2:16", "1:16"],
@@ -72,8 +92,13 @@
 		"weight": 4
 	},
 	"1:22": {
-		"cell_index": 1,
-		"cell_orientation": 22,
+		"constraints": {
+			"x": { "from": -1, "to": -1 },
+			"y": { "from": -1, "to": 0 },
+			"z": { "from": -1, "to": -1 }
+		},
+		"index": 1,
+		"orientation": 22,
 		"used_coordinates": [],
 		"valid_siblings": {
 			"(-1, 0, 0)": ["1:22", "2:10"],
@@ -86,8 +111,13 @@
 		"weight": 4
 	},
 	"2:0": {
-		"cell_index": 2,
-		"cell_orientation": 0,
+		"constraints": {
+			"x": { "from": -1, "to": -1 },
+			"y": { "from": -1, "to": 0 },
+			"z": { "from": -1, "to": -1 }
+		},
+		"index": 2,
+		"orientation": 0,
 		"used_coordinates": [],
 		"valid_siblings": {
 			"(-1, 0, 0)": ["1:16", "2:16"],
@@ -100,8 +130,13 @@
 		"weight": 4
 	},
 	"2:10": {
-		"cell_index": 2,
-		"cell_orientation": 10,
+		"constraints": {
+			"x": { "from": -1, "to": -1 },
+			"y": { "from": -1, "to": 0 },
+			"z": { "from": -1, "to": -1 }
+		},
+		"index": 2,
+		"orientation": 10,
 		"used_coordinates": [],
 		"valid_siblings": {
 			"(-1, 0, 0)": ["-1:-1"],
@@ -114,8 +149,13 @@
 		"weight": 4
 	},
 	"2:16": {
-		"cell_index": 2,
-		"cell_orientation": 16,
+		"constraints": {
+			"x": { "from": -1, "to": -1 },
+			"y": { "from": -1, "to": 0 },
+			"z": { "from": -1, "to": -1 }
+		},
+		"index": 2,
+		"orientation": 16,
 		"used_coordinates": [],
 		"valid_siblings": {
 			"(-1, 0, 0)": ["-1:-1"],
@@ -128,8 +168,13 @@
 		"weight": 4
 	},
 	"2:22": {
-		"cell_index": 2,
-		"cell_orientation": 22,
+		"constraints": {
+			"x": { "from": -1, "to": -1 },
+			"y": { "from": -1, "to": 0 },
+			"z": { "from": -1, "to": -1 }
+		},
+		"index": 2,
+		"orientation": 22,
 		"used_coordinates": [],
 		"valid_siblings": {
 			"(-1, 0, 0)": ["2:10", "1:22"],
