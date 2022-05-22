@@ -30,7 +30,7 @@ export var step_collapse := false setget set_step_collapse
 export var size = Vector3(8, 3, 8)
 export var template_path : PackedScene
 
-export var cells : Dictionary = {}
+var cells : Dictionary = {}
 var cell_queue : Dictionary = {}
 var stack : Array
 var is_ready := true
@@ -61,7 +61,7 @@ func collapse() -> void:
 		is_ready = false
 		step_collapse()
 	is_ready = true
-
+	render()
 
 func step_collapse() -> void:
 	var coords := get_min_entropy_coords()
