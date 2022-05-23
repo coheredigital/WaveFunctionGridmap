@@ -267,7 +267,7 @@ func update_prototypes() -> void:
 				prototypes[prototype_id] = DEFAULT_PROTOTYPE.duplicate(true)
 				prototypes[prototype_id]['index'] = index
 				prototypes[prototype_id]['orientation'] = orientation
-				prototypes[prototype_id]['weight'] = len(cell.used_coords)
+				prototypes[prototype_id]['weight'] = min(5.0,len(cell.used_coords))
 
 #			only run on default orientation for BLANK
 			if index == -1 and orientation != 0:

@@ -18,10 +18,9 @@ func _input(event):
 
 
 func generate():
-	cell_data.reset()
-	gridmap.clear()
-	cell_data.collapse()
-	render_gridmap(cell_data)
+	gridmap.initialize()
+	gridmap.collapse()
+
 
 
 func render_cell(coords : Vector3, cell_index: int,cell_orientation : int):

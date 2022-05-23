@@ -72,7 +72,6 @@ func step_collapse() -> void:
 	var prototype := collapse_coord(coords)
 	propagate(coords)
 	set_cell_item(coords.x,coords.y,coords.z,prototype[INDEX],prototype[ORIENTATION])
-	render()
 
 
 func get_random(dict):
@@ -269,7 +268,7 @@ func set_generate(value: bool):
 	if not value:
 		return
 	collapse()
-	render()
+
 
 func render() -> void:
 #	TODO, improve
