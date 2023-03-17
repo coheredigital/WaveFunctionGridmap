@@ -890,9 +890,6 @@ mesh_library = SubResource( 144 )
 use_in_baked_light = true
 cell_size = Vector3( 1, 1, 1 )
 cell_center_y = false
-data = {
-"cells": PoolIntArray(  )
-}
 script = ExtResource( 2 )
 __meta__ = {
 "_editor_clip_": 0,
